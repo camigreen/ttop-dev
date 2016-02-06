@@ -1,0 +1,4 @@
+[25-Jun-2015 23:42:30 America/New_York] PHP Warning:  array_merge(): Argument #2 is not an array in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/wall/template.php on line 20
+[25-Jun-2015 23:42:30 America/New_York] PHP Fatal error:  Call to a member function images() on a non-object in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/wall/template.php on line 26
+[31-Aug-2015 08:44:18 America/New_York] PHP Warning:  array_merge(): Argument #2 is not an array in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/wall/template.php on line 20
+[31-Aug-2015 08:44:18 America/New_York] PHP Fatal error:  Call to a member function images() on a non-object in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/wall/template.php on line 26
