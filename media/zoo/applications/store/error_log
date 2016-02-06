@@ -1,9 +1,0 @@
-[11-Aug-2015 10:46:18 America/New_York] PHP Warning:  file_put_contents(/home/ttopcovers/public_html/deploy/deployments.log): failed to open stream: Permission denied in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 189
-[11-Aug-2015 10:46:18 America/New_York] PHP Warning:  chmod(): No such file or directory in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 192
-[11-Aug-2015 10:46:18 America/New_York] PHP Warning:  file_put_contents(/home/ttopcovers/public_html/deploy/deployments.log): failed to open stream: Permission denied in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 197
-[11-Aug-2015 10:46:54 America/New_York] PHP Warning:  file_put_contents(/home/ttopcovers/public_html/deploy/deployments.log): failed to open stream: Permission denied in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 189
-[11-Aug-2015 10:46:54 America/New_York] PHP Warning:  chmod(): No such file or directory in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 192
-[11-Aug-2015 10:46:54 America/New_York] PHP Warning:  file_put_contents(/home/ttopcovers/public_html/deploy/deployments.log): failed to open stream: Permission denied in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 197
-[11-Aug-2015 10:50:53 America/New_York] PHP Warning:  file_put_contents(/home/ttopcovers/public_html/deploy/deployments.log): failed to open stream: Permission denied in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 189
-[11-Aug-2015 10:50:53 America/New_York] PHP Warning:  chmod(): No such file or directory in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 192
-[11-Aug-2015 10:50:53 America/New_York] PHP Warning:  file_put_contents(/home/ttopcovers/public_html/deploy/deployments.log): failed to open stream: Permission denied in /home/ttopcovers/public_html/deploy/inc/class.deploy.php on line 197

@@ -18,7 +18,6 @@ class ElementPrice extends ElementStore {
     
         public function __construct() {
             parent::__construct();
-            $this->app->path->register(dirname(__FILE__).'/assets/', 'assets');
         }
 
 	/*
@@ -32,24 +31,23 @@ class ElementPrice extends ElementStore {
                 return false;
 	}
         
-        public function render($params = array())
-        {
-            $price_schedule = 'retail';
-            if(!$this->config->get('price_type') || $this->config->get('price_type') == '') {
-                $type = $this->_item->alias;
-            } else {
-                $type = $this->config->get('price_type');
-            }
-            return $this->renderLayout($this->app->path->path("elements:price/tmpl/default.php"),compact('price_schedule','type'));
+    public function render($params = array())
+    {
+        $account = $this->app->customer->getParent();
+        $layout = str_replace('user.','',$account->type);
+        $allowMarkups = $params['item']->getPrice()->allowMarkups();
+        if(file_exists($this->app->path->path('elements:price/tmpl/reseller.php')) && $this->app->customer->isReseller() && $allowMarkups) {
+            return $this->renderLayout($this->app->path->path('elements:price/tmpl/reseller.php'), compact('params'));
+        } else {
+            return $this->renderLayout($this->app->path->path('elements:price/tmpl/default.php'), compact('params'));
         }
         
-        public function hasValue($params = array())
-        {
-            return true;
-        }
 
-        public function loadAssets() {
-            parent::loadAssets();
-            $this->app->document->addScript('elements:cart/assets/js/shop.js');
-        }
+    }
+    
+    public function hasValue($params = array())
+    {
+        return true;
+    }
+
 }

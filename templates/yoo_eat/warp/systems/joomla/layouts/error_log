@@ -1,6 +1,0 @@
-[25-Jun-2015 23:48:48 America/New_York] PHP Fatal error:  Call to a member function get() on a non-object in /home/ttopcovers/public_html/templates/yoo_eat/warp/systems/joomla/layouts/footer.php on line 10
-[25-Jun-2015 23:48:48 America/New_York] PHP Fatal error:  Call to a member function getCharset() on a non-object in /home/ttopcovers/public_html/templates/yoo_eat/warp/systems/joomla/layouts/head.php on line 1
-[25-Jun-2015 23:48:51 America/New_York] PHP Fatal error:  Call to a member function load() on a non-object in /home/ttopcovers/public_html/templates/yoo_eat/warp/systems/joomla/layouts/widgets.php on line 10
-[31-Aug-2015 08:49:52 America/New_York] PHP Fatal error:  Call to a member function get() on a non-object in /home/ttopcovers/public_html/templates/yoo_eat/warp/systems/joomla/layouts/footer.php on line 10
-[31-Aug-2015 08:49:52 America/New_York] PHP Fatal error:  Call to a member function getCharset() on a non-object in /home/ttopcovers/public_html/templates/yoo_eat/warp/systems/joomla/layouts/head.php on line 1
-[31-Aug-2015 08:49:53 America/New_York] PHP Fatal error:  Call to a member function load() on a non-object in /home/ttopcovers/public_html/templates/yoo_eat/warp/systems/joomla/layouts/widgets.php on line 10

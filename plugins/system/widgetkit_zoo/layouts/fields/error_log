@@ -1,2 +1,0 @@
-[25-Jun-2015 23:47:54 America/New_York] PHP Fatal error:  Call to a member function attributes() on a non-object in /home/ttopcovers/public_html/plugins/system/widgetkit_zoo/layouts/fields/filename.php on line 10
-[31-Aug-2015 08:48:22 America/New_York] PHP Fatal error:  Call to a member function attributes() on a non-object in /home/ttopcovers/public_html/plugins/system/widgetkit_zoo/layouts/fields/filename.php on line 10

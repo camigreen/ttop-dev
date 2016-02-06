@@ -1,4 +1,0 @@
-[25-Jun-2015 23:36:35 America/New_York] PHP Warning:  array_merge(): Argument #2 is not an array in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/showcase/template.php on line 19
-[25-Jun-2015 23:36:35 America/New_York] PHP Fatal error:  Call to a member function images() on a non-object in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/showcase/template.php on line 22
-[31-Aug-2015 08:38:34 America/New_York] PHP Warning:  array_merge(): Argument #2 is not an array in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/showcase/template.php on line 19
-[31-Aug-2015 08:38:34 America/New_York] PHP Fatal error:  Call to a member function images() on a non-object in /home/ttopcovers/public_html/media/widgetkit/widgets/gallery/styles/showcase/template.php on line 22

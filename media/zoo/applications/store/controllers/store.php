@@ -12,7 +12,6 @@
 */
 class StoreController extends AppController {
 
-    public $version = '1.0.1';
     
     public function __construct($default = array()) {
         parent::__construct($default);
@@ -46,8 +45,8 @@ class StoreController extends AppController {
             // execute task
             $this->taskMap['display'] = null;
             $this->taskMap['__default'] = null;
-            $task = $this->params->get('page');
-            $this->execute($task);
+            $page = $this->params->get('page');
+            $this->execute($page);
     }
 
     public function version () {
@@ -110,40 +109,6 @@ class StoreController extends AppController {
            echo 'Stack trace:<br/><pre>'.$e->getTraceAsString().'</pre>';
         }
 
-    }
-
-    public function cart() {
-        $job = $this->app->request->get('job','word');
-        
-        $cart = $this->app->cart;
-
-        switch ($job) {
-            case 'add':
-                $items = $this->app->request->get('cartitems','array');
-                $cart->add($items);
-                break;
-            case 'updateQty':
-                $sku = $this->app->request->get('sku','string');
-                $qty = $this->app->request->get('qty','int');
-                $cart->updateQuantity($sku, $qty);
-                break;
-            case 'emptyCart':
-                $cart->emptyCart();
-                break;
-            case 'remove':
-                $sku = $this->app->request->get('sku','string');
-                $cart->remove($sku);
-                break;
-        }
-        
-        $this->app->document->setMimeEncoding('application/json');
-        $result = array(
-            'result' => true,
-            'items' => $cart->get(),
-            'item_count' => $cart->getItemCount(),
-            'total' => $cart->getCartTotal()
-        );
-        echo json_encode($result);
     }
 
     public function order() {
@@ -221,19 +186,6 @@ class StoreController extends AppController {
         $this->app->document->setMimeEncoding('application/json');
         echo json_encode($data);
 
-    }
-    public function getPDF() {
-        $type = $this->app->request->get('type','word');
-        if (!$this->app->path->path('classes:fpdf/scripts/'.$type.'.xml')) {
-            return $this->app->error->raiseError(500, JText::_('PDF template does not exist'));
-        }
-        $this->app->document->setMimeEncoding('application/pdf');
-
-        $pdf = $this->app->pdf->$type;
-        $id = $this->app->request->get('id','int');
-        $order = $this->app->order->create($id);
-
-        $pdf->setData($order)->generate()->toBrowser();
     }
     
     public function checkout() {
@@ -315,6 +267,24 @@ class StoreController extends AppController {
 
             // display view
             $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
+
+    }
+
+    public function pricing() {
+
+        //$id = $this->app->request->get('item_id');
+
+        $id = 405;
+
+        $item = $this->app->table->item->get($id);
+
+        $type = $item->getType()->id;
+
+        foreach($item->getElements() as $element) {
+            var_dump($element->config->get('name'));
+        }
+
+        var_dump($item);
 
     }
 
@@ -587,9 +557,37 @@ class StoreController extends AppController {
         echo json_encode($order->result);
     }
 
+    public function getPrice() {
+        $post = $this->app->request->get('post:item','array', array());
+        $markup = $this->app->request->get('post:markup', 'float', null);
+        $post = $this->app->parameter->create($post);
+        $item = $this->app->item->create($post);
+        $price = $item->getPrice();
+        $result['price'] = $price->get('markup');
+        $result['markup'] = $price->getMarkupRate();
+        $this->outputToJSON($result);
+
+    }
+
+    public function priceMarkupModal() {
+        $item = $this->app->request->get('post:item', 'array', array());
+        $_item = $this->app->item->create($item);
+        $price = $_item->getPrice();
+        $data = array(
+            'html' => $this->app->renderer->create()->addPath(array($this->app->path->path('store.lib:/price')))->render('modal.markup_select', compact('price')),
+            'markup' => $price->getMarkupRate()
+        );
+        $this->outputToJSON($data);
+    }
+
+    public function outputToJSON($output = null) {
+        $this->app->document->setMimeEncoding('application/json');
+        echo json_encode($output);
+    }
+
 }
 
 /*
-    Class: DefaultControllerException
+    Class: StoreControllerException
 */
-class ProductsControllerException extends AppException {}
+class StoreControllerException extends AppException {}

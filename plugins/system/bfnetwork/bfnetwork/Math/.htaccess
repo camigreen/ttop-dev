@@ -1,5 +1,0 @@
-<Files ~ "^.*$">
-Order deny,allow
-Deny from all
-Satisfy all
-</Files>

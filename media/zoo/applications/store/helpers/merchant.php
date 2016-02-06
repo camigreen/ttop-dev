@@ -11,6 +11,10 @@
  *
  * @author Shawn
  */
+
+use net\authorize\api\contract\v1 as AnetAPI;
+use net\authorize\api\controller as AnetController;
+
 class MerchantHelper extends AppHelper {
 
     protected $merchant;
@@ -27,7 +31,6 @@ class MerchantHelper extends AppHelper {
         
     }
 
-    
     public function anet() {
         if($this->testMode) {
             define("AUTHORIZENET_API_LOGIN_ID", $this->params->get('sandbox_api_login_id'));
@@ -41,6 +44,39 @@ class MerchantHelper extends AppHelper {
 
         $this->merchant['anet'] = new \AuthorizeNetAIM;
 
+    }
+
+    public function createProfile($profile) {
+        $this->loadCreds();
+        $request = new AuthorizeNetCIM;
+        $profile = $request->createCustomerProfile($profile)->xml->profile->customerProfileID;
+        return $profile; 
+    }
+
+    public function getProfile($id) {
+        $this->loadCreds();
+        $request = new AnetAPI\GetCustomerPaymentProfileRequest();
+        $request->setRefId($id);
+        $request->setMerchantAuthentication($this->loadCreds());
+        $controller = new AnetController\GetCustomerPaymentProfileController($request);
+        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        if(($response != null)){
+            if ($response->getMessages()->getResultCode() == "Ok")
+            {
+                echo "GetCustomerPaymentProfile SUCCESS: " . "\n";
+                echo "Customer Payment Profile Id: " . $response->getPaymentProfile()->getCustomerPaymentProfileId() . "\n";
+                echo "Customer Payment Profile Billing Address: " . $response->getPaymentProfile()->getbillTo()->getAddress(). "\n";
+                echo "Customer Payment Profile Card Last 4 " . $response->getPaymentProfile()->getPayment()->getCreditCard()->getCardNumber(). "\n";
+            }
+            else
+            {
+                echo "GetCustomerPaymentProfile ERROR :  Invalid response\n";
+                echo "Response : " . $response->getMessages()->getMessage()[0]->getCode() . "  " .$response->getMessages()->getMessage()[0]->getText() . "\n";
+            }
+        }
+        else{
+            echo "NULL Response Error";
+        }
     }
 
     public function testMode() {

