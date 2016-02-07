@@ -10,41 +10,21 @@
 defined('_JEXEC') or die;
 
 // Create a shortcut for params.
-$params  = $this->item->params;
-$images  = json_decode($this->item->images);
+$item 	 = $this->item;
+$params  = $item->params;
 $canEdit = $this->item->params->get('access-edit');
+$args    = include(__DIR__.'/../article_defaults.php');
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
 // template args
-$args = array(
-	'permalink' => JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catid), true, -1),
+$args = array_merge($args, array(
 	'image' => isset($images->image_intro) ? htmlspecialchars($images->image_intro) : '',
 	'image_alignment' => !isset($images->float_intro) || empty($images->float_intro) ? htmlspecialchars($params->get('float_intro')) : htmlspecialchars($images->float_intro),
 	'image_alt' => isset($images->image_intro_alt) ? htmlspecialchars($images->image_intro_alt) : '',
 	'image_caption' => isset($images->image_intro_caption) ? htmlspecialchars($images->image_intro_caption) : '',
-	'title' => $params->get('show_title') ? $this->escape($this->item->title) : '',
-	'title_link' => $params->get('link_titles'),
-	'author' => '',
-	'author_url' => !empty($this->item->contactid) && $params->get('link_author') == true ? JRoute::_('index.php?option=com_contact&view=contact&id='.$this->item->contactid) : '',
-	'date' => $params->get('show_create_date') ? $this->item->created : '',
-	'datetime' => substr($this->item->created, 0, 10),
-	'category' => $params->get('show_category') ? $this->escape($this->item->category_title) : '',
-	'category_url' => $params->get('link_category') ? JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catid)) : '',
-	'hook_aftertitle' => !$params->get('show_intro') ? $this->item->event->afterDisplayTitle : '',
-	'hook_beforearticle' => $this->item->event->beforeDisplayContent,
-	'hook_afterarticle' => $this->item->event->afterDisplayContent,
 	'article' => $this->item->introtext,
-	'tags' => '',
-	'edit' => '',
-	'url' => '',
-	'more' => '',
-	'previous' => '',
-	'next' => ''
-);
-
-// set author
-$author = $this->item->created_by_alias ?: $this->item->author;
-$args['author'] = $params->get('show_author') && !empty($author) ? $author : '';
+	'is_column_item' => (isset($this->item->is_column_item)) ? $this->item->is_column_item : 0
+));
 
 // set edit
 $args['edit']  = $canEdit ? JHtml::_('icon.edit', $this->item, $params) : '';

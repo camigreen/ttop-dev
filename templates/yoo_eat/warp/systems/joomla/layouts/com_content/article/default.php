@@ -9,53 +9,26 @@
 // no direct access
 defined('_JEXEC') or die;
 
+// Create a shortcut for params.
+$item    = $this->item;
+$params  = $item->params;
+$urls	 = json_decode($item->urls);
+$canEdit = $params->get('access-edit');
+$user	 = JFactory::getUser();
+$args 	 = include(__DIR__.'/../article_defaults.php');
+
 // get view
 $menu = JFactory::getApplication()->getMenu()->getActive();
 $view = is_object($menu) && isset($menu->query['view']) ? $menu->query['view'] : null;
 
+if ($view == 'article') $args['permalink'] = '';
+
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
-// Create shortcuts to some parameters.
-$params		= $this->item->params;
-$images		= json_decode($this->item->images);
-$urls		= json_decode($this->item->urls);
-$canEdit	= $params->get('access-edit');
-$user		= JFactory::getUser();
 
 if ($this->params->get('show_page_heading')) {
 	echo '<h1>'.$this->escape($this->params->get('page_heading')).'</h1>';
 }
-
-// template args
-$args = array(
-	'permalink' => ($view != 'article') ? JRoute::_(ContentHelperRoute::getArticleRoute($this->item->slug, $this->item->catslug), true, -1) : '',
-	'image' => isset($images->image_fulltext) && $params->get('access-view') ? htmlspecialchars($images->image_fulltext) : '',
-	'image_alignment' => !isset($images->float_fulltext) || empty($images->float_fulltext) ? htmlspecialchars($params->get('float_fulltext')) : htmlspecialchars($images->float_fulltext),
-	'image_alt' => isset($images->image_fulltext_alt) ? htmlspecialchars($images->image_fulltext_alt) : '',
-	'image_caption' => isset($images->image_fulltext_caption) ? htmlspecialchars($images->image_fulltext_caption) : '',
-	'title' => $params->get('show_title') ? $this->escape($this->item->title) : '',
-	'title_link' => '',
-	'author' => '',
-	'author_url' => '',
-	'date' => $params->get('show_create_date') ? $this->item->created : '',
-	'datetime' => substr($this->item->created, 0, 10),
-	'category' => $params->get('show_category') ? $this->escape($this->item->category_title) : '',
-	'category_url' => $params->get('link_category') && $this->item->catslug ? JRoute::_(ContentHelperRoute::getCategoryRoute($this->item->catslug)) : '',
-	'hook_aftertitle' => !$params->get('show_intro') ? $this->item->event->afterDisplayTitle : '',
-	'hook_beforearticle' => $this->item->event->beforeDisplayContent.(isset($this->item->toc) ? $this->item->toc : ''),
-	'hook_afterarticle' => $this->item->event->afterDisplayContent,
-	'article' => '',
-	'tags' => '',
-	'edit' => '',
-	'url' => '',
-	'more' => '',
-	'previous' => '',
-	'next' => ''
-);
-
-// set author
-$author = $this->item->created_by_alias ?: $this->item->author;
-$args['author'] = ($params->get('show_author') && !empty($author)) ? $author : '';
 
 // set author_url
 if (!empty($this->item->contactid) && $params->get('link_author') == true) {
@@ -130,9 +103,10 @@ $args['tags'] = $tags;
 
 // set edit
 if (!$this->print) {
-	$args['edit']  = $canEdit ? JHtml::_('icon.edit', $this->item, $params) : '';
-	$args['edit'] .= $params->get('show_print_icon') ? JHtml::_('icon.print_popup', $this->item, $params) : '';
-	$args['edit'] .= $params->get('show_email_icon') ? JHtml::_('icon.email', $this->item, $params) : '';
+	$attrs = array('class' => 'uk-margin-right');
+	$args['edit']  = $canEdit ? JHtml::_('icon.edit', $this->item, $params, $attrs) : '';
+	$args['edit'] .= $params->get('show_print_icon') ? JHtml::_('icon.print_popup', $this->item, $params, $attrs) : '';
+	$args['edit'] .= $params->get('show_email_icon') ? JHtml::_('icon.email', $this->item, $params, $attrs) : '';
 } else {
 	$args['edit'] = JHtml::_('icon.print_screen', $this->item, $params);
 }

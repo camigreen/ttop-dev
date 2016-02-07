@@ -10,4 +10,4 @@
 defined('_JEXEC') or die;
 
 ?>
-<a href="/login" class="uk-text-muted">Employee/Dealer Login</a>
+<a href="?option=com_users&view=login" class="uk-text-muted">Employee/Dealer Login</a>

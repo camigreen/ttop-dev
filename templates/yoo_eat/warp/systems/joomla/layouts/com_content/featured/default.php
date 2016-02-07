@@ -33,17 +33,19 @@ if (!empty($this->lead_items)) {
 }
 
 // intro articles
-$columns = array();
-$i       = 0;
+$num_columns = $this->params->get('num_columns', 2);
+$columns 	 = array();
+$i = 0;
 
 foreach ($this->intro_items as $item) {
-	$column = $i++ % $this->params->get('num_columns', 2);
+	$column = $i++ % $num_columns;
 
 	if (!isset($columns[$column])) {
 		$columns[$column] = '';
 	}
 
 	$this->item = $item;
+	$this->item->is_column_item = ($num_columns > 1);
 	$columns[$column] .= $this->loadTemplate('item');
 }
 

@@ -1,6 +1,6 @@
 {
-    "tmpl_check": "4f34a7f12687b025b60af8bfcda67c27",
+    "tmpl_check": "9e12fbdf0a121306ef644cd69fdcffa7",
     "tmpl_data": "{\"status\":\"up-to-date\",\"message\":\"You're up to date!. 1.0.8 is currently the newest version available.\"}",
-    "warp_check": "3925422ea8c89ebcdf1e33ba01108be7",
-    "warp_data": "{\"status\":\"update-available\",\"message\":\"New version available! <a href=\\\"http:\\\/\\\/www.yootheme.com\\\" target=\\\"_blank\\\">Download Warp Theme Framework 7.3.18<\\\/a>\",\"version\":\"7.3.18\"}"
+    "warp_check": "589056a459d70ea44ff342b406ff4fdc",
+    "warp_data": "{\"status\":\"error\",\"message\":\"Sorry dude, this application is unknown.\"}"
 }
