@@ -52,48 +52,23 @@
 				<input type="hidden" name="task" />
 				<input type="hidden" name="aid" value="<?php echo $this->account->id; ?>" />
 				<input type="hidden" name="type" value="<?php echo $this->account->type; ?>" />
-				<input type="submit" formnovalidate value="Submit" />
 				<?php echo $this->app->html->_('form.token'); ?>
 			</form>
 			<script>
 				jQuery(function($) {
 
 					$(document).ready(function(){
-						validator = $('#account_admin_form').validate({
-							debug: false,
-							errorClass: "validation-fail",
-							rules: {
-								email: {
-									remote: "?option=com_zoo&controller=account&task=testEmail"
-								}
-							}
-						});
 
 						
 						$('.ttop button.task-button').on('click', function(e) {
 							console.log('menu-button clicked');
 							e.preventDefault();
 							var task = $(e.target).data('task');
-							if(task === 'cancel') {
-								console.log(task);
-								$('#account_admin_form').find('input, select').addClass('ignore');
-								validator.settings.ignore = ".ignore"
-							}
+							console.log(task);
 							$('[name="task"]').val(task);
-							$('#account_admin_form').trigger('submit');
+							//$('#account_admin_form').trigger('submit');
 						})
 						
-						if($('[name="aid"]').val() === "") {
-							$('#password').rules('add', {
-								required: true,
-								minlength: 8
-							});
-							$('#password2').rules('add', {
-								required: true,
-								minlength: 8,
-								equalTo: '#password'
-							});
-						}
 					})
 				})
 			</script>

@@ -30,7 +30,7 @@ foreach ($widgets as $index => $widget) {
 
 	// pass through menu params
 	if ($widget->menu) {
-		$widget->nav_settings = array('scrollspy' => false);
+		$widget->nav_settings = array('scrollspy' => ($widget->position !== 'offcanvas') ? true : false);
 	}
 
     $params = array_merge($params, $config->get('widgets.'.$widget->id, array()));

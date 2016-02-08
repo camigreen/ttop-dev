@@ -51,7 +51,7 @@ class Pre
 			}
 
 			// set current and active
-			if ($li->hasClass('active') || $li->hasClass('current')) {
+			if ($li->hasClass('active')) {
 				$li->attr('data-menu-active', $li->hasClass('current') == 'current' ? 2 : 1);
 			}
 

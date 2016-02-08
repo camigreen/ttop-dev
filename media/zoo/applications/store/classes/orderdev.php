@@ -54,7 +54,7 @@ class OrderDev {
         $this->modified = $now->toSQL();
         $this->modified_by = $cUser->id; 
 
-        $this->params->set('terms', $this->app->customer->get()->getParentAccount()->params->get('terms'));
+        $this->params->set('terms', $this->app->customer->get()->getParentAccount()->params->get('terms', 'DUR'));
         if($this->app->customer->isReseller()) {
         	$this->getTotal('reseller');
         } else {
@@ -161,7 +161,6 @@ class OrderDev {
         $markup = intval($markup)/100;
         $ship = $this->app->shipper;
         $ship_to = $this->app->parameter->create($this->elements->get('shipping.'));
-
         $rates = $ship->setDestination($ship_to)->assemblePackages($this->app->cart->getAllItems())->getRates();
         $rate = 0;
         foreach($rates as $shippingMethod) {

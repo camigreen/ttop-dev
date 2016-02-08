@@ -7,8 +7,10 @@
  */
 $elements = $order->elements;
 $items = $order->elements->get('items.');
-$query = $order->params->get('terms') == 'DUR' ? '&form=receipt' : '&form=invoice';
+$query = $order->params->get('terms', 'DUR') == 'DUR' ? '&form=receipt' : '&form=invoice';
 $query .= $order->getAccount()->isReseller() ? '&type=reseller' : '&type=default';
+$page = $this->page;
+$salesperson = $order->created_by == 0 ? 'Website' : $this->app->account->get($order->created_by)->name;
 ?>
 <div class='ttop-receipt'>
     <div class="uk-width-1-1 uk-container-center uk-text-right uk-margin-bottom">
@@ -29,7 +31,7 @@ $query .= $order->getAccount()->isReseller() ? '&type=reseller' : '&type=default
             </tfoot>
             <tbody>
                 <tr>
-                    <td class="uk-text-center"><?php echo $this->app->account->get($order->created_by)->name ?></td>
+                    <td class="uk-text-center"><?php echo $salesperson ?></td>
                     <td class="uk-text-center"><?php echo $order->id; ?></td>
                     <td class="uk-text-center"><?php echo $this->app->html->_('date', $order->created, JText::_('DATE_FORMAT_STORE1'), $this->app->date->getOffset()); ?></td>
                     <td class="uk-text-center"><?php echo $elements->get('localPickup') ? 'Local Pickup' : 'UPS Ground'; ?></td>
@@ -51,18 +53,33 @@ $query .= $order->getAccount()->isReseller() ? '&type=reseller' : '&type=default
                         <h4>Payment Details:</h4>
                     </div>
                     <div class="uk-width-1-1">
-
+                        <?php if($this->app->customer->isReseller()) : ?>
                         <div class="payment-data">
-                            <div>Account Name:  <?php echo $order->elements->get('payment.account_name'); ?></div>
-                            <div>Account Number:  <?php echo $order->elements->get('payment.account_number'); ?></div>
-                            <div>P.O. Number:  <?php echo $order->elements->get('payment.po_number'); ?></div>
+                            <div>Account Name:  <?php echo $order->params->get('payment.account_name'); ?></div>
+                            <div>Account Number:  <?php echo $order->params->get('payment.account_number'); ?></div>
+                            <div>P.O. Number:  <?php echo $order->params->get('payment.po_number'); ?></div>
                         </div>
+                        <?php else : ?>
+                        <div class="payment-data">
+                            <div>Payment Method:  <?php echo $order->params->get('payment.creditcard.card_name'); ?></div>
+                            <div>Card Number:  <?php echo $order->params->get('payment.creditcard.cardNumber'); ?></div>
+                        </div>
+                        <?php endif; ?>
+
                     </div>
 
                 </div>
             </div>
             <div class='uk-width1-1 items-table'>
-                <?php echo $this->partial('item.table.reseller',compact('order')); ?>
+                            <?php if($this->app->customer->isReseller()) : ?>
+            <div class='uk-width1-1 items-table'>
+                <?php echo $this->partial('item.table.reseller',compact('order', 'page')); ?>
+            </div>
+        <?php else : ?>
+            <div class='uk-width1-1 items-table'>
+                <?php echo $this->partial('item.table',compact('order', 'page')); ?>
+            </div>
+        <?php endif; ?>
             </div>
         </div>
     </div>

@@ -26,7 +26,7 @@ class UserAccount extends Account {
     }
 
     public function save() {
-        
+
         $this->_user->save();
         JUserHelper::setUserGroups($this->_user->id, $this->_userGroups);
         
@@ -97,7 +97,6 @@ class UserAccount extends Account {
 
     public function getParentAccount() {
         $parents = array_values($this->getParents());
-        
         if(empty($parents)) {
             return $this;
         } else {

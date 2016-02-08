@@ -75,6 +75,7 @@ class AccountController extends AppController {
         
     }
 
+
     public function gateway() {
         if (!$this->app->customer->isAccountAdmin() && !$this->app->customer->isStoreAdmin()) {
             return $this->app->error->raiseError(500, JText::_('You are not authorized to view this page.<p><a href="/">Click Here</a> to return to the home page.</p>'));
@@ -201,7 +202,6 @@ class AccountController extends AppController {
         $this->groups = $this->form->getGroups();
         $this->form->setValue('canEdit', $this->app->customer->canEdit());
         $this->getView()->addTemplatePath($this->template->getPath().'/accounts')->addTemplatePath($this->app->path->path('views:configuration/tmpl/'));
-
         $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
 
     }

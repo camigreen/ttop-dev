@@ -15,43 +15,11 @@ $this->app->system->document->addScript('http://ajax.aspnetcdn.com/ajax/jquery.v
 <?php if($this->app->merchant->testMode()) : ?>
 <script>
 jQuery(function ($) {
-    var validator = $('#ttop-checkout').validate({
-        debug: false,
-        ignore: '.ignore',
-        errorClass: "validation-fail",
-        success: 'valid',
-        rules: {
-            'elements[billing.name]': {
-                minlength: 5
-            },
-            'elements[shipping.name]': {
-                minlength: 5
-            },
-            'elements[billing.phoneNumber]': {
-                phoneUS: true
-            },
-            'elements[billing.altNumber]': {
-                phoneUS: true
-            },
-            'elements[email]': {
-                email: true
-            },
-            'elements[confirm_email]': {
-                email: true,
-                equalTo: '#email'
-            }
-
-        },
-        messages: {
-            'elements[confirm_email]': {
-                equalTo: 'Your email addresses do not match.'
-            }
-        }
-    }); 
+     
 })
     
 </script>
-<div class="uk-width-1-1 uk-margin">
+<div class="uk-width-1-1 uk-margin ttop-checkout">
     <div class="uk-width-1-1 uk-text-center">
         <span class="uk-text-danger uk-text-large testing-mode">TESTING MODE</span>
     </div>
@@ -162,6 +130,40 @@ jQuery(function ($) {
 
 <script>
     jQuery(function($) { 
+
+        var validator = $('#ttop-checkout').validate({
+        debug: false,
+        ignore: '.ignore',
+        errorClass: "validation-fail",
+        success: 'valid',
+        rules: {
+            'elements[billing.name]': {
+                minlength: 5
+            },
+            'elements[shipping.name]': {
+                minlength: 5
+            },
+            'elements[billing.phoneNumber]': {
+                phoneUS: true
+            },
+            'elements[billing.altNumber]': {
+                phoneUS: true
+            },
+            'elements[email]': {
+                email: true
+            },
+            'elements[confirm_email]': {
+                email: true,
+                equalTo: '#email'
+            }
+
+        },
+        messages: {
+            'elements[confirm_email]': {
+                equalTo: 'Your email addresses do not match.'
+            }
+        }
+    });
             
         var pModal;
         function sendTransactionToGoogle(data) {
@@ -288,7 +290,7 @@ jQuery(function ($) {
         
         $(document).ready(function(){
 
-
+            console.log(validator);
 
             $('#ttop-checkout').FormHandler({
                 form: '#ttop-checkout',
@@ -298,6 +300,7 @@ jQuery(function ($) {
                 events: {
                     onInit: [
                         function (e) {
+                            this.validation = validator;
                             var self = this;
                             $('#proceed.ttop-checkout-step-button').unbind("click").on('click',$.proxy(this,'_submit'));
                             $('[name="same_as_billing"]').on('click',function(e) {
@@ -343,22 +346,22 @@ jQuery(function ($) {
                                 });
                             })
 
-                            // $('#shipping_method').on('change', function (e) {
-                            //     console.log($(this).val());
-                            //     if($(this).val() !== '' && $(this).val() !== 'LP') {
-                            //         $('fieldset#shipping').find('input, select').each(function () {
-                            //             if($(this).prop('id') !== 'shipping.altNumber' && $(this).prop('id') !== 'shipping.street2') {
-                            //                 $(this).rules('add', 'required');
-                            //             }
-                            //         })
-                            //     } else {
-                            //         $('fieldset#shipping').find('input, select').each(function () {
-                            //             $(this).rules('remove', 'required');
-                            //             self.validation.element( $(this) );
-                            //         })
-                            //     }
-                            //     self.validation.form();
-                            // })
+                            $('#shipping_method').on('change', function (e) {
+                                console.log($(this).val());
+                                if($(this).val() !== '' && $(this).val() !== 'LP') {
+                                    $('fieldset#shipping').find('input, select').each(function () {
+                                        if($(this).prop('id') !== 'shipping.altNumber' && $(this).prop('id') !== 'shipping.street2') {
+                                            $(this).rules('add', 'required');
+                                        }
+                                    })
+                                } else {
+                                    $('fieldset#shipping').find('input, select').each(function () {
+                                        $(this).rules('remove', 'required');
+                                        self.validation.element( $(this) );
+                                    })
+                                }
+                                self.validation.form();
+                            })
 
                             $('.trash-item').on('click',function(e){
                                 var elem = $(this), sku = $(this).closest('tr').prop('id');

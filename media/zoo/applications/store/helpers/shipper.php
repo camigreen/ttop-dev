@@ -70,7 +70,7 @@ class ShipperHelper extends AppHelper {
 
     public $destination;
     protected $shipper;
-    private $packages = array();
+    public $packages = array();
     public $packageWeightMax = 50;
     public $packageInsuredValuePercentage = .30;
     protected $availableShipMethods = array('03');

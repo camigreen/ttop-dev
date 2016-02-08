@@ -17,8 +17,8 @@ $testMode = $zoo->merchant->testMode();
                             <?php 
                                 $parent = $zoo->customer->getParent(); 
                             ?>
-                            <li><a href="?option=com_zoo&view=account&layout=accountprofile&task=viewParentProfile&controller=account"><?php echo $parent->name; ?> Account</a></li>
-                            <li><a href="?option=com_zoo&view=account&layout=accountsearch&s=all-users&task=search&controller=account&p=<?php echo $parent->id; ?>"><?php echo $parent->name; ?> Users</a></li>
+                            <li><a href="/parent-account"><?php echo $parent->name; ?> Account</a></li>
+                            <li><a href="/all-users?p=<?php echo $parent->id; ?>"><?php echo $parent->name; ?> Users</a></li>
                             <li><a href="?option=com_zoo&controller=account&task=edit&type=<?php echo 'user.'.$parent->type; ?>&p=<?php echo $parent->id ?>">Add User</a></li>
                         <?php endif; ?>
                         <li>

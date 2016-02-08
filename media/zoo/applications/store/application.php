@@ -40,6 +40,7 @@ class StoreApplication extends Application {
 //        Load Classes
         $zoo->loader->register('ElementStore','elements:element/element.php');
         $zoo->loader->register('ElementStore','elements:elementstore/elementstore.php');
+        $zoo->user->get();
 
         // register and connect events
         $zoo->event->register('OrderEvent');

@@ -31,8 +31,7 @@ class Post
 
         //assuming the first active menu item is the current page
         if ($module->nav_settings['scrollspy'] && $active = $element->first('li.uk-active')) {
-            $active     = $active->first('a');
-            $active_url = preg_replace('/#(.+)$/', '', $active->attr('href'));
+            $active_url = preg_replace('/#(.+)$/', '', $active->first('a')->attr('href'));
         }
 
         foreach ($element->find('a') as $ele) {
@@ -40,10 +39,6 @@ class Post
             // check if scrollspy needs to be applied
             if ($module->nav_settings['scrollspy'] && $active_url && strpos($ele->attr('href'), $active_url.'#') !== false) {
                 $use_scrollspy = true;
-
-                if (strpos($active->attr('href'), '#') === false) {
-                    $active->attr('href', '#top');
-                }
                 $ele->attr('href', strstr($ele->attr('href'), '#'));
             }
 
@@ -95,7 +90,8 @@ class Post
         }
 
         // apply scrollspy
-        if ($use_scrollspy && $active_url) {
+        if ($use_scrollspy) {
+            $element->first('a[href='.$active_url.']')->attr('href', '#top');
             $element->first('ul:first')->attr('data-uk-scrollspy-nav', '{closest: \'li\', smoothscroll: true}');
         }
 
