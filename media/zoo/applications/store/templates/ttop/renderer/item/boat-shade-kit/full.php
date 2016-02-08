@@ -593,8 +593,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         }
                     ],
                     beamTooLarge: [
-                        function (args) {
-                            var type = args.type;
+                        function (data) {
+                            var type = data.args.type;
                             $('#toUBSK').find('.ttop-modal-title').html('Boats with a beam measurement over '+measurements[type].location.beam.max+' inches are too big for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Please check out our Ultimate Boat Shade Kit for larger boats.');
                             
@@ -616,8 +616,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         }
                     ],
                     ttopTooLarge: [
-                        function (args) {
-                            var type = args.type;
+                        function (data) {
+                            var type = data.args.type;
                             $('#toUBSK').find('.ttop-modal-title').html('Boats with a T-Top width measurement over '+measurements[type].location.ttop.max+' inches are too big for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Please check out our Ultimate Boat Shade Kit for larger boats.');
                             
@@ -638,8 +638,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         }
                     ],
                     ttop2rodTooSmall: [
-                        function(args) {
-                            var type = args.type;
+                        function(data) {
+                            var type = data.args.type;
                             $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a T-Top to Rod Holder measurement less than '+measurements[type].location.ttop2rod.min+' inches are too small for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
 
@@ -660,8 +660,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         }
                     ],
                     ttop2rodTooLarge: [
-                        function (args) {
-                            var type = args.type;
+                        function (data) {
+                            var type = data.args.type;
                             console.log(type);
                             $('#toUBSK').find('.ttop-modal-title').html('Boats with a T-Top to Rod Holder measurement over '+measurements[type].location.ttop2rod.max+' inches on the '+type+' are too big for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Please check out our Ultimate Boat Shade Kit for larger boats.');
@@ -682,8 +682,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         }
                     ],
                     beamTooSmall: [
-                        function (args) {
-                            var type = args.type;
+                        function (data) {
+                            var type = data.args.type;
                             $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a beam measurement less than '+measurements[type].location.beam.min+' inches are too small for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below to send us an email.');
                             
@@ -704,8 +704,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         }
                     ],
                     ttopTooSmall: [
-                        function (args) {
-                            var type = args.type;
+                        function (data) {
+                            var type = data.args.type;
                             $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a beam measurement less than '+measurements[type].location.ttop.min+' inches are too small for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
                             
