@@ -66,7 +66,7 @@
 							var task = $(e.target).data('task');
 							console.log(task);
 							$('[name="task"]').val(task);
-							//$('#account_admin_form').trigger('submit');
+							$('#account_admin_form').trigger('submit');
 						})
 						
 					})
