@@ -311,9 +311,16 @@ jQuery(function($){
                 events: {
                     ttopboatcover: {
                         onInit: [
-                            function () {
-                                var f = this._getOptionValue(<?php echo $storeItem->id; ?>,'fabric');
-                                changeColor(f);
+                            function (data) {
+                                console.log(data);
+                                var item;
+                                $.each(data.args.items, function (k, v) {
+                                    if(this.type == 'ttopboatcover') {
+                                        item = this;
+                                    }
+                                })
+                                this.trigger('changeColor', {item: item, fabric: item.options.fabric.value});
+                                return data;
                             }
                         ],
                         beforeChange: [

@@ -84,11 +84,11 @@
             this.loadItems();
             this.$element.find('#price').remove();
             this._createConfirmModal();
-            this.trigger('onInit');
+            this.trigger('onInit', {items: this.items});
             $.each(this.$qty, function (k, v) {
                 var id = $(v).data('id');
                 self.items[id].qty = $('#qty-'+id).val();
-            })
+            });
             
             
         },
@@ -120,7 +120,7 @@
             this.confirm.button.on('click', $.proxy(this, '_confirm'));
             this.confirm.cancel.on('click', $.proxy(this, '_clearConfirm'));
         },
-        getEvents: function (id, type) {
+        getEvents: function (id, types) {
             
             var self = this, events = [];
             if (typeof this._events[id] !== 'undefined') {
@@ -134,12 +134,13 @@
                 });
                 
             }
-            if (typeof type !== 'undefined' && typeof this.settings.events[type] !== 'undefined' && typeof this.settings.events[type][id] !== 'undefined') {
-                $.each(self.settings.events[type][id], function(k,v) {
+            $.each(types, function (k,type) {
+                if (typeof self.settings.events[type] !== 'undefined' && typeof self.settings.events[type][id] !== 'undefined') {
+                    $.each(self.settings.events[type][id], function(k,v) {
                         events.push(v);
-                });
-                
-            }
+                    });
+                }
+            });
             return events;
         },
         _events: {
@@ -200,19 +201,26 @@
         },
         trigger: function (event, args) {
             
-            var self = this;
+            var self = this, types = [];
 
             
             if(typeof args === 'undefined') {
                 args = {};
             }
 
-            var type = !args.item ? null : args.item.type;
+            if(args.item) {
+                types.push(args.item.type);
+            }
+            if(args.items) {
+                $.each(args.items, function (k,v) {
+                    types.push(v.type);
+                });
+            }
             
             result = {};
             result.args = args;
             result.triggerResult = true;
-            var events = this.getEvents(event, type);
+            var events = this.getEvents(event, types);
             $.each(events, function (k, v) {
                 self._debug('Starting ' + event + ' ['+k+']');
                 result = v.call(self,result);
@@ -441,7 +449,7 @@
                 self._publishPrice(this.items[id]);
             }
             if (this.validation.status === 'failed') {
-                this._validate(id);
+                this._validate([this.items[id]]);
             }
             this.trigger('afterChange', {event: e, item: this.items[id]});
             
@@ -461,7 +469,7 @@
                         $(this).addClass('validation-fail');
                         self._debug($(this).prop('name') + 'Failed Validation');
                         validated = false;
-                    }; 
+                    };
                 });
             })
 

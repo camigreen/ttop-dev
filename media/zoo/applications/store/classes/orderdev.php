@@ -22,11 +22,11 @@ class OrderDev {
 	public $elements;
 	public $access = 12;
 	public $status = 1;
-	public $subtotal;
-	public $tax_total;
-	public $ship_total;
+	public $subtotal = 0;
+	public $tax_total = 0;
+	public $ship_total = 0;
 	public $account;
-	public $total;
+	public $total = 0;
 
 	public $app;
 
@@ -148,12 +148,16 @@ class OrderDev {
 		return $this->subtotal;
 	}
 
-	public function getShippingTotal($refresh = false) {
-		if($this->isProcessed() || (!$refresh && $this->ship_total != 0)) {
+	public function getShippingTotal() {
+		if($this->isProcessed()) {
 			return $this->ship_total;
 		}
-        if(!$service = $this->elements->get('shipping_method')) {
+		if(!$service = $this->elements->get('shipping_method')) {
             return 0;
+        }
+        if($service == 'LP') {
+        	$this->ship_total = 0;
+        	return $this->ship_total;
         }
         $this->ship_total = 0;
         $application = $this->app->zoo->getApplication();
@@ -230,7 +234,6 @@ class OrderDev {
 		$items = $this->elements->get('items.');
 		$account = $this->getAccount();
 		$oems = $account->getAllOEMs();
-		var_dump($this->elements);
 		foreach($items as $item) {
 			$_item = $this->app->table->item->get($item->id);
 			$item_cat = $_item->getPrimaryCategory();
@@ -249,7 +252,7 @@ class OrderDev {
         $taxable = false;
         $taxable_states = array('SC');
         if ($state) {
-            $taxable = (!in_array($state,$taxable_states) && !$this->elements->get('shipping_method'));
+            $taxable = (!in_array($state,$taxable_states));
         }
 
         if($account = $this->getAccount()) {
