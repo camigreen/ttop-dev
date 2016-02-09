@@ -405,6 +405,7 @@ $storeItem = $this->app->item->create($item, 'bsk');
             confirm: true,
             debug: true,
             events: {
+                bsk: {
                     onInit: [
                         function (data) {
                             var self = this;
@@ -418,14 +419,12 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             this.items['bsk-aft'].id = 'bsk-aft';
                             this.items['bsk-bow'] = $.extend(true, {}, this.items['bsk']);
                             this.items['bsk-bow'].id = 'bsk-bow';
-                            delete this.items['bsk'];
+                            //delete this.items['bsk'];
                             var fields = this.fields['bsk'];
                             this.fields['bsk-aft'] = $.extend(true, {}, fields);
                             this.fields['bsk-bow'] = $.extend(true, {}, fields);
-                            delete this.items['bsk'];
-
                             $('#use_on_bow').on('change',function(e){
-                                self.trigger('measure', {type: ['aft']});
+                                self.trigger('measure', {item: this.items['bsk-aft'], type: ['aft']});
                             });
 
                             $('.bsk-chooser .bsk-chooser-buttons li').on('click',function(e){
@@ -451,17 +450,17 @@ $storeItem = $this->app->item->create($item, 'bsk');
 
                             $('.bow-measurements input').on('change',function(){
                                 measurements.changed = true;
-                                self.trigger('measure', {type: ['bow']});
+                                self.trigger('measure', {item: this.items['bsk-bow'], type: ['bow']});
                                 
 
                             });
                             $('.aft-measurements input').on('change',function(e){
                                 measurements.changed = true;
-                                self.trigger('measure', {type: ['aft']});
+                                self.trigger('measure', {item: this.items['bsk-aft'], type: ['aft']});
 
                             });
 
-                            this.trigger('measure', {type: type});
+                            this.trigger('measure', {item: this.items['bsk-aft'],type: type});
                             return data;
                             
                         }
@@ -558,9 +557,10 @@ $storeItem = $this->app->item->create($item, 'bsk');
                     beforeChange: [
                         function (data) {
                             var self = this;
+                            console.log('test');
                             if($(data.args.event.target).closest('.options-container').data('id') === 'bsk') {
                                 data.publishPrice = false;
-                                this.trigger('measure', {type: measurements.types});
+                                this.trigger('measure', {item: {type: 'bsk'}, type: measurements.types});
                                 $.each(measurements.types, function (k,v) {
                                     self.items['bsk-'+v].price_group = 'bsk.'+measurements[v].kit.class;
                                 })
@@ -762,7 +762,7 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             var items = {};
 
                             if(!m.changed) {
-                                self.trigger('measurementsNotChanged');
+                                self.trigger('measurementsNotChanged', {item: {type: 'bsk'}});
                                 data.triggerResult = false
                                 return data;
                             }
@@ -812,6 +812,7 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             return data;
                         }
                     ]
+                }
             },
             removeValues: true,
             pricePoints: {

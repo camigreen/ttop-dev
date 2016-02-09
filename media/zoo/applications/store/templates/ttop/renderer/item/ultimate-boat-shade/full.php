@@ -291,277 +291,279 @@ $storeItem = $this->app->item->create($item, 'ubsk');
             confirm: true,
             debug: true,
             events: {
-                onInit: [
-                    function (data) {
-                        var self = this;
-                        this.trigger('measure');
-   
-                        $('.ubsk-measurement input').on('change', function(){
-                            UBSK.measurements_changed = true;
-                            self.trigger('measure');
-                        });
-                        return data;
-                    }
-                ],
-                onChanged: [
-                    function (data) {
-                        this.trigger('measure');
-                        return data;
-                    }
-                ],
-                measure: [
-                    function (data) {
-                        var self = this;
-                        getMeasurements();
-                        checkMinandMax();
-
-                        function getMeasurements() {
-                            var measurements = $('.ubsk-measurement input[type="number"]'), length = {};
-                            
-                            measurements.each(function(k,v){
-                                length[$(this).data('location')] = parseInt($(this).val());
-                                
-                                
-                                $.each(length, function(k,v){
-                                    UBSK.options[k].value = v;
-                                    UBSK.options[k].text = v+' inches';
-                                });
+                ubsk: {
+                    onInit: [
+                        function (data) {
+                            var self = this;
+                            this.trigger('measure', {item: this.items['ubsk']});
+       
+                            $('.ubsk-measurement input').on('change', function(){
+                                UBSK.measurements_changed = true;
+                                self.trigger('measure', {item: self.items['ubsk']});
                             });
-                            var cls = (UBSK.options.beam.value - 84);
-                            var kit_class = UBSK.options.kit_class;
-                            cls = (cls + 1)/6;
-                            cls = Math.ceil(cls) > 23 ? 23 : Math.ceil(cls);
-                            cls = UBSK.cls[cls];
-                            kit_class.name = 'Kit Class';
-                            kit_class.text =  cls;
-                            kit_class.value = cls;
-                            self.items['ubsk'].options.kit_class = kit_class;
+                            return data;
                         }
-                        
-                        function checkMinandMax() {
-                            var beam = UBSK.options.beam, bridge_width = UBSK.options.bridge_width, depth = UBSK.options.depth, shade_type = UBSK.options.shade_type, params = UBSK.params;
-                            // Checking depth and determine if it is an exended shade.
-                            if (depth.value >= 46 && depth.value <= 80) {
-                                shade_type.text = 'Regular';
-                                shade_type.value = 'regular';
-                            } else if (depth.value >= 81 ) {
-                                shade_type.text = 'Extended';
-                                shade_type.value = 'extended';
-                            } 
-                            self.items['ubsk'].options.shade_type = shade_type;
-                            // Checking Beam Width
-                            switch (true) {
-                                case beam.value < params.beam.min:
-                                    self.trigger('beamTooSmall');
-                                    break;
-                                case beam.value > params.beam.max:
-                                    self.trigger('beamTooLarge');
+                    ],
+                    onChanged: [
+                        function (data) {
+                            this.trigger('measure', {item: self.items['ubsk']});
+                            return data;
+                        }
+                    ],
+                    measure: [
+                        function (data) {
+                            var self = this;
+                            getMeasurements();
+                            checkMinandMax();
+
+                            function getMeasurements() {
+                                var measurements = $('.ubsk-measurement input[type="number"]'), length = {};
+                                
+                                measurements.each(function(k,v){
+                                    length[$(this).data('location')] = parseInt($(this).val());
+                                    
+                                    
+                                    $.each(length, function(k,v){
+                                        UBSK.options[k].value = v;
+                                        UBSK.options[k].text = v+' inches';
+                                    });
+                                });
+                                var cls = (UBSK.options.beam.value - 84);
+                                var kit_class = UBSK.options.kit_class;
+                                cls = (cls + 1)/6;
+                                cls = Math.ceil(cls) > 23 ? 23 : Math.ceil(cls);
+                                cls = UBSK.cls[cls];
+                                kit_class.name = 'Kit Class';
+                                kit_class.text =  cls;
+                                kit_class.value = cls;
+                                self.items['ubsk'].options.kit_class = kit_class;
                             }
                             
-                            // Checking Depth
-                            switch (true) {
-                                case depth.value < params.depth.min:
-                                    self.trigger('depthTooSmall');
-                                    break;
-                                case depth.value > params.depth.max:
-                                    self.trigger('depthTooLarge');
+                            function checkMinandMax() {
+                                var beam = UBSK.options.beam, bridge_width = UBSK.options.bridge_width, depth = UBSK.options.depth, shade_type = UBSK.options.shade_type, params = UBSK.params;
+                                // Checking depth and determine if it is an exended shade.
+                                if (depth.value >= 46 && depth.value <= 80) {
+                                    shade_type.text = 'Regular';
+                                    shade_type.value = 'regular';
+                                } else if (depth.value >= 81 ) {
+                                    shade_type.text = 'Extended';
+                                    shade_type.value = 'extended';
+                                } 
+                                self.items['ubsk'].options.shade_type = shade_type;
+                                // Checking Beam Width
+                                switch (true) {
+                                    case beam.value < params.beam.min:
+                                        self.trigger('beamTooSmall');
+                                        break;
+                                    case beam.value > params.beam.max:
+                                        self.trigger('beamTooLarge');
+                                }
+                                
+                                // Checking Depth
+                                switch (true) {
+                                    case depth.value < params.depth.min:
+                                        self.trigger('depthTooSmall');
+                                        break;
+                                    case depth.value > params.depth.max:
+                                        self.trigger('depthTooLarge');
+                                }
+
+                                
                             }
-
-                            
+                            var item = this.items['ubsk'];
+                            var type = item.options.shade_type.value === 'regular' ? '' : '.'+item.options.shade_type.value;
+                            item.price_group = 'ubsk.'+item.options.kit_class.value+type;
+                            this._publishPrice(item);
+                            return data;
                         }
-                        var item = this.items['ubsk'];
-                        var type = item.options.shade_type.value === 'regular' ? '' : '.'+item.options.shade_type.value;
-                        item.price_group = 'ubsk.'+item.options.kit_class.value+type;
-                        this._publishPrice(item);
-                        return data;
-                    }
-                ],
-                afterPublishPrice: [
-                    function (data) {
-                        $('#ubsk-total-price span.price').html(data.args.price.toFixed(2));
-                        return data;
-                    }
-                ],
-                beamTooSmall: [
-                    function (data) {
-                        var type = data.args.type;
-                        $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Ultimate Boat Shade Kit.');
-                        $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Boat Shade Kit for smaller boats.');
-                        
-                        $('.ubsk-measurements #beam-width-ft').val(7);
-                        $('.ubsk-measurements #beam-width-in').val(0).trigger('input');
-                        $('#info_modal button.confirm').click(function(){
-                            window.location = '/store/boat-shade-kit';
-                        }).html('Boat Shade Kit');
-                        
-                        $('#info_modal button.cancel').click(function(){
-                            $('#info_modal button').off();
-                            info_modal.hide();
-
-                        });
-                        
-                        info_modal.options.bgclose = false;
-                        info_modal.show();
-                        data.triggerResult = false;
-                        return data;
-                    }
-                ],
-                beamTooLarge: [
-                    function (data) {
-                        var type = data.args.type, params = UBSK.params;
-                        $('#info_modal').find('.ttop-modal-title').html('The measurements you have selected falls outside of our standard Ultimate Boat Shade Kit.');
-                        $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Ultimate Boat Shade Kit.  Click the contact us button below for send us an email.');
-                        
-                        $('.ubsk-measurements #beam-width').val(params.beam.max);
-
-                        $('#info_modal button.confirm').click(function(){
-                            window.location = '/contact-us';
-                        }).html('Contact Us');
-                        
-                        $('#info_modal button.cancel').click(function(){
-                            $('#info_modal button').off();
-                            info_modal.hide();
-
-                        });
-                        
-                        info_modal.options.bgclose = false;
-                        info_modal.show();
-                        data.triggerResult = false;
-                        return data;
-                    }
-                ],
-                bridgeTooSmall: [
-                    function (data) {
-                        var type = data.args.type;
-                        $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Boat Shade Kit.');
-                        $('#info_modal').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
-                        
-                        $('.ubsk-measurements #bridge-width-ft').val(4);
-                        $('.ubsk-measurements #bridge-width-in').val(6).trigger('input');
-                        $('#info_modal button.confirm').click(function(){
-                            window.location = '/contact-us';
-                        }).html('Contact Us');
-                        
-                        $('#info_modal button.cancel').click(function(){
-                            $('#info_modal button').off();
-                            info_modal.hide();
-
-                        });
-                        
-                        info_modal.options.bgclose = false;
-                        info_modal.show();
-                        data.triggerResult = false;
-                        return data;
-                    }
-                ],
-                bridgeTooLarge: [
-                    function (data) {
-                        var type = data.args.type;
-                        $('#info_modal').find('.ttop-modal-title').html('Boats with a T-Top width measurement over 7\' 6" are too big for our Boat Shade Kit.');
-                        $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Ultimate Boat Shade Kit for larger boats.');
-                        
-                        $('#info_modal button.confirm').click(function(){
-                            window.location = '/products/ultimate-boat-shade';
-                        }).html('Ultimate Boat Shade Kit');
-                        
-                        $('#info_modal button.cancel').click(function(){
-                            $('.bsk-type-'+type+' #ttop-width-ft').val(7);
-                            $('.bsk-type-'+type+' #ttop-width-in').val(6).trigger('input');
-                            $('#info_modal button').off();
-                            info_modal.hide();
-
-                        });
-                        
-                        info_modal.options.bgclose = false;
-                        info_modal.show();
-                        data.triggerResult = false;
-                        return data;
-                    }
-                ],
-                depthTooSmall: [
-                    function(data) {
-                        var type = data.args.type, params = UBSK.params;
-                        $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Ultimate Boat Shade Kit.');
-                        $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Boat Shade Kit for smaller boats.');
-
-                        $('.ubsk-measurements #depth').val(params.depth.min);
-                        $('#info_modal button.confirm').click(function(){
-                            window.location = '/store/boat-shade-kit';
-                        }).html('Boat Shade Kit');
-
-                        $('#info_modal button.cancel').click(function(){
-                            $('#info_modal button').off();
-                            info_modal.hide();
-
-                        });
-
-                        info_modal.options.bgclose = false;
-                        info_modal.show();
-                        data.triggerResult = false;
-                        return data;
-                    }
-                ],
-                depthTooLarge: [
-                    function (data) {
-                        var type = data.args.type, params = UBSK.params;
-                        $('#info_modal').find('.ttop-modal-title').html('The measurements you have selected falls outside of our standard Ultimate Boat Shade Kit.');
-                        $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Ultimate Boat Shade Kit.  Click the contact us button below for send us an email.');
-
-                        $('.ubsk-measurements #depth').val(params.depth.max);
-                        $('#info_modal button.confirm').click(function(){
-                            window.location = '/contact-us';
-                        }).html('Contact Us');
-                        
-                        $('#info_modal button.cancel').on('click', function(e){
-                            $('#info_modal button').off();
-                            info_modal.hide();
-                        });
-                        info_modal.options.bgclose = false;
-                        info_modal.show();
-                        data.triggerResult = false;
-                        return data;
-                    }
-                ],
-                measurementsNotChanged: [
-                    function (data) {
-                        var self = this;
-                        $('#info_modal').find('.ttop-modal-title').html('The order form measurements have not been changed.');
-                        $('#info_modal').find('.ttop-modal-subtitle').html('The measurements on the order form are initially set to the lowest sizes that will work with the Ultimate Boat Shade Kit. Please make sure that the measurements entered match the measurements of your boat.  If the measurements in the order form are correct click Continue or click Back to correct them.');
-                        
-                        $('#info_modal button.confirm').click(function(){
-                            UBSK.measurements_changed = true;
-                            info_modal.hide();
-                            $('#atc-ubsk').trigger('click');
-                        }).html('Continue');
+                    ],
+                    afterPublishPrice: [
+                        function (data) {
+                            $('#ubsk-total-price span.price').html(data.args.price.toFixed(2));
+                            return data;
+                        }
+                    ],
+                    beamTooSmall: [
+                        function (data) {
+                            var type = data.args.type;
+                            $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Ultimate Boat Shade Kit.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Boat Shade Kit for smaller boats.');
                             
-                        $('#info_modal button.cancel').click(function(){
+                            $('.ubsk-measurements #beam-width-ft').val(7);
+                            $('.ubsk-measurements #beam-width-in').val(0).trigger('input');
+                            $('#info_modal button.confirm').click(function(){
+                                window.location = '/store/boat-shade-kit';
+                            }).html('Boat Shade Kit');
                             
-                            $('#info_modal button').off();
-                            info_modal.hide();
-                            $(this).html('Cancel');
+                            $('#info_modal button.cancel').click(function(){
+                                $('#info_modal button').off();
+                                info_modal.hide();
 
-                        }).html('Back');
-
-                        info_modal.options.bgclose = false;
-                        info_modal.show();
-                        data.triggerResult = false;
-                        return data;
-                    }
-                ],
-                beforeAddToCart: [
-                    function (data) {
-                        if (!UBSK.measurements_changed) {
-                            this.trigger('measurementsNotChanged');
+                            });
+                            
+                            info_modal.options.bgclose = false;
+                            info_modal.show();
                             data.triggerResult = false;
                             return data;
                         }
-                        var item = $.extend(true,{},data.args.items['ubsk']);
-                        item.name = 'Ultimate Boat Shade - '+item.options.kit_options.text;
-                        item.options = $.extend(true, item.options, UBSK.options);
-                        data.args.items['ubsk'] = item;
-                        return data;
-                    }
-                ]
+                    ],
+                    beamTooLarge: [
+                        function (data) {
+                            var type = data.args.type, params = UBSK.params;
+                            $('#info_modal').find('.ttop-modal-title').html('The measurements you have selected falls outside of our standard Ultimate Boat Shade Kit.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Ultimate Boat Shade Kit.  Click the contact us button below for send us an email.');
+                            
+                            $('.ubsk-measurements #beam-width').val(params.beam.max);
+
+                            $('#info_modal button.confirm').click(function(){
+                                window.location = '/contact-us';
+                            }).html('Contact Us');
+                            
+                            $('#info_modal button.cancel').click(function(){
+                                $('#info_modal button').off();
+                                info_modal.hide();
+
+                            });
+                            
+                            info_modal.options.bgclose = false;
+                            info_modal.show();
+                            data.triggerResult = false;
+                            return data;
+                        }
+                    ],
+                    bridgeTooSmall: [
+                        function (data) {
+                            var type = data.args.type;
+                            $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Boat Shade Kit.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
+                            
+                            $('.ubsk-measurements #bridge-width-ft').val(4);
+                            $('.ubsk-measurements #bridge-width-in').val(6).trigger('input');
+                            $('#info_modal button.confirm').click(function(){
+                                window.location = '/contact-us';
+                            }).html('Contact Us');
+                            
+                            $('#info_modal button.cancel').click(function(){
+                                $('#info_modal button').off();
+                                info_modal.hide();
+
+                            });
+                            
+                            info_modal.options.bgclose = false;
+                            info_modal.show();
+                            data.triggerResult = false;
+                            return data;
+                        }
+                    ],
+                    bridgeTooLarge: [
+                        function (data) {
+                            var type = data.args.type;
+                            $('#info_modal').find('.ttop-modal-title').html('Boats with a T-Top width measurement over 7\' 6" are too big for our Boat Shade Kit.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Ultimate Boat Shade Kit for larger boats.');
+                            
+                            $('#info_modal button.confirm').click(function(){
+                                window.location = '/products/ultimate-boat-shade';
+                            }).html('Ultimate Boat Shade Kit');
+                            
+                            $('#info_modal button.cancel').click(function(){
+                                $('.bsk-type-'+type+' #ttop-width-ft').val(7);
+                                $('.bsk-type-'+type+' #ttop-width-in').val(6).trigger('input');
+                                $('#info_modal button').off();
+                                info_modal.hide();
+
+                            });
+                            
+                            info_modal.options.bgclose = false;
+                            info_modal.show();
+                            data.triggerResult = false;
+                            return data;
+                        }
+                    ],
+                    depthTooSmall: [
+                        function(data) {
+                            var type = data.args.type, params = UBSK.params;
+                            $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Ultimate Boat Shade Kit.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('Please check out our Boat Shade Kit for smaller boats.');
+
+                            $('.ubsk-measurements #depth').val(params.depth.min);
+                            $('#info_modal button.confirm').click(function(){
+                                window.location = '/store/boat-shade-kit';
+                            }).html('Boat Shade Kit');
+
+                            $('#info_modal button.cancel').click(function(){
+                                $('#info_modal button').off();
+                                info_modal.hide();
+
+                            });
+
+                            info_modal.options.bgclose = false;
+                            info_modal.show();
+                            data.triggerResult = false;
+                            return data;
+                        }
+                    ],
+                    depthTooLarge: [
+                        function (data) {
+                            var type = data.args.type, params = UBSK.params;
+                            $('#info_modal').find('.ttop-modal-title').html('The measurements you have selected falls outside of our standard Ultimate Boat Shade Kit.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Ultimate Boat Shade Kit.  Click the contact us button below for send us an email.');
+
+                            $('.ubsk-measurements #depth').val(params.depth.max);
+                            $('#info_modal button.confirm').click(function(){
+                                window.location = '/contact-us';
+                            }).html('Contact Us');
+                            
+                            $('#info_modal button.cancel').on('click', function(e){
+                                $('#info_modal button').off();
+                                info_modal.hide();
+                            });
+                            info_modal.options.bgclose = false;
+                            info_modal.show();
+                            data.triggerResult = false;
+                            return data;
+                        }
+                    ],
+                    measurementsNotChanged: [
+                        function (data) {
+                            var self = this;
+                            $('#info_modal').find('.ttop-modal-title').html('The order form measurements have not been changed.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('The measurements on the order form are initially set to the lowest sizes that will work with the Ultimate Boat Shade Kit. Please make sure that the measurements entered match the measurements of your boat.  If the measurements in the order form are correct click Continue or click Back to correct them.');
+                            
+                            $('#info_modal button.confirm').click(function(){
+                                UBSK.measurements_changed = true;
+                                info_modal.hide();
+                                $('#atc-ubsk').trigger('click');
+                            }).html('Continue');
+                                
+                            $('#info_modal button.cancel').click(function(){
+                                
+                                $('#info_modal button').off();
+                                info_modal.hide();
+                                $(this).html('Cancel');
+
+                            }).html('Back');
+
+                            info_modal.options.bgclose = false;
+                            info_modal.show();
+                            data.triggerResult = false;
+                            return data;
+                        }
+                    ],
+                    beforeAddToCart: [
+                        function (data) {
+                            if (!UBSK.measurements_changed) {
+                                this.trigger('measurementsNotChanged', {item: this.items['ubsk']});
+                                data.triggerResult = false;
+                                return data;
+                            }
+                            var item = $.extend(true,{},data.args.items['ubsk']);
+                            item.name = 'Ultimate Boat Shade - '+item.options.kit_options.text;
+                            item.options = $.extend(true, item.options, UBSK.options);
+                            data.args.items['ubsk'] = item;
+                            return data;
+                        }
+                    ]
+                }
             } 
         });
     })

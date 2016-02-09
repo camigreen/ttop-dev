@@ -442,9 +442,11 @@
         },
         _refresh: function (e) {
             var id = $(e.target).closest('.options-container').data('id'), self = this;
+
             triggerData = this.trigger('beforeChange', {event: e, item: this.items[id]});
+            console.log(triggerData);
             this._getOptions();
-            var publishPrice = typeof triggerData.publishPrice === 'undefined' ? true : triggerData.args.publishPrice;
+            var publishPrice = typeof triggerData.publishPrice === 'undefined' ? true : triggerData.publishPrice;
             if(publishPrice) {
                 self._publishPrice(this.items[id]);
             }
