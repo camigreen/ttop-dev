@@ -416,10 +416,10 @@
         _updateQuantity: function (e) {
             this._debug('Updating Quantity');
             var elem = $(e.target);
-            var id = elem.data('item');
+            var id = elem.data('id');
             console.log(id);
             this.items[id].qty = elem.val();
-            this.trigger('onChanged', {e: e});
+            this.trigger('onChanged', {event: e, item: this.items[id]});
         },
         _refresh: function (e) {
             var id = $(e.target).closest('.options-container').data('id'), self = this;
