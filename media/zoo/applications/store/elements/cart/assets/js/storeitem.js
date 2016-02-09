@@ -43,6 +43,7 @@
         this.$qty.on('change', $.proxy(this, '_updateQuantity'));
         this.$element.on('input','input.item-option', $.proxy(this, '_refresh'));
         this.$element.on('change','select.item-option', $.proxy(this, '_refresh'));
+        this.$element.on('change','textarea.item-option', $.proxy(this, '_refresh'));
         this.trigger('onComplete');
 
     };
@@ -79,9 +80,14 @@
             }
         },
         init: function () {
+            var self = this;
             this.loadItems();
             this.$element.find('#price').remove();
             this._createConfirmModal();
+            $.each(this.$qty, function (k, v) {
+                var id = $(v).data('id');
+                self.items[id].qty = $('#qty-'+id).val();
+            })
             this.trigger('onInit');
             
         },
@@ -363,8 +369,9 @@
                 data: {item: item},
                 success: function(data){
                     var elem = $('#'+item.id+'-price span');
-                    elem.html(data.price.toFixed(2));
-                    self.trigger('afterPublishPrice', {price: data.price, item: item});
+                    var price = data.price*item.qty;
+                    elem.html(price.toFixed(2));
+                    self.trigger('afterPublishPrice', {price: price, item: item});
                 },
                 error: function(data, status, error) {
                     var elem = $('#'+item.id+'-price span');
@@ -398,7 +405,7 @@
             });
         },
         _getFields: function() {
-            var elems = this.$element.find('input.item-option, select.item-option'), self = this;
+            var elems = this.$element.find('input.item-option, select.item-option, textarea.item-option'), self = this;
             var fields = {};
             $.each(elems, function(k, field) {
                 var id = $(this).closest('.options-container').data('id');
@@ -422,7 +429,7 @@
             item.qty = elem.val();
             triggerData = this.trigger('afterUpdateQuantity', {event: e, item: item});
             item = triggerData.args.item;
-            this.trigger('onChanged', {event: e, item: this.items[id]});
+            this._publishPrice(item);
         },
         _refresh: function (e) {
             var id = $(e.target).closest('.options-container').data('id'), self = this;

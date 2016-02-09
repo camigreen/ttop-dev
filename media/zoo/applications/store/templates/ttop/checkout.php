@@ -26,16 +26,16 @@ $this->app->document->addScript('assets:js/jquery-validation-1.13.1/dist/jquery.
 <div class="uk-width-1-1 uk-margin-bottom ttop-checkout-steps" data-uk-grid-margin>
     <ul class="uk-grid ttop-checkout-progress">
         <li class="uk-width-1-4">
-            <div id="customer" class="complete" >Customer<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            <div id="customer" class="uk-text-large">Customer<i class="uk-icon-arrow-right uk-align-right"></i></div>
         </li>
         <li class="uk-width-1-4">
-            <div id="payment" class="">Payment Info<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            <div id="payment" >Payment Info<i class="uk-icon-arrow-right uk-align-right"></i></div>
         </li>
         <li class="uk-width-1-4">
-            <div id="confirm" class="">Confirm Order<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            <div id="confirm" >Confirm Order<i class="uk-icon-arrow-right uk-align-right"></i></div>
         </li>
         <li class="uk-width-1-4">
-            <div id="receipt" class="">Receipt</div>
+            <div id="receipt" >Receipt</div>
         </li>
     </ul>
 
@@ -63,6 +63,7 @@ $this->app->document->addScript('assets:js/jquery-validation-1.13.1/dist/jquery.
             <?php endif; ?>
         </div>
     </div>
+    <input id="page" type="text" name="page" value="<?php echo $this->page; ?>" />
     <input type="text" name="task" value="save" />
     <input type="hidden" name="updated" value="false" />
     <input type="hidden" name="process" value="true" />
@@ -237,6 +238,7 @@ $this->app->document->addScript('assets:js/jquery-validation-1.13.1/dist/jquery.
                     onInit: [
                         function (e) {
                             var self = this;
+                            $('#customer').addClass('inProgress');
                             $('#proceed.ttop-checkout-step-button').unbind("click").on('click',$.proxy(this,'_submit'));
                             $('[name="same_as_billing"]').on('click',function(e) {
                                 var target = $(e.target);

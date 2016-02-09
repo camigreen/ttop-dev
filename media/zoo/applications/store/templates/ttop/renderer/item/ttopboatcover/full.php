@@ -302,33 +302,6 @@ jQuery(function($){
 </script>
 <script>
     jQuery(function($) {
-        
-        function changeColor (w) {
-            var swatch = $('.swatch div');
-            var colorSelect = $('.item-option[name="color"]');
-            var colors = {
-                    '9oz': ['navy','black','gray','tan'],
-                    '8oz': ['navy','black'],
-                    '7oz': ['navy','black']
-                }
-            colorSelect.find('option').each(function(k,v){
-                $(this).find('span').html('');
-                if ($(this).prop('value') !== 'X') {
-                    if($.inArray($(this).prop('value'), colors[w]) === -1) {
-                        $(this).prop('disabled',true);
-                        $(this).append('<span>- 9oz Fabric Only</span>');
-                    } else {
-                        $(this).prop('disabled',false);
-                    }
-                }
-            });
-            // if ($('[name="color"] [value="'+colorValue+'"]').prop('disabled')) {
-            //     $('.item-option[name="color"]').val('navy').trigger('input');
-            // }
-
-            swatch.removeAttr('class');
-            swatch.addClass($('.color-chooser [name="color"]').val())
-        }
         $(document).ready(function(){
 
             $('#storeOrderForm').StoreItem({
@@ -345,8 +318,8 @@ jQuery(function($){
                         ],
                         beforeChange: [
                             function(data) { 
-                                var e = data.args.event, item = data.args.item, elem = $(e.target);
-                                switch($(e.target).prop('name')) {
+                                var e = data.args.event, item = data.args.item, elem = $(e.target), self = this;
+                                switch(elem.prop('name')) {
                                     case 'storage': //Check the storage value and if "IW" show the modal
                                         if(elem.val() === 'IW') {
                                             var modal = $.UIkit.modal("#inwater-modal");
@@ -362,10 +335,10 @@ jQuery(function($){
                                         }
                                         break;
                                     case 'fabric':
-                                        changeColor(elem.val());
+                                        self.trigger('changeColor', {item: item, fabric: elem.val()});
                                         break;
                                     case 'color':
-                                        changeColor(elem.val());
+                                        //changeColor(elem.val());
                                         break;
                                     case 'ttop_type':
                                         if(elem.val() === 'hard-top') {
@@ -373,6 +346,32 @@ jQuery(function($){
                                             modal.options.bgclose = false;
                                             modal.show();
                                         }
+                                }
+                                return data;
+                            }
+                        ],
+                        changeColor: [
+                            function (data) {
+                                var fabric = data.args.fabric;
+                                var colorSelect = $('.item-option[name="color"]');
+                                var colors = {
+                                        '9oz': ['navy','black','gray','tan'],
+                                        '8oz': ['navy','black'],
+                                        '7oz': ['navy','black']
+                                    }
+                                colorSelect.find('option').each(function(k,v){
+                                    $(this).find('span').html('');
+                                    if ($(this).prop('value') !== 'X') {
+                                        if($.inArray($(this).prop('value'), colors[fabric]) === -1) {
+                                            $(this).prop('disabled',true);
+                                            $(this).append('<span>- 9oz Fabric Only</span>');
+                                        } else {
+                                            $(this).prop('disabled',false);
+                                        }
+                                    }
+                                });
+                                if($.inArray(colorSelect.val(), colors[fabric]) === -1) {
+                                    colorSelect.val('X').trigger('input');
                                 }
                                 return data;
                             }

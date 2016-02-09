@@ -42,16 +42,16 @@ jQuery(function ($) {
 <div class="uk-width-1-1 uk-margin-bottom ttop-checkout-steps" data-uk-grid-margin>
     <ul class="uk-grid ttop-checkout-progress">
         <li class="uk-width-1-4">
-            <div id="customer" class="complete" >Customer<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            <div id="customer" >Customer<i class="uk-icon-arrow-right uk-align-right"></i></div>
         </li>
         <li class="uk-width-1-4">
-            <div id="payment" class="">Payment Info<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            <div id="payment" >Payment Info<i class="uk-icon-arrow-right uk-align-right"></i></div>
         </li>
         <li class="uk-width-1-4">
-            <div id="confirm" class="">Confirm Order<i class="uk-icon-arrow-right uk-align-right"></i></div>
+            <div id="confirm" >Confirm Order<i class="uk-icon-arrow-right uk-align-right"></i></div>
         </li>
         <li class="uk-width-1-4">
-            <div id="receipt" class="">Receipt</div>
+            <div id="receipt" >Receipt</div>
         </li>
     </ul>
 
@@ -300,6 +300,33 @@ jQuery(function ($) {
                 events: {
                     onInit: [
                         function (e) {
+                            var page = $('#page').val();
+                            switch(page) {
+                                case 'customer':
+                                    $('.ttop-checkout-progress li div#customer').addClass('inProgress');
+                                    $('.ttop-checkout-progress li div#payment').addClass('incomplete');
+                                    $('.ttop-checkout-progress li div#confirm').addClass('incomplete');
+                                    $('.ttop-checkout-progress li div#reciept').addClass('incomplete');
+                                    break;
+                                case 'payment':
+                                    $('.ttop-checkout-progress li div#customer').addClass('complete');
+                                    $('.ttop-checkout-progress li div#payment').addClass('inProgress');
+                                    $('.ttop-checkout-progress li div#confirm').addClass('incomplete');
+                                    $('.ttop-checkout-progress li div#reciept').addClass('incomplete');
+                                    break;
+                                case 'confirm':
+                                    $('.ttop-checkout-progress li div#customer').addClass('complete');
+                                    $('.ttop-checkout-progress li div#payment').addClass('complete');
+                                    $('.ttop-checkout-progress li div#confirm').addClass('inProgress');
+                                    $('.ttop-checkout-progress li div#reciept').addClass('incomplete');
+                                    break;
+                                case 'reciept':
+                                    $('.ttop-checkout-progress li div#customer').addClass('complete');
+                                    $('.ttop-checkout-progress li div#payment').addClass('complete');
+                                    $('.ttop-checkout-progress li div#confirm').addClass('complete');
+                                    $('.ttop-checkout-progress li div#reciept').addClass('inProgress');
+                                    break;
+                            }
                             this.validation = validator;
                             var self = this;
                             $('#proceed.ttop-checkout-step-button').unbind("click").on('click',$.proxy(this,'_submit'));
