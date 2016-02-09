@@ -16,7 +16,7 @@ $storeItem = $this->app->item->create($item, 'bsk');
     <span class="uk-article-title"><?php echo $item->name; ?></span>
 </article>
 <div id="storeOrderForm" class="<?php echo $item->type; ?> uk-form">
-    <div id="<?php echo $storeItem->id; ?>" data-item='<?php echo $storeItem->getItemsJSON(); ?>' class="uk-grid storeItem">
+    <div id="<?php echo $storeItem->id; ?>" data-item='<?php echo $storeItem->getItemsJSON(); ?>' class="storeItem">
     <div class="uk-margin" >
         <div class="uk-grid">
                 <div class="uk-width-2-3">
