@@ -155,7 +155,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
 
             <div class="uk-width-1-1 addtocart-container uk-margin-top">
                 <label>Quantity</label>
-                <input id="qty-ccc" type="number" class="uk-width-1-1 qty" name="qty" min="1" value ="1" />
+                <input id="qty-ccc" type="number" class="uk-width-1-1 qty" name="qty" data-id="ccc" min="1" value ="1" />
                 <div class="uk-margin-top">
                     <button id="atc-ccc" class="uk-button uk-button-danger atc" data-id="ccc"><i class="uk-icon-shopping-cart" style="margin-right:5px;"></i>Add to Cart</button>
                 </div>
