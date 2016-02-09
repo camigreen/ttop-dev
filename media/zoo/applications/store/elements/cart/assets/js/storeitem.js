@@ -159,6 +159,8 @@
             ],
             beforeChange: [],
             afterchange: [],
+            beforeUpdateQuantity: [],
+            afterUpdateQuantity: [],
             onComplete: [
                 function (data) {
                     this._debug('StoreItem Plugin Complete.', true);
@@ -418,7 +420,12 @@
             var elem = $(e.target);
             var id = elem.data('id');
             console.log(id);
-            this.items[id].qty = elem.val();
+            var item = this.items[id];
+            var triggerData = this.trigger('beforeUpdateQuantity', {event: e, item: item});
+            item = triggerData.args.item;
+            item.qty = elem.val();
+            triggerData = this.trigger('afterUpdateQuantity', {event: e, item: item});
+            item = triggerData.args.item;
             this.trigger('onChanged', {event: e, item: this.items[id]});
         },
         _refresh: function (e) {
