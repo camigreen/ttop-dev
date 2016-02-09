@@ -109,6 +109,10 @@ $storeItem = $this->app->item->create($item, 'bsk');
 
                                     </div>
                                     <div class="uk-width-1-2">
+                                        <label>Quantity</label>
+                                        <input id="qty-bsk-aft" type="number" class="uk-width-1-3 qty" name="qty" data-id="bsk-aft" min="1" value ="1" />
+                                    </div>
+                                    <div class="uk-width-1-2">
                                         <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>
                                     </div>
                                     <div class="uk-width-1-2 uk-margin-top">
@@ -168,6 +172,10 @@ $storeItem = $this->app->item->create($item, 'bsk');
                                     <div id="bsk-bow-price" class="uk-width-1-2">
                                         <i class="currency"></i>
                                             <span class="price">0.00</span>
+                                    </div>
+                                    <div class="uk-width-1-2">
+                                        <label>Quantity</label>
+                                        <input id="qty-bsk-bow" type="number" class="uk-width-1-3 qty" name="qty" data-id="bsk-bow" min="1" value ="1" />
                                     </div>
                                     <div class="uk-width-1-2 uk-margin-top">
                                         <fieldset class="bow-measurements"> 
@@ -236,8 +244,6 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>
                     </div>
                     <div class="uk-width-1-1 addtocart-container uk-margin-top">
-                        <label>Quantity</label>
-                        <input id="qty-bsk" type="number" class="uk-width-1-1 qty" name="qty" data-id="bsk" min="1" value ="1" />
                         <div class="uk-margin-top">
                             <button id="atc-bsk" class="uk-button uk-button-danger atc" data-id="bsk"><i class="uk-icon-shopping-cart" style="margin-right:5px;"></i>Add to Cart</button>
                         </div>
@@ -580,10 +586,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                         function (data) {
                             if(data.args.item.id === 'bsk-aft' || data.args.item.id === 'bsk-bow') {
                                 if($.inArray(data.args.item.id.substring(4), measurements.types) !== -1) {
-                                    console.log(data.args.item.id);
                                     total[data.args.item.id] = data.args.price;
                                 }
-                                console.log(total);
                                 var t = 0;
                                 $.each(total, function(k, v){
                                     t = t+v;
@@ -663,7 +667,6 @@ $storeItem = $this->app->item->create($item, 'bsk');
                     ttop2rodTooLarge: [
                         function (data) {
                             var type = data.args.type;
-                            console.log(type);
                             $('#toUBSK').find('.ttop-modal-title').html('Boats with a T-Top to Rod Holder measurement over '+measurements[type].location.ttop2rod.max+' inches on the '+type+' are too big for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Please check out our Ultimate Boat Shade Kit for larger boats.');
                             
@@ -803,7 +806,6 @@ $storeItem = $this->app->item->create($item, 'bsk');
                                         value: kit.location.ttop2rod.total,
                                         text: kit.location.ttop2rod.total+' in'
                                     };  
-                                console.log(item);
                                 items[item.id] = item;
                             });
                             data.args.items = items;

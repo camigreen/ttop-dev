@@ -84,11 +84,12 @@
             this.loadItems();
             this.$element.find('#price').remove();
             this._createConfirmModal();
+            this.trigger('onInit');
             $.each(this.$qty, function (k, v) {
                 var id = $(v).data('id');
                 self.items[id].qty = $('#qty-'+id).val();
             })
-            this.trigger('onInit');
+            
             
         },
         loadItems: function() {
