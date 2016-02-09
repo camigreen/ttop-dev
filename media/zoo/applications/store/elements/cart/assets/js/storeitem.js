@@ -201,7 +201,6 @@
             }
 
             var type = !args.item ? null : args.item.type;
-            console.log(type);
             
             result = {};
             result.args = args;
@@ -247,7 +246,6 @@
             if(!this.cart.confirmed) {
                 return;
             }
-            console.log(this.cart.items);
             $('body').ShoppingCart('addToCart', this.cart.items);
             this.clearCart();
             this.trigger('afterAddToCart', {items: this.cart.items});
@@ -290,7 +288,6 @@
             var self = this, container;
             this.confirm.elem.find('[name="cart_id"]').val(cart_id);
             $.each(items, function(k,item) {
-                console.log('loading items into modal');
                 var title = typeof item.title === 'undefined' ? item.name : item.title;
                 container = $('<div id="'+item.id+'" class="uk-width-1-1"></div>').append('<div class="item-name uk-width-1-1 uk-margin-top uk-text-large">'+title+'</div>').append('<div class="item-options uk-width-1-1 uk-margin-top"><table class="uk-width-1-1"></table></div>');
                 
@@ -419,7 +416,6 @@
             this._debug('Updating Quantity');
             var elem = $(e.target);
             var id = elem.data('id');
-            console.log(id);
             var item = this.items[id];
             var triggerData = this.trigger('beforeUpdateQuantity', {event: e, item: item});
             item = triggerData.args.item;
