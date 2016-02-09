@@ -237,9 +237,9 @@ $storeItem = $this->app->item->create($item, 'bsk');
                     </div>
                     <div class="uk-width-1-1 addtocart-container uk-margin-top">
                         <label>Quantity</label>
-                        <input id="qty-<?php echo $item->id; ?>" type="number" class="uk-width-1-1 qty" name="qty" min="1" value ="1" />
+                        <input id="qty-bsk" type="number" class="uk-width-1-1 qty" name="qty" data-id="bsk" min="1" value ="1" />
                         <div class="uk-margin-top">
-                            <button id="atc-bsk" class="uk-button uk-button-danger atc" data-id="<?php echo $storeItem->id; ?>"><i class="uk-icon-shopping-cart" style="margin-right:5px;"></i>Add to Cart</button>
+                            <button id="atc-bsk" class="uk-button uk-button-danger atc" data-id="bsk"><i class="uk-icon-shopping-cart" style="margin-right:5px;"></i>Add to Cart</button>
                         </div>
                     </div>
                     <div class="uk-width-1-1 uk-container-center uk-margin-top">
@@ -548,6 +548,7 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             return data;
                         }
                     ],
+                    beforeUpdateQuantity: [],
                     beforeChange: [
                         function (data) {
                             var self = this;
