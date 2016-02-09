@@ -7,10 +7,8 @@
 
 $order = $this->order;
 
-//$this->app->document->addScript('assets:js/jquery-validation-1.13.1/dist/jquery.validate.min.js');
-$this->app->system->document->addScript('http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js');
-//$this->app->document->addScript('assets:js/jquery-validation-1.13.1/dist/additional-methods.min.js');
-$this->app->system->document->addScript('http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.min.js');
+$this->app->document->addScript('assets:js/jquery-validate-1.14.1/jquery.validate.min.js');
+$this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-methods.min.js');
 ?>
 <?php if($this->app->merchant->testMode()) : ?>
 <script>
