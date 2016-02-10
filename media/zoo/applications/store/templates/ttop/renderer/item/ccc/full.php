@@ -250,12 +250,16 @@ $storeItem = $this->app->item->create($item, 'ccc');
             ttop2deck: {
                 name: 'T-Top to Deck Measurement',
                 text: null,
-                value: 0
+                value: 0,
+                min: 76,
+                max: 88
             }, 
             helm2console: {
                 name: 'Rear of Helm Seat to Front of Console Seat Measurement',
                 text: null,
-                value: 0
+                value: 0,
+                min: 75,
+                max: 133
             },
             helmSeatWidth: {
                 name: 'Width of Helm Seat Measurement',
@@ -295,7 +299,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
                                 if($(e.target).prop('name') === 'helm2console') {
                                     adjust = true;
                                 }
-                                self.trigger('measure',{item: this.items['ccc'], adjustHSW: adjust});
+                                self.trigger('measure',{item: self.items['ccc'], adjustHSW: adjust});
 
                             });
                             $('[name="fabric"]').on('change',function (e) {
@@ -336,32 +340,33 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             
                             function checkMinandMax() {
                                 var ttop2deck = CCC.options.ttop2deck, helm2console = CCC.options.helm2console, helmSeatWidth = CCC.options.helmSeatWidth
-                                
+                                console.log('minmax');
+                                var data = {item: self.items['ccc']};
                                 // Checking ttop2deck Width
                                 switch (true) {
-                                    case ttop2deck.value < 76:
-                                        self.trigger('ttop2deckTooSmall');
+                                    case ttop2deck.value < ttop2deck.min:
+                                        self.trigger('ttop2deckTooSmall', data);
                                         break;
-                                    case ttop2deck.value > 88:
-                                        self.trigger('ttop2deckTooLarge');
+                                    case ttop2deck.value > ttop2deck.max:
+                                        self.trigger('ttop2deckTooLarge', data);
                                         break;
                                 }
                                 // Checking helm2console
                                 switch(true) {
-                                    case helm2console.value < 75:
-                                        self.trigger('helm2consoleTooSmall');
+                                    case helm2console.value < helm2console.min:
+                                        self.trigger('helm2consoleTooSmall', data);
                                         break;
-                                    case helm2console.value > 133:
-                                        self.trigger('helm2consoleTooLarge');
+                                    case helm2console.value > helm2console.max:
+                                        self.trigger('helm2consoleTooLarge', data);
                                         break;
                                 }
                                 // Checking helmSeatWidth
                                 switch(true) {
                                     case helmSeatWidth.value < helmSeatWidth.min:
-                                        self.trigger('helmSeatWidthTooSmall');
+                                        self.trigger('helmSeatWidthTooSmall', data);
                                         break;
                                     case helmSeatWidth.value > helmSeatWidth.max:
-                                        self.trigger('helmSeatWidthTooLarge');
+                                        self.trigger('helmSeatWidthTooLarge', data);
                                         break;
                                 }
 
@@ -453,12 +458,12 @@ $storeItem = $this->app->item->create($item, 'ccc');
                     afterPublishPrice: [],
                     ttop2deckTooSmall: [
                         function (data) {
-                            $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Center Console Curtain.');
+                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.ttop2deck.name+' under '+CCC.options.ttop2deck.min+' inches are too small for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #ttop2deck').val(76);
+                            $('.ccc-measurement #ttop2deck').val(CCC.options.ttop2deck.min).trigger('change');
                             $('#info_modal button.confirm').click(function(){
-                                window.location = '/contact-us';
+                                window.location = '/about-us/contact-us';
                             }).html('Contact Us');
                             
                             $('#info_modal button.cancel').click(function(){
@@ -475,13 +480,13 @@ $storeItem = $this->app->item->create($item, 'ccc');
                     ],
                     ttop2deckTooLarge: [
                         function (data) {
-                            $('#info_modal').find('.ttop-modal-title').html('The measurements you have selected falls outside of our standard Center Console Curtain.');
+                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.ttop2deck.name+' over '+CCC.options.ttop2deck.max+' inches are too large for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #ttop2deck').val(85);
+                            $('.ccc-measurement #ttop2deck').val(CCC.options.ttop2deck.max).trigger('change');
                             
                             $('#info_modal button.confirm').click(function(){
-                                window.location = '/contact-us';
+                                window.location = '/about-us/contact-us';
                             }).html('Contact Us');
                             
                             $('#info_modal button.cancel').click(function(){
@@ -498,13 +503,13 @@ $storeItem = $this->app->item->create($item, 'ccc');
                     ],
                     helm2consoleTooSmall: [
                         function (data) {
-                            $('#info_modal').find('.ttop-modal-title').html('We are sorry, but the measurements that you have entered are too small for our Center Console Curtain.');
+                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helm2console.name+' under '+CCC.options.helm2console.min+' inches are too small for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom curtain for your boat.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helm2console').val(75);
+                            $('.ccc-measurement #helm2console').val(CCC.options.helm2console.min).trigger('change');
                             
                             $('#info_modal button.confirm').click(function(){
-                                window.location = '/contact-us';
+                                window.location = '/about-us/contact-us';
                             }).html('Contact Us');
                             
                             $('#info_modal button.cancel').click(function(){
@@ -521,13 +526,13 @@ $storeItem = $this->app->item->create($item, 'ccc');
                     ],
                     helm2consoleTooLarge: [
                         function (data) {
-                            $('#info_modal').find('.ttop-modal-title').html('Boats with a helm to console measurement over 11\' 1" are too big for our Center Console Curtain.');
-                            $('#info_modal').find('.ttop-modal-subtitle').html('Please call for a custom curtain.');
+                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helm2console.name+' over '+CCC.options.helm2console.max+' inches are too large for our Center Console Curtain.');
+                            $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helm2console').val(133);
+                            $('.ccc-measurement #helm2console').val(CCC.options.helm2console.max).trigger('change');
                             
                             $('#info_modal button.confirm').click(function(){
-                                window.location = '/contact-us';
+                                window.location = '/about-us/contact-us';
                             }).html('Contact Us');
                             
                             $('#info_modal button.cancel').click(function(){  
@@ -544,13 +549,13 @@ $storeItem = $this->app->item->create($item, 'ccc');
                     ],
                     helmSeatWidthTooSmall: [
                         function (data) {
-                            $('#info_modal').find('.ttop-modal-title').html('The helm seat width is too small.');
+                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helmSeatWidth.name+' under '+CCC.options.helmSeatWidth.min+' inches are too small for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helmSeatWidth').val(38);
+                            $('.ccc-measurement #helmSeatWidth').val(CCC.options.helmSeatWidth.min).trigger('change');
                             
                             $('#info_modal button.confirm').click(function(){
-                                window.location = '/store/boat-shade-kit';
+                                window.location = '/about-us/contact-us';
                             }).html('Boat Shade Kit');
 
                             $('#info_modal button.cancel').click(function(){
@@ -566,13 +571,13 @@ $storeItem = $this->app->item->create($item, 'ccc');
                     ],
                     helmSeatWidthTooLarge: [
                         function (data) {
-                            $('#info_modal').find('.ttop-modal-title').html('The helm seat width is too small.');
+                            $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helmSeatWidth.name+' over '+CCC.options.helmSeatWidth.max+' inches are too large for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helmSeatWidth').val(50);
+                            $('.ccc-measurement #helmSeatWidth').val(CCC.options.helmSeatWidth.max).trigger('change');
                             
                             $('#info_modal button.confirm').click(function(){
-                                window.location = '/contact-us';
+                                window.location = '/about-us/contact-us';
                             }).html('Contact Us');
                                 
                             $('#info_modal button.cancel').click(function(){
