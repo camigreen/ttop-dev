@@ -119,7 +119,7 @@ class StoreController extends AppController {
         $id = $this->app->request->get('id','int');
 
         // Initialize the order object
-        $this->order = $this->app->order->create($id);
+        $this->order = $this->app->orderdev->get($id);
 
         // Check ACL
         //if(!$this->order->canAccess()) {
@@ -132,7 +132,7 @@ class StoreController extends AppController {
 
         $layout = 'order';
         // display view
-        $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
+        $this->getView()->addTemplatePath($this->template->getPath().'/orders/')->setLayout($layout)->display();
         
 
     }
@@ -154,7 +154,7 @@ class StoreController extends AppController {
             $conditions = is_null($conditions) ? $filters[$filter] : "$conditions AND {$filters[$filter]}";
         }
         //$conditions = is_null($conditions) ? "orderDate BETWEEN '2015-06-01' AND '2015-06-30'" : "$conditions AND orderDate BETWEEN '2015-06-01' AND '2015-06-30'";
-        $this->orders = $this->app->table->order->all(array('conditions' => $conditions, 'order' => 'id DESC'));
+        $this->orders = $this->app->table->orderdev->all(array('conditions' => $conditions, 'order' => 'id DESC'));
         $this->record_count = count($this->orders);
         $layout = 'orders';
         // Page Title
@@ -162,7 +162,7 @@ class StoreController extends AppController {
         $this->app->document->setTitle($this->app->zoo->buildPageTitle($this->title));
 
         // display view
-        $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
+        $this->getView()->addTemplatePath($this->template->getPath().'/orders/')->setLayout($layout)->display();
 
     }
 

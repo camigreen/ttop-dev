@@ -30,10 +30,8 @@ class OrderEvent {
         $items = $order->elements->get('items.', array());
         foreach($items as $key => $item) {
         	$item = $app->item->create($item);
-         	$order->elements->set('items.'.$key, $item);
-         }
-        //$order->elements->set('items', $app->parameter->create($items));
-
+          	$order->elements->set('items.'.$key, $item);
+        }
 	}
 
 	/**

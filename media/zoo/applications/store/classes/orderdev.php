@@ -178,6 +178,9 @@ class OrderDev {
     }
 
     public function getTotal($display = 'retail') {
+    	if($this->isProcessed()) {
+    		return $this->total;
+    	}
     	$this->total = $this->getSubTotal($display) + $this->getTaxTotal() + $this->getShippingTotal();
     	return $this->total;
     }

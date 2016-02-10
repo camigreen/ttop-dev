@@ -28,6 +28,23 @@ class OrderDevTable extends AppTable {
 		$result = parent::save($object);
 		return $result;
 	}
+
+	protected function _initObject($object) {
+
+		parent::_initObject($object);
+	
+		// add to cache
+		$key_name = $this->key;
+
+		if ($object->$key_name && !key_exists($object->$key_name, $this->_objects)) {
+			$this->_objects[$object->$key_name] = $object;
+		}
+
+		// trigger init event
+		$this->app->event->dispatcher->notify($this->app->event->create($object, 'order:init'));
+
+		return $object;
+	}
 }
 
 /*

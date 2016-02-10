@@ -59,4 +59,12 @@ class OrderDevHelper extends AppHelper {
         return $order;
     }
 
+    public function getStatus($order) {
+        return JText::_('ORDER_STATUS_'.$order->getStatus());
+    }
+
+    public function getPaymentStatus($order) {
+        return JText::_('ORDER_PAYMENT_STATUS_'.$order->params->get('payment.status'));
+    }
+
 }
