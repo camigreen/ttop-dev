@@ -266,13 +266,15 @@ class CheckoutController extends AppController {
     }
 
     public function getPDF() {
+        $id = $this->app->request->get('id','int');
+        if (!$order = $this->app->orderdev->get($id)) {
+            return $this->app->error->raiseError(10000, JText::_('ERROR_10000'));
+        }
         $type = $this->app->request->get('type','string', 'default');
         $form = $this->app->request->get('form', 'string');
         $this->app->document->setMimeEncoding('application/pdf');
         $pdf = $this->app->pdf->create($form, $type);
-        $id = $this->app->request->get('id','int');
-        $order = $this->app->orderdev->get($id);
-
+        
         $pdf->setData($order)->generate()->toBrowser();
     }
 

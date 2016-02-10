@@ -388,8 +388,7 @@ jQuery(function($){
                                 var items = data.args.items
                                 $.each(items, function(key, item){
                                     console.log(item);
-                                    item.title = '';
-                                    item.title = item.name+' for a '+item.options.year.text+' '+item.attributes.oem.name+' '+item.attributes.boat_model.text;
+                                    item.name = item.name+' for a '+item.options.year.text+' '+item.attributes.oem.name+' '+item.attributes.boat_model.text;
                                 })
 
                                 return data;

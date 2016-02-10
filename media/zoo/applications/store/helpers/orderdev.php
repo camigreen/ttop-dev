@@ -30,13 +30,15 @@ class OrderDevHelper extends AppHelper {
         } 
         
         $order = $this->table->get($id);
-
-        // trigger the init event
-        $this->app->event->dispatcher->notify($this->app->event->create($order, 'order:init'));
-
-        $this->_order[$id] = $order;
-
-        return $this->_order[$id];
+        if($order) {
+            // trigger the init event
+            $this->app->event->dispatcher->notify($this->app->event->create($order, 'order:init'));
+            $this->_order[$id] = $order;
+            return $this->_order[$id];
+        } else {
+            return false;
+        }
+        
     }
     
     public function create() {

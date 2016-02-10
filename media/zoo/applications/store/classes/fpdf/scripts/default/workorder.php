@@ -49,25 +49,20 @@ class WorkOrderFormPDF extends FormPDF {
 	    			array('format' => 'item-options','text' => implode("\n",$options))
 	    		),
 	    		'qty' => array('text' => $item->qty),
-	    		'msrp' => array('text' => $item->getTotal('retail')),
-	    		'markup_price' => array('text' => $this->app->number->currency($item->getTotal('markup'), array('currency' => 'USD'))."\n".$item->getPrice()->getMarkupRate().' Markup'),
-	    		'dealer_price' => array('text' => $this->app->number->currency($item->getTotal('discount'), array('currency' => 'USD'))."\n".$item->getPrice()->getDiscountRate().' Discount'),
-	    		'dealer_profit' => array('text' => $this->app->number->currency($item->getTotal('margin'), array('currency' => 'USD'))."\nTotal Discount ".$item->getPrice()->getProfitRate())
+	    		'price' => array('text' => $item->getTotal('retail'))
 	    	);
 
 	    }
 
 	    $order->set('items', $item_array);
 	    $tzoffset = $this->app->date->getOffset();
+	    $salesperson = $this->app->user->get($order->created_by) ?  $this->app->user->get($order->created_by)->name : 'Website';
 	    $order->set('created', $this->app->html->_('date', $order->created, JText::_('DATE_FORMAT_STORE1'), $tzoffset));
-	    $order->set('salesperson', $this->app->account->get($order->created_by)->name);
+	    $order->set('salesperson', $salesperson);
 	    $order->set('delivery_method', JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : ''));
-	    $order->set('account_name', $order->elements->get('payment.account_name'));
-	    $order->set('account_number', $order->elements->get('payment.account_number'));
-	    $order->set('po_number', $order->elements->get('payment.po_number'));
 	    $order->set('customer', $order->elements->get('payment.customer_name'));
-	    $order->set('terms', JText::_(($terms = $order->params->get('terms')) ? 'ACCOUNT_TERMS_'.$terms : ''));
 	    $order->set('transaction_id', $order->elements);
+	    $order->set('payment_info', $order->params->get('payment.creditcard.cardNumber').' '.$order->params->get('payment.creditcard.card_name'));
 	    $order->remove('app');
 
 		return parent::setData($order);
