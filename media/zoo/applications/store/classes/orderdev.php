@@ -46,7 +46,7 @@ class OrderDev {
 		try {
             $this->created = $this->app->date->create($this->created, $tzoffset)->toSQL();
         } catch (Exception $e) {
-            $this->created = $this->app->date->create()->toSQL();
+            $this->created = $now->toSQL();
         }
         $this->created_by = $cUser->id;
 

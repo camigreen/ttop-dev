@@ -2,7 +2,7 @@
 $total = 0;
 $filter = $this->app->request->get('filter','string','all');
 $order_number = $this->app->request->get('order_number','string',null);
-//var_dump($this->orders);
+
 ?>
 <div class="">
 	<div class="uk-article-title uk-text-center">

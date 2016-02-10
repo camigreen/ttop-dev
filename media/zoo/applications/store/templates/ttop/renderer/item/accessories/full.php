@@ -11,7 +11,7 @@ defined('_JEXEC') or die('Restricted access');
 $class = $item->type.'-full';
 $data_item = array('id' => $item->id, 'name' => $item->name);
 $storeItem = $this->app->item->create($item, $item->alias);
-//var_dump($storeItem->options);
+// var_dump($storeItem->options);
 
 ?>
 <div id="storeOrderForm" class="<?php echo $item->type; ?>">
@@ -44,10 +44,10 @@ $storeItem = $this->app->item->create($item, $item->alias);
         </div>
         <div class="uk-width-1-3 uk-margin-top">
             <div class="uk-width-1-1 uk-grid price-container">
-                        <?php if ($this->checkPosition('pricing')) : ?>
-                                <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
-                        <?php endif; ?>
-                    </div>
+                <?php if ($this->checkPosition('pricing')) : ?>
+                        <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                <?php endif; ?>
+            </div>
             <div class="uk-width-1-1 options-container uk-margin-top" data-id="<?php echo $storeItem->id; ?>">
                 <?php if ($this->checkPosition('options')) : ?>
                     <div class="uk-panel uk-panel-box">

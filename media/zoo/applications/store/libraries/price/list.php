@@ -733,6 +733,15 @@ $price['ubsk.W.extended.shipping.weight'] = 20;
 //     )    
 // );
 
+$price['super-gard-fenders.item.base'] = 0;
+$price['super-gard-fenders.item.option.fender_size.5-5x20'] = 34.99;
+$price['super-gard-fenders.item.option.fender_size.6-5x22'] = 59.99;
+$price['super-gard-fenders.item.option.fender_size.8-5x26'] = 89.99;
+$price['super-gard-fenders.item.option.fender_size.10-5x30'] = 99.99;
+$price['super-gard-fenders.shipping.weight'] = 7.5;
+$price['super-gard-fenders.shipping.price'] = 0;
+
+
 // $prices['super-gard-fenders-2'] = array(
 //     'item' => array(
 //         '5.5x20' => 34.99,

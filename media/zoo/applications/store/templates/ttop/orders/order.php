@@ -6,14 +6,22 @@
 	if($this->app->account->get($order->account)->isReseller()) {
 		$type='&type=reseller';
 	}
+$tzoffset = $this->app->date->getOffset();
+$now = $this->app->date->create($order->created, $tzoffset);
+	var_dump($now->toSQL());
+	
+	echo $tzoffset;
+	var_dump($this->app->date->create($now, $tzoffset)->toSQL());
 ?>
 <div class="uk-width-1-1 uk-margin-bottom">
 	<a href="/orders/all-orders" class="uk-button uk-button-primary">Back to All Orders</a>
 	<a href="/store/checkout?task=getPDF&form=workorder<?php echo $type; ?>&id=<?php echo $this->order->id; ?>&format=raw" target="_blank" class="uk-button uk-button-primary">Print Work Order</a>
 	<a href="/store/checkout?task=getPDF&form=receipt<?php echo $type; ?>&id=<?php echo $this->order->id; ?>&format=raw" target="_blank" class="uk-button uk-button-primary">Download Receipt</a>
 </div>
-<div class="uk-width-1-1">
-	<div>Order ID: <?php echo $order->id; ?></div>
+<div class="uk-width-1-3">
+	<div>Order ID: <?php echo JText::_('ACCOUNT_TERMS_'.$this->order->params->get('terms')); ?></div>
+	<div>Order Date: <?php echo $this->order->getOrderDate(); ?></div>
+	<div>Status: <?php echo $this->app->orderdev->getStatus($order); ?></div>
 </div>
 <div class="uk-width-1-1">
 	<div class="uk-grid">
