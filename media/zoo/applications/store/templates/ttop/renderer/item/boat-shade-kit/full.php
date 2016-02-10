@@ -450,17 +450,17 @@ $storeItem = $this->app->item->create($item, 'bsk');
 
                             $('.bow-measurements input').on('change',function(){
                                 measurements.changed = true;
-                                self.trigger('measure', {item: this.items['bsk-bow'], type: ['bow']});
+                                self.trigger('measure', {item: self.items['bsk-bow'], type: ['bow']});
                                 
 
                             });
                             $('.aft-measurements input').on('change',function(e){
                                 measurements.changed = true;
-                                self.trigger('measure', {item: this.items['bsk-aft'], type: ['aft']});
+                                self.trigger('measure', {item: self.items['bsk-aft'], type: ['aft']});
 
                             });
 
-                            this.trigger('measure', {item: this.items['bsk-aft'],type: type});
+                            this.trigger('measure', {item: self.items['bsk-aft'],type: type});
                             return data;
                             
                         }
@@ -501,7 +501,8 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             
                             function checkMinAndMax(type) {
                                 var result = true;
-                                var args = {type: type};
+                                var item = data.args.item;
+                                var args = {type: type, item: item};
                                 $.each(m[type].location, function(k,v){
                                     if (v.total < v.min) {
                                         self.trigger(k+'TooSmall',args);
@@ -597,6 +598,28 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             return data;
                         }
                     ],
+                    beamTooSmall: [
+                        function (data) {
+                            var type = data.args.type;
+                            $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a beam measurement less than '+measurements[type].location.beam.min+' inches are too small for our Boat Shade Kit.');
+                            $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below to send us an email.');
+                            
+                            $('.bsk-type-'+type+' #beam-width-in').val(measurements[type].location.beam.min).trigger('input');
+                            $('#toUBSK button.confirm').click(function(){
+                                window.location = '/about-us/contact-us';
+                            }).html('Contact Us');
+                            
+                            $('#toUBSK button.cancel').click(function(){
+                                $('#toUBSK button').off();
+                                toUBSK_modal.hide();
+
+                            });
+                            
+                            toUBSK_modal.options.bgclose = false;
+                            toUBSK_modal.show();
+                            return false;
+                        }
+                    ],
                     beamTooLarge: [
                         function (data) {
                             var type = data.args.type;
@@ -611,6 +634,28 @@ $storeItem = $this->app->item->create($item, 'bsk');
                                 $('.bsk-type-'+type+' #beam-width-in').val(measurements[type].location.beam.max).trigger('input');
                                 $('#toUBSK button').off();
                                 $('#toUBSK button.confirm').html('Show Me');
+                                toUBSK_modal.hide();
+
+                            });
+                            
+                            toUBSK_modal.options.bgclose = false;
+                            toUBSK_modal.show();
+                            return false;
+                        }
+                    ],
+                    ttopTooSmall: [
+                        function (data) {
+                            var type = data.args.type;
+                            $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a beam measurement less than '+measurements[type].location.ttop.min+' inches are too small for our Boat Shade Kit.');
+                            $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
+                            
+                            $('.bsk-type-'+type+' #ttop-width-in').val(measurements[type].location.ttop.min).trigger('input');
+                            $('#toUBSK button.confirm').click(function(){
+                                window.location = '/about-us/contact-us';
+                            }).html('Contact Us');
+                            
+                            $('#toUBSK button.cancel').click(function(){
+                                $('#toUBSK button').off();
                                 toUBSK_modal.hide();
 
                             });
@@ -650,7 +695,7 @@ $storeItem = $this->app->item->create($item, 'bsk');
 
                             $('.bsk-type-'+type+' #ttop2rod-in').val(measurements[type].location.ttop2rod.min).trigger('change');
                             $('#toUBSK button.confirm').click(function(){
-                                window.location = '/contact-us';
+                                window.location = '/about-us/contact-us';
                             }).html('Contact Us');
 
                             $('#toUBSK button.cancel').click(function(){
@@ -680,50 +725,6 @@ $storeItem = $this->app->item->create($item, 'bsk');
                                 toUBSK_modal.hide();
 
                             });
-                            toUBSK_modal.options.bgclose = false;
-                            toUBSK_modal.show();
-                            return false;
-                        }
-                    ],
-                    beamTooSmall: [
-                        function (data) {
-                            var type = data.args.type;
-                            $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a beam measurement less than '+measurements[type].location.beam.min+' inches are too small for our Boat Shade Kit.');
-                            $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below to send us an email.');
-                            
-                            $('.bsk-type-'+type+' #beam-width-in').val(measurements[type].location.beam.min).trigger('input');
-                            $('#toUBSK button.confirm').click(function(){
-                                window.location = '/contact-us';
-                            }).html('Contact Us');
-                            
-                            $('#toUBSK button.cancel').click(function(){
-                                $('#toUBSK button').off();
-                                toUBSK_modal.hide();
-
-                            });
-                            
-                            toUBSK_modal.options.bgclose = false;
-                            toUBSK_modal.show();
-                            return false;
-                        }
-                    ],
-                    ttopTooSmall: [
-                        function (data) {
-                            var type = data.args.type;
-                            $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a beam measurement less than '+measurements[type].location.ttop.min+' inches are too small for our Boat Shade Kit.');
-                            $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
-                            
-                            $('.bsk-type-'+type+' #ttop-width-in').val(measurements[type].location.ttop.min).trigger('input');
-                            $('#toUBSK button.confirm').click(function(){
-                                window.location = '/contact-us';
-                            }).html('Contact Us');
-                            
-                            $('#toUBSK button.cancel').click(function(){
-                                $('#toUBSK button').off();
-                                toUBSK_modal.hide();
-
-                            });
-                            
                             toUBSK_modal.options.bgclose = false;
                             toUBSK_modal.show();
                             return false;
