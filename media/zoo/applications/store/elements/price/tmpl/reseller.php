@@ -25,7 +25,7 @@ $price = $item->getPrice();
 	                	UIkit.modal.confirm(data.html, function(){
 							$('input[name="markup"]').val($('input:radio[name="markup_select"]:checked').val());
 							$('#storeOrderForm').StoreItem('setMarkup',[StoreItem.id,$('input:radio[name="markup_select"]:checked').val()]);
-							$('#storeOrderForm').StoreItem('_publishPrice',StoreItem.id);
+							$('#storeOrderForm').StoreItem('_publishPrice',StoreItem);
 						});
 
 	                	markup = data.markup*100;

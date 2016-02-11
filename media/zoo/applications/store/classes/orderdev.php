@@ -216,7 +216,6 @@ class OrderDev {
 		// Init vars
 		$taxtotal = 0;
 		$taxrate = 0.07;
-
 		if(!$this->isTaxable()) {
 			$this->tax_total = 0;
 			return $this->tax_total;

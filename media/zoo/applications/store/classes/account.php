@@ -499,7 +499,7 @@ class Account {
     }
 
     public function isTaxExempt() {
-        return (bool) $this->elements->get('tax_exempt', false);
+        return (bool) $this->params->get('tax_exempt', false);
     }
 
     public function isReseller() {
