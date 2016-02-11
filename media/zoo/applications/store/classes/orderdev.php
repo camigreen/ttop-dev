@@ -208,6 +208,10 @@ class OrderDev {
 	}
 
 	public function getTaxTotal() {
+
+		if($this->isProcessed()) {
+			return $this->tax_total;
+		}
 		
 		// Init vars
 		$taxtotal = 0;
