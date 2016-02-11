@@ -81,6 +81,10 @@ class TestController extends AppController {
 
 	}
 
+	public function testUser() {
+		$user = $this->app->userprofile->get(776);
+	}
+
 
 }
 ?>
