@@ -55,7 +55,7 @@ class AccountTable extends AppTable {
 		// fetch object and execute init callback
 		$object = null;
 		if ($object = $this->database->fetchObject($result)) {
-			list($type) = explode('.', $object->type,2);
+			$type = $oject->type;
 			$class = $type."Account";
 
 			$this->app->loader->register($class, 'classes:accounts/'.strtolower($type).'.php');

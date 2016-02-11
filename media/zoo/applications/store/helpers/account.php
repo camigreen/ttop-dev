@@ -24,7 +24,11 @@ class AccountHelper extends AppHelper {
         
 	}
 
-	public function get($id) {
+	public function get($id = null) {
+
+		if(!$id) {
+			$user = $this->app->user->get();
+		}
 
 		if (!isset($this->_accounts[$id])) {
 			$account = $this->table->get($id);
@@ -75,6 +79,19 @@ class AccountHelper extends AppHelper {
 
 		$db = $this->app->database;
 		$id = $db->queryResult('SELECT parent FROM #__zoo_account_user_map WHERE child = '.$user->id);
+		if(!$id) {
+			return null;
+		} 
+		
+		$account = $this->get($id);
+
+		return $account;
+	}
+
+	public function getAccountUsers($account) {
+
+		$db = $this->app->database;
+		$users = $db->queryResultArray("SELECT user_id FROM #__user_profiles WHERE profile_key = 'profile.account' AND profile_value = '$account->id'");
 		if(!$id) {
 			return null;
 		} 
