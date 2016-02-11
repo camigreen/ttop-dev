@@ -45,7 +45,6 @@
 			<?php 
 				$values['parents'] = $this->account->getParents();
 				$values['groups'] = $this->account->getUser()->getAuthorisedGroups();
-				unset($values['groups'][0]);
 				$this->form->setValues($values);
 			?>
 			<?php if($this->form->checkGroup('related')) : ?>
