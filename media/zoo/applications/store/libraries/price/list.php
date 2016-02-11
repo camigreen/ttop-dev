@@ -693,305 +693,142 @@ $price['ubsk.W.extended.shipping.weight'] = 20;
 
 // //Taylor Made Products
 
+$price['big-b-fenders-2.item.base'] = 0;
+$price['big-b-fenders-2.item.option.fender_size.6x15'] = 39.99;
+$price['big-b-fenders-2.item.option.fender_size.8x20'] = 57.99;
+$price['big-b-fenders-2.item.option.fender_size.10x26'] = 84.99;
+$price['big-b-fenders-2.item.option.fender_size.12x34'] = 114.99;
+$price['big-b-fenders-2.shipping.weight'] = 11;
+$price['big-b-fenders-2.shipping.price'] = 0;
 
-// $prices['fisherman-catch-flags-2'] = array(
-//     'item' => 12.99,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
+$price['super-gard-fenders-2.item.base'] = 0;
+$price['super-gard-fenders-2.item.option.fender_size.5-5x20'] = 34.99;
+$price['super-gard-fenders-2.item.option.fender_size.6-5x22'] = 59.99;
+$price['super-gard-fenders-2.item.option.fender_size.8-5x26'] = 89.99;
+$price['super-gard-fenders-2.item.option.fender_size.10-5x30'] = 99.99;
+$price['super-gard-fenders-2.shipping.weight'] = 7.5;
+$price['super-gard-fenders-2.shipping.price'] = 0;
 
-// $prices['pirate-head-flags-2'] = array(
-//     'item' => 16.99,
-// 	'shipping' => array(
-// 	    'weight' => 1,
-// 		'price' => 0.00
-// 	)
-// );
+$price['super-gard-swirl-fenders-2.item.base'] = 0;
+$price['super-gard-swirl-fenders-2.item.option.fender_size.5-5x20'] = 34.99;
+$price['super-gard-swirl-fenders-2.item.option.fender_size.6-5x22'] = 59.99;
+$price['super-gard-swirl-fenders-2.item.option.fender_size.8-5x26'] = 89.99;
+$price['super-gard-swirl-fenders-2.shipping.weight'] = 5;
+$price['super-gard-swirl-fenders-2.shipping.price'] = 0;
 
-// $prices['big-b-fenders-2'] = array(
-//     'item' => array(
-//         '6x15' => 39.99,
-//         '8x20' => 57.99,
-//         '10x26' => 84.99,
-//         '12x34' => 114.99
-//     ),
-//     'shipping' => array(
-//         '6x15' => array(
-//             'weight' => 2.5
-//         ),
-//         '8x20' => array(
-//             'weight' => 4.5
-//         ),
-//         '10x26' => array(
-//             'weight' => 8
-//         ),
-//         '12x34' => array(
-//             'weight' => 11
-//         )
-//     )    
-// );
+$price['premium-fender-covers-2.item.base'] = 0;
+$price['premium-fender-covers-2.item.option.cover_size.small'] = 26.99;
+$price['premium-fender-covers-2.item.option.cover_size.medium'] = 31.99;
+$price['premium-fender-covers-2.item.option.cover_size.large'] = 39.99;
+$price['premium-fender-covers-2.item.option.cover_size.x-large'] = 49.99;
+$price['premium-fender-covers-2.shipping.weight'] = 1.25;
+$price['premium-fender-covers-2.shipping.price'] = 0;
 
-$price['super-gard-fenders.item.base'] = 0;
-$price['super-gard-fenders.item.option.fender_size.5-5x20'] = 34.99;
-$price['super-gard-fenders.item.option.fender_size.6-5x22'] = 59.99;
-$price['super-gard-fenders.item.option.fender_size.8-5x26'] = 89.99;
-$price['super-gard-fenders.item.option.fender_size.10-5x30'] = 99.99;
-$price['super-gard-fenders.shipping.weight'] = 7.5;
-$price['super-gard-fenders.shipping.price'] = 0;
+$price['tidy-ups-fender-adjuster-2.item.base'] = 19.99;
+$price['tidy-ups-fender-adjuster-2.shipping.weight'] = 1.25;
+$price['tidy-ups-fender-adjuster-2.shipping.price'] = 0;
 
+$price['helm-cushions-2.item.base'] = 0;
+$price['helm-cushions-2.item.option.size.12x24'] = 49.99;
+$price['helm-cushions-2.item.option.size.18x36'] = 99.00;
+$price['helm-cushions-2.shipping.weight'] = 5;
+$price['helm-cushions-2.shipping.price'] = 0;
 
-// $prices['super-gard-fenders-2'] = array(
-//     'item' => array(
-//         '5.5x20' => 34.99,
-//         '6.5x22' => 59.99,
-//         '8.5x26' => 89.99,
-//         '10.5x30' => 99.99
-//     ),
-//     'shipping' => array(
-//         '5.5x20' => array(
-// 		    'weight' => 2
-// 		),
-//         '6.5x22' => array(
-// 		    'weight' => 3
-// 		),
-//         '8.5x26' => array(
-// 		     'weight' => 5
-// 		),
-//             '10.5x30' => array(
-// 			    'weight' => 7.5
-// 		)
-// 	)
-// );
-// $prices['premium-fender-covers-2'] = array(
-//     'item' => array(
-//         'small' => 26.99,
-//         'medium' => 31.99,
-//         'large' => 39.99,
-//         'x-large' => 49.99
-//     ),
-//     'shipping' => array(
-//         'small' => array(
-// 		    'weight' => 1
-// 		),
-//         'medium' => array(
-// 			'weight' => 1
-// 		),
-//         'large' => array(
-// 			'weight' => 1
-// 		),	
-//         'x-large' => array(
-// 		    'weight' => 1.25
-// 		)
-// 	)
-// );
+$price['riser-panels-2.item.base'] = 0;
+$price['riser-panels-2.item.option.size.12x24'] = 39.99;
+$price['riser-panels-2.item.option.size.18x36'] = 69.00;
+$price['riser-panels-2.shipping.weight'] = 5;
+$price['riser-panels-2.shipping.price'] = 0;
 
-// $prices['tidy-ups-fender-adjuster-2'] = array(
-//     'item' => array(
-//         'whitevinyl' => 19.99,
-//         'blackvinyl' => 19.99,
-//         'bluevinyl' => 19.99
-//     ),
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
+$price['braided-rope-2.item.base'] = 17.99;
+$price['braided-rope-2.shipping.weight'] = 1;
+$price['braided-rope-2.shipping.price'] = 0;
 
-// $prices['helm-cushions-2'] = array(
-//     'item' => array(
-//         '12x24' => 49.99,
-//         '18x36' => 99.00
-//     ),
-//     'shipping' => array(
-//         '12x24' => array(
-// 		    'weight' => 4
-// 		),
-//         '18x36' => array(
-// 		    'weight' => 5
-//         )
-//     )
-// );
+$price['fender-lock-2.item.base'] = 29.95;
+$price['fender-lock-2.shipping.weight'] = 1;
+$price['fender-lock-2.shipping.price'] = 0;
 
-// $prices['riser-panels-2'] = array(
-//     'item' => array(
-//         '12x24' => 39.99,
-//         '18x36' => 69.99
-//     ),
-//     'shipping' => array(
-//         '12x24' => array(
-// 		    'weight' => 4
-// 		),
-//         '18x36' => array(
-// 		    'weight' => 5
-//         )
-// 	)
-// );
+$price['teak-flag-poles-2.item.base'] = 0;
+$price['teak-flag-poles-2.item.option.teak_size.1'] = 25.99;
+$price['teak-flag-poles-2.item.option.teak_size.2'] = 29.99;
+$price['teak-flag-poles-2.item.option.teak_size.3'] = 29.99;
+$price['teak-flag-poles-2.item.option.teak_size.4'] = 36.99;
+$price['teak-flag-poles-2.item.option.teak_size.5'] = 46.99;
+$price['teak-flag-poles-2.shipping.weight'] = 4;
+$price['teak-flag-poles-2.shipping.price'] = 0;
 
-// $prices['braided-rope-2'] = array(
-//     'item' => 17.99,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['super-gard-swirl-fenders-2'] = array(
-//     'item' => array(
-//         '5.5x20' => 34.99,
-//         '6.5x22' => 59.99,
-//         '8.5x26' => 89.99
-//     ),
-//     'shipping' => array(
-//         '5.5x20' => array(
-// 		    'weight' => 2
-// 		),
-//         '6.5x22' => array(
-// 		    'weight' => 3
-// 		),
-//         '8.5x26' => array(
-// 		    'weight' => 5
-//         )
-// 	)
-// );
+$price['fisherman-catch-flags-2.item.base'] = 12.99;
+$price['fisherman-catch-flags-2.shipping.weight'] = 1;
+$price['fisherman-catch-flags-2.shipping.price'] = 0;
 
-// $prices['fender-lock-2'] = array(
-//     'item' => 29.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-
-// $prices['teak-flag-poles-2'] = array(
-//     'item' => array(
-//         '1' => 25.99,
-//         '2' => 29.99,
-//         '3' => 29.99,
-// 		'4' => 36.99,
-// 		'5' => 46.99
-//     ),
-//     'shipping' => array(
-//         'weight' => 4,
-//         'price' => 0.00
-//     )
-// );
-
-
+$price['pirate-head-flags-2.item.base'] = 16.99;
+$price['pirate-head-flags-2.shipping.weight'] = 1;
+$price['pirate-head-flags-2.shipping.price'] = 0;
 
 // //Mate Sereies Rod & Cup Holders
 
-// $prices['stainless-steel-rod-cup-holder-ms'] = array(
-//     'item' => 119.95,
-//     'shipping' => array(
-//         'weight' => 3.5,
-//         'price' => 0.00
-//     )
-// );
-// $prices['stainless-steel-rod-cup-holder-ttbc'] = array(
-//     'item' => 119.95,
-//     'shipping' => array(
-//         'weight' => 3.5,
-//         'price' => 0.00
-//     )
-// );
+$price['stainless-steel-rod-cup-holder-ms.item.base'] = 119.95;
+$price['stainless-steel-rod-cup-holder-ms.shipping.weight'] = 3.5;
+$price['stainless-steel-rod-cup-holder-ms.shipping.price'] = 0;
 
-// $prices['abs-plastic-w-round-top-ttbc'] = array(
-//     'item' => 19.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['abs-plastic-w-round-top-ms'] = array(
-//     'item' => 19.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['abs-plastic-w-oval-top-ttbc'] = array(
-//     'item' => 19.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['abs-plastic-w-oval-top-ms'] = array(
-//     'item' => 19.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['elite-screwless-rod-cup-holder-ms'] = array(
-//     'item' => 139.95,
-//     'shipping' => array(
-//         'weight' => 3.5,
-//         'price' => 0.00
-//     )
-// );
-// $prices['316-stainless-w-round-top-ttbc'] = array(
-//     'item' => 139.95,
-//     'shipping' => array(
-//         'weight' => 3.5,
-//         'price' => 0.00
-//     )
-// );
-// $prices['metal-cap-oval-ttbc'] = array(
-//     'item' => 13.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['metal-cap-oval-ms'] = array(
-//     'item' => 13.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['metal-cap-round-ttbc'] = array(
-//     'item' => 13.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['metal-cap-round-ms'] = array(
-//     'item' => 13.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['backing-plate-ttbc'] = array(
-//     'item' => 19.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['backing-plate-ms'] = array(
-//     'item' => 19.95,
-//     'shipping' => array(
-//         'weight' => 1,
-//         'price' => 0.00
-//     )
-// );
-// $prices['rod-holder-swivel-ttbc'] = array(
-//     'item' => 45.00,
-//     'shipping' => array(
-//         'weight' => 0,
-//         'price' => 0.00
-//     )
-// );
-// $prices['rod-holder-swivel-ms'] = array(
-//     'item' => 45.00,
-//     'shipping' => array(
-//         'weight' => 0,
-//         'price' => 0.00
-//     )
-// );
-// ?>
+$price['stainless-steel-rod-cup-holder-ttbc.item.base'] = 119.95;
+$price['stainless-steel-rod-cup-holder-ttbc.shipping.weight'] = 3.5;
+$price['stainless-steel-rod-cup-holder-ttbc.shipping.price'] = 0;
+
+$price['abs-plastic-w-round-top-ttbc.item.base'] = 19.95;
+$price['abs-plastic-w-round-top-ttbc.shipping.weight'] = 1;
+$price['abs-plastic-w-round-top-ttbc.shipping.price'] = 0;
+
+$price['abs-plastic-w-round-top-ms.item.base'] = 19.95;
+$price['abs-plastic-w-round-top-ms.shipping.weight'] = 1;
+$price['abs-plastic-w-round-top-ms.shipping.price'] = 0;
+
+$price['abs-plastic-w-oval-top-ttbc.item.base'] = 19.95;
+$price['abs-plastic-w-oval-top-ttbc.shipping.weight'] = 1;
+$price['abs-plastic-w-oval-top-ttbc.shipping.price'] = 0;
+
+$price['abs-plastic-w-oval-top-ms.item.base'] = 19.95;
+$price['abs-plastic-w-oval-top-ms.shipping.weight'] = 1;
+$price['abs-plastic-w-oval-top-ms.shipping.price'] = 0;
+
+$price['elite-screwless-rod-cup-holder-ms.item.base'] = 139.95;
+$price['elite-screwless-rod-cup-holder-ms.shipping.weight'] = 3.5;
+$price['elite-screwless-rod-cup-holder-ms.shipping.price'] = 0;
+
+$price['316-stainless-w-round-top-ttbc.item.base'] = 139.95;
+$price['316-stainless-w-round-top-ttbc.shipping.weight'] = 3.5;
+$price['316-stainless-w-round-top-ttbc.shipping.price'] = 0;
+
+$price['metal-cap-oval-ttbc.item.base'] = 13.95;
+$price['metal-cap-oval-ttbc.shipping.weight'] = 1;
+$price['metal-cap-oval-ttbc.shipping.price'] = 0;
+
+$price['metal-cap-oval-ms.item.base'] = 13.95;
+$price['metal-cap-oval-ms.shipping.weight'] = 1;
+$price['metal-cap-oval-ms.shipping.price'] = 0;
+
+$price['metal-cap-round-ttbc.item.base'] = 13.95;
+$price['metal-cap-round-ttbc.shipping.weight'] = 1;
+$price['metal-cap-round-ttbc.shipping.price'] = 0;
+
+$price['metal-cap-round-ms.item.base'] = 13.95;
+$price['metal-cap-round-ms.shipping.weight'] = 1;
+$price['metal-cap-round-ms.shipping.price'] = 0;
+
+$price['backing-plate-ttbc.item.base'] = 19.95;
+$price['backing-plate-ttbc.shipping.weight'] = 1;
+$price['backing-plate-ttbc.shipping.price'] = 0;
+
+$price['backing-plate-ms.item.base'] = 19.95;
+$price['backing-plate-ms.shipping.weight'] = 1;
+$price['backing-plate-ms.shipping.price'] = 0;
+
+$price['rod-holder-swivel-ttbc.item.base'] = 45.00;
+$price['rod-holder-swivel-ttbc.shipping.weight'] = 1;
+$price['rod-holder-swivel-ttbc.shipping.price'] = 0;
+
+$price['rod-holder-swivel-ms.item.base'] = 45.00;
+$price['rod-holder-swivel-ms.shipping.weight'] = 1;
+$price['rod-holder-swivel-ms.shipping.price'] = 0;
+
+?>
