@@ -8,10 +8,7 @@
 	}
 $tzoffset = $this->app->date->getOffset();
 $now = $this->app->date->create($order->created, $tzoffset);
-	var_dump($now->toSQL());
-	
-	echo $tzoffset;
-	var_dump($this->app->date->create($now, $tzoffset)->toSQL());
+
 ?>
 <div class="uk-width-1-1 uk-margin-bottom">
 	<a href="/orders/all-orders" class="uk-button uk-button-primary">Back to All Orders</a>
