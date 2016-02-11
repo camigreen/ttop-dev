@@ -87,6 +87,8 @@ class Account {
             }
         }
 
+        
+
         foreach($data as $key => $value) {
             if(property_exists($this, $key) && $key != 'elements' && $key != 'params') {
                 $this->$key = $value;
@@ -496,8 +498,8 @@ class Account {
         return $this;
     }
 
-    public function isTaxable() {
-        return (bool) !$this->elements->get('tax_exempt', false);
+    public function isTaxExempt() {
+        return (bool) $this->elements->get('tax_exempt', false);
     }
 
     public function isReseller() {

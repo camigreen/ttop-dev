@@ -213,7 +213,7 @@ class OrderDev {
 		$taxtotal = 0;
 		$taxrate = 0.07;
 
-		
+		var_dump($this->isTaxable());
 		if(!$this->isTaxable()) {
 			$this->tax_total = 0;
 			return $this->tax_total;
@@ -250,17 +250,22 @@ class OrderDev {
 	}
 
 	public function isTaxable() {
-
+		//Is the account tax exempt?
+        if($this->getAccount()->isTaxExempt()) {
+            return false;
+        }
+        // Check if the billing state is a taxable state.
         $state = $this->elements->get('billing.state');
         $taxable = false;
         $taxable_states = array('SC');
         if ($state) {
-            $taxable = (!in_array($state,$taxable_states));
+            $taxable = (in_array($state,$taxable_states));
+        }
+        // If is is set for local pickup it is considered taxable.
+        if($this->elements->get('shipping_method') == 'LP') {
+        	$taxable = true;
         }
 
-        if($account = $this->getAccount()) {
-            $taxable = $account->isTaxable();
-        }
         return $taxable;
     }
 
