@@ -424,7 +424,7 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             this.fields['bsk-aft'] = $.extend(true, {}, fields);
                             this.fields['bsk-bow'] = $.extend(true, {}, fields);
                             $('#use_on_bow').on('change',function(e){
-                                self.trigger('measure', {item: this.items['bsk-aft'], type: ['aft']});
+                                self.trigger('measure', {item: self.items['bsk-aft'], type: ['aft']});
                             });
 
                             $('.bsk-chooser .bsk-chooser-buttons li').on('click',function(e){
