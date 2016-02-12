@@ -9,6 +9,7 @@
                 <position name="aft_measurements">Aft Measurements</position>
                 <position name="bow_measurements">Bow Measurements</position>
                 <position name="measurement_info">Measurement Info</position>
+                <position name="pricing">Pricing</position>
                 <position name="accessories">Accessories</position>
                 <position name="modals">Modals</position>
         </positions>

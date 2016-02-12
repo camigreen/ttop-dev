@@ -14,7 +14,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
 <article>
     <span class="uk-article-title"><?php echo $item->name; ?></span>
 </article>
-<div id="storeItemForm" class="uk-form uk-margin">
+<div id="storeOrderForm" class="uk-form uk-margin">
     <div id="<?php echo $storeItem->id; ?>" class="uk-grid storeItem" data-item="<?php echo $storeItem->getItemsJSON(); ?>">
         <div class="uk-width-2-3 ubsk-slideshow">
             <div class="uk-width-5-6 uk-container-center uk-margin">
@@ -69,9 +69,10 @@ $storeItem = $this->app->item->create($item, 'ubsk');
                                     </a>
                                 </div>
                             </div>
-                            <div id="ubsk-price"class="uk-width-1-2">
-                                <i class="currency"></i>
-                                <span class="price">0.00</span>
+                            <div class="uk-width-1-2 uk-grid price-container">
+                                <?php if ($this->checkPosition('pricing')) : ?>
+                                        <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                                <?php endif; ?>
                             </div>
                             <div class="uk-width-1-2">
                                 <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>
@@ -285,7 +286,7 @@ $storeItem = $this->app->item->create($item, 'ubsk');
         
     };
     jQuery(document).ready(function($){
-        $('#storeItemForm').StoreItem({
+        $('#storeOrderForm').StoreItem({
             name: 'UltimateBoatShadeKit',
             validate: true,
             confirm: true,
