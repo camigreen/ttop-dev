@@ -16,7 +16,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
 <article>
     <span class="uk-article-title"><?php echo $item->name; ?></span>
 </article>
-<div id="storeItemForm" class="uk-form uk-margin" data-item='<?php echo json_encode($data_item); ?>'>
+<div id="storeOrderForm" class="uk-form uk-margin" data-item='<?php echo json_encode($data_item); ?>'>
     <div id="<?php echo $storeItem->id ?>" class="uk-grid storeItem" data-item="<?php echo $storeItem->getItemsJSON(); ?>">
         <div class="uk-width-2-3 ccc-slideshow">
             <div class="uk-width-5-6 uk-container-center uk-margin">
@@ -136,8 +136,8 @@ $storeItem = $this->app->item->create($item, 'ccc');
         </div>
         <div class="uk-width-1-3 uk-margin-top">
             <div class="uk-width-1-1 uk-grid price-container">
-                <div id="ccc-price"class="uk-width-1-1">
-                        <i class="currency"></i>
+                <div id="ccc-price" class="uk-width-1-1">
+                    <i class="currency"></i>
                         <span class="price">0.00</span>
                 </div>
             </div>
@@ -282,7 +282,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
 
     jQuery(document).ready(function($){
 
-        $('#storeItemForm').StoreItem({
+        $('#storeOrderForm').StoreItem({
             name: 'CenterConsoleCurtain',
             validate: true,
             debug: true,
