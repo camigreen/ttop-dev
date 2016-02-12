@@ -114,9 +114,7 @@ class Account {
         $tzoffset = $this->app->date->getOffset();
         
         // Set Created Date
-        try {
-            $this->created = $this->app->date->create($this->created, $tzoffset)->toSQL();
-        } catch (Exception $e) {
+        if(!$this->created) {
             $this->created = $now->toSQL();
         }
 

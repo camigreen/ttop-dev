@@ -57,8 +57,7 @@ class ReceiptFormPDF extends FormPDF {
 	    $order->set('items', $item_array);
 	    $tzoffset = $this->app->date->getOffset();
 	    $salesperson = $this->app->user->get($order->created_by) ?  $this->app->user->get($order->created_by)->name : 'Website';
-	    $order->set('created', $this->app->date->create($order->created, $tzoffset));
-	    //$order->set('created', $this->app->html->_('date', $order->created, JText::_('DATE_FORMAT_STORE1'), $tzoffset));
+	    $order->set('created', JHtml::date($order->created, JText::_('DATE_STORE_RECEIPT')));
 	    $order->set('salesperson', $salesperson);
 	    $order->set('payment_info', $order->params->get('payment.creditcard.card_name').' '.$order->params->get('payment.creditcard.cardNumber'));
 	    $order->set('delivery_method', JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : ''));

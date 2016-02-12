@@ -81,6 +81,16 @@ class TestController extends AppController {
 
 	}
 
+	public function datetest() {
+		$tzoffset = $this->app->date->getOffset();
+		var_dump($tzoffset);
+		$gmt = $this->app->date->create();
+		echo 'GMT:</br>';
+		var_dump($gmt);
+		echo 'New York:</br>';
+		var_dump(JHtml::date($gmt,JText::_('DATE_STORE_RECEIPT')));
+	}
+
 
 }
 ?>

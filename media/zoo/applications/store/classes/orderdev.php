@@ -43,12 +43,9 @@ class OrderDev {
 		$cUser = $this->app->customer->get();
 
     	// set created date
-		try {
-            $this->created = $this->app->date->create($this->created, $tzoffset)->toSQL();
-        } catch (Exception $e) {
-            $this->created = $now->toSQL();
-        }
-        $this->created_by = $cUser->id;
+		if(!$this->created) {
+			$this->created = $now->toSQL();
+		}
 
         // Set Modified Date
         $this->modified = $now->toSQL();
@@ -121,10 +118,8 @@ class OrderDev {
 		return $this;
 	}
 
-	public function getOrderDate() {
-		$tzoffset   = $this->app->date->getOffset();
-		$date = $this->app->date->create($this->created, $tzoffset);
-		return $date->format('m/d/Y g:i a');
+	public function getOrderDate($format = 'DATE_STORE_RECEIPT') {
+		return $this->app->html->_('date', $this->created, JText::_($format));
 	}
 
 	public function getItemPrice($sku) {
