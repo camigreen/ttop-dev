@@ -33,7 +33,7 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->account->get($o
                 <tr>
                     <td class="uk-text-center"><?php echo $salesperson ?></td>
                     <td class="uk-text-center"><?php echo $order->id; ?></td>
-                    <td class="uk-text-center"><?php echo $this->app->html->_('date', $order->created, JText::_('DATE_FORMAT_STORE1'), $this->app->date->getOffset()); ?></td>
+                    <td class="uk-text-center"><?php echo $order->getOrderDate(); ?></td>
                     <td class="uk-text-center"><?php echo $elements->get('localPickup') ? 'Local Pickup' : 'UPS Ground'; ?></td>
                 </tr>
             </tbody>

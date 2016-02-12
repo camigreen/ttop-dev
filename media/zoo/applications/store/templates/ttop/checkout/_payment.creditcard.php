@@ -32,3 +32,15 @@
     <input type="hidden" name="creditCard[card_type]" value="<?php echo $params->get('payment.creditcard.card_type'); ?>" />
     <input type="hidden" name="creditCard[card_name]" value="<?php echo $params->get('payment.creditcard.card_name'); ?>" />
 </div>
+<script>
+jQuery(function($) {
+    $(document).ready(function(){
+        // $('[name="creditCard[cardNumber]"]').rules({
+        //         creditcard: true
+        // })
+        $('#card_code').rules('add',{
+            minlength: 3
+        });  
+    });
+})
+</script>

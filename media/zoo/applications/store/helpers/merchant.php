@@ -25,20 +25,19 @@ class MerchantHelper extends AppHelper {
 
         parent::__construct($app);
         $application = $this->app->zoo->getApplication();
-        $this->params = $application->getParams()->get('global.anet.');
-        $this->params = $this->app->parameter->create($this->params);
-        $this->testMode = (bool) $this->params->get('testing');
+        $this->params = $this->app->account->getStoreAccount()->params;
+        $this->testMode = (bool) $this->params->get('anet.test_mode');
         
     }
 
     public function anet() {
         if($this->testMode) {
-            define("AUTHORIZENET_API_LOGIN_ID", $this->params->get('sandbox_api_login_id'));
-            define("AUTHORIZENET_TRANSACTION_KEY", $this->params->get('sandbox_api_transaction_key'));
+            define("AUTHORIZENET_API_LOGIN_ID", $this->params->get('anet.sandbox_api_login_id'));
+            define("AUTHORIZENET_TRANSACTION_KEY", $this->params->get('anet.sandbox_transaction_key'));
             define("AUTHORIZENET_SANDBOX", true);
         } else {
-            define("AUTHORIZENET_API_LOGIN_ID", $this->params->get('api_login_id'));
-            define("AUTHORIZENET_TRANSACTION_KEY", $this->params->get('api_transaction_key'));
+            define("AUTHORIZENET_API_LOGIN_ID", $this->params->get('anet.api_login_id'));
+            define("AUTHORIZENET_TRANSACTION_KEY", $this->params->get('anet.transaction_key'));
             define("AUTHORIZENET_SANDBOX", false);
         }
 

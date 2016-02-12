@@ -129,30 +129,6 @@ class CashRegister {
         
     }
 
-    public function setFormData() {
-        if ($this->app->request->get('process','string', 'false') == 'false') {
-            return;
-        }
-        
-        if ($customer = $this->app->request->get('customer','array',null)) {
-            $this->order->import($customer);
-        }
-
-        if($discount = $this->app->request->get('discount','float', 0)) {
-            $this->order->discount = $discount;
-            $this->order->updateSession();
-        }
-        
-        if($service_fee = $this->app->request->get('service_fee','float', 0)) {
-            $this->order->service_fee = $service_fee;
-            $this->order->updateSession();
-        }
-
-        if ($payment = $this->app->request->get('payment','array',null)) {
-            $this->order->import($payment);
-        }
-        
-    }
     public function processOrder() {
         $this->order->orderDate = $this->app->date->create()->toSql();
         $this->order->save(true);
@@ -163,33 +139,6 @@ class CashRegister {
     public function clearOrder() {
         $this->app->session->clear('order','checkout');
         $this->app->session->clear('cart','checkout');
-    }
-
-    
-    public function getShippingRate($service = null) {
-        if(!$service) {
-            return 0;
-        }
-        $markup = $this->application->getParams()->get('global.shipping.ship_markup', 0);
-        $markup = intval($markup)/100;
-        $ship = $this->app->shipper;
-        $ship_to = $this->app->parameter->create($this->order->elements->get('shipping.'));
-        // var_dump($this->app->cart->getAllItems());
-        // return;
-        $rates = $ship->setDestination($ship_to)->assemblePackages($this->app->cart->getAllItems())->getRates();
-        $rate = 0;
-        foreach($rates as $shippingMethod) {
-            if($shippingMethod->getService()->getCode() == $service) {
-                $rate = $shippingMethod->getTotalCharges();
-            }
-        }
-
-        return $rate += ($rate * $markup);
-    }
-    
-    private function clearTotals() {
-        $this->subtotal = 0;
-        $this->taxTotal = 0;
     }
 
     public function processPayment($method) {

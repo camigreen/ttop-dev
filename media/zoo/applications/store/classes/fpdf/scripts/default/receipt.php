@@ -55,6 +55,7 @@ class ReceiptFormPDF extends FormPDF {
 	    }
 
 	    $form_data->set('items', $item_array);
+	    $form_data->set('id', $order->id);
 	    $form_data->set('created', JHtml::date($order->created, JText::_('DATE_STORE_RECEIPT')));
 	    $form_data->set('salesperson', $order->getCreator());
 	    $form_data->set('payment_info', $order->params->get('payment.creditcard.card_name').' '.$order->params->get('payment.creditcard.cardNumber'));

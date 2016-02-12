@@ -16,9 +16,15 @@
 			<?php echo $this->form->render('settings')?>
 	</div>
 <?php endif; ?>
-			<?php $this->form->setValues($this->account); ?>
-			<?php if($this->form->checkGroup('users')) : ?>
-				<div class="uk-form-row">
-						<?php echo $this->form->render('users')?>
-				</div>
-			<?php endif; ?>
+<?php $this->form->setValues($this->account->params); ?>
+<?php if($this->form->checkGroup('anet.settings')) : ?>
+	<div class="uk-form-row">
+			<?php echo $this->form->render('anet.settings')?>
+	</div>
+<?php endif; ?>
+<?php $this->form->setValues($this->account); ?>
+<?php if($this->form->checkGroup('users')) : ?>
+	<div class="uk-form-row">
+			<?php echo $this->form->render('users')?>
+	</div>
+<?php endif; ?>

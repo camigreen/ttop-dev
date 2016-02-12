@@ -79,18 +79,19 @@ class CheckoutController extends AppController {
 
         $order = $this->CR->order;
         $account = $order->getAccount();
+        var_dump($account);
         $user = $order->getUser();
         $this->page = 'customer';
         if($account && $account->type != 'store') {
             if(!$order->elements->get('billing.')) {
                 $order->elements->set('billing.', $account->elements->get('billing.'));
-                $order->elements->set('billing.phoneNumber', $user->elements->get('office_phone'));
-                $order->elements->set('billing.altNumber', $user->elements->get('mobile_phone'));
+                $order->elements->set('billing.phoneNumber', $account->elements->get('poc.office_phone'));
+                $order->elements->set('billing.altNumber', $account->elements->get('poc.mobile_phone'));
             }
             if(!$order->elements->get('shipping.')) {
                 $order->elements->set('shipping.', $account->elements->get('shipping.'));
-                $order->elements->set('shipping.phoneNumber', $user->elements->get('office_phone'));
-                $order->elements->set('shipping.altNumber', $user->elements->get('mobile_phone'));
+                $order->elements->set('shipping.phoneNumber', $account->elements->get('poc.office_phone'));
+                $order->elements->set('shipping.altNumber', $account->elements->get('poc.mobile_phone'));
             }
             if(!$order->elements->get('email')) {
                 $order->elements->set('email', $user->getUser()->email);
@@ -138,8 +139,8 @@ class CheckoutController extends AppController {
         $this->task = 'save';
 
         if($account && $account->type != 'store') {
-            $order->elements->set('payment.account_name', $account->name);
-            $order->elements->set('payment.account_number', $account->elements->get('account_number'));
+            $order->params->set('payment.account_name', $account->name);
+            $order->params->set('payment.account_number', $account->elements->get('account_number'));
             $this->app->session->set('order',(string) $order,'checkout');
         }
 

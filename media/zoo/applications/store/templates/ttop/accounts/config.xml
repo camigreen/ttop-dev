@@ -9,7 +9,17 @@
 			<field name="sales_manager_commission" type="store.option" optionset="smcommission" width="1-2" default="0" label="Sales Manager Commission" description="The additional commission given to sales managers." />
 		</fieldset>	
 		<fieldset group="settings" label="Account Settings" controlname="params">
-			<field name="notify_emails" type="textarea" rows="5" cols="40" width="1-2" default="" label="New Order Notification Emails" description="An email will be sent to the listed emails. Enter a new line between each email." />
+			<field name="notify_emails" type="textarea.store" rows="5" cols="40" width="1-2" default="" label="New Order Notification Emails" description="An email will be sent to the listed emails. Enter a new line between each email." />
+		</fieldset>
+		<fieldset group="anet.settings" label="Authorize.net Settings" controlname="params">
+			<field name="anet.test_mode" type="radio" width="1-1" default="0" label="Payment Test Mode" description="Test Mode?">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</field>
+			<field name="anet.api_login_id" type="text.store" width="1-2" default="" label="Authorize.net API Login ID" description="" />
+			<field name="anet.sandbox_api_login_id" type="text.store" width="1-2" default="" label="Authorize.net Sandbox API Login ID" description="" />
+			<field name="anet.transaction_key" type="text.store" width="1-2" default="" label="Authorize.net Transaction Key" description="" />
+			<field name="anet.sandbox_transaction_key" type="text.store" width="1-2" default="" label="Authorize.net Sandbox Transaction Key" description="" />
 		</fieldset>
 		<fieldset group="users" label="Assigned Users" controlname="related" width="1-1">
 			<field name="children" type="userselect" width="1-2" default="" usertype="user.store" label="Account Users" description="" />

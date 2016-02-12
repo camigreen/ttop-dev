@@ -31,10 +31,10 @@
 	</type>
 	<type name="payment">
 		<fieldset group="purchase_order" controlname="params" >
-			<field name="payment.account_name" type="text" width="1-1" default="" label="Account Name" description="" disabled="1"/>
-			<field name="payment.account_number" type="text" width="1-1" default="" label="Account Number" description="" disabled="1"/>
-			<field name="payment.customer_name" type="text" width="1-1" default="" label="Customer Name" description=""  required="1" />
-			<field name="payment.po_number" type="text" width="1-1" default="" label="P.O. Number" description="" required="1" />
+			<field name="payment.account_name" type="text.store" width="1-1" default="" label="Account Name" description="" disabled="1"/>
+			<field name="payment.account_number" type="text.store" width="1-1" default="" label="Account Number" description="" disabled="1"/>
+			<field name="payment.customer_name" type="text.store" width="1-1" default="" label="Customer Name" description=""  required="1" />
+			<field name="payment.po_number" type="text.store" width="1-1" default="" label="P.O. Number" description="" required="1" />
 		</fieldset>
 	</type>
 </checkout>

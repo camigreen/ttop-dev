@@ -6,6 +6,7 @@
  */
 $order = $this->order;
 $elements = $order->elements;
+$params = $order->params;
 $page = $this->page;
 ?>
 <div class="uk-width-1-1 uk-container-center ttop-checkout-payment">
@@ -51,7 +52,7 @@ $page = $this->page;
                     </div>
                     <div class="uk-width-1-1">
                     <?php if($this->app->customer->isReseller()) : ?>
-                        <?php $this->form->setValues($elements->get('payment.')); ?>
+                        <?php $this->form->setValues($params); ?>
                         <?php if($this->form->checkGroup('purchase_order')) : ?>
                             <div class="uk-form-row">
                                 <fieldset id="purchase_order">
@@ -71,15 +72,3 @@ $page = $this->page;
         </div>
     </div>
 </div>
-<script>
-jQuery(function($) {
-    $(document).ready(function(){
-        // $('[name="creditCard[cardNumber]"]').rules({
-        //         creditcard: true
-        // })
-        $('#card_code').rules('add',{
-            minlength: 3
-        });  
-    });
-})
-</script>
