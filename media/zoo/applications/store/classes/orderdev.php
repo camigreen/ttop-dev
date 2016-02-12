@@ -132,7 +132,9 @@ class OrderDev {
 	}
 
 	public function getSubtotal($display = 'retail') {
-
+		if($this->isProcessed()) {
+			return $this->subtotal;
+		}
 		if(!$items = $this->elements->get('items.')) {
 			$items = $this->app->cart->getAllItems();
 		}
@@ -268,6 +270,13 @@ class OrderDev {
 
     public function getShippingMethod() {
     	return JText::_('SHIPPING_METHOD_'.$this->elements->get('shipping_method'));
+    }
+
+    public function getCreator() {
+    	if($this->created_by == 0) {
+    		return 'Website';
+    	}
+    	return $this->getUser()->name;
     }
 
 }
