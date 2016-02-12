@@ -11,7 +11,7 @@
  *
  * @author Shawn
  */
-class UserProfileHelper extends AppHelper {
+class UserProfileHelper extends UserAppHelper {
 
 
 

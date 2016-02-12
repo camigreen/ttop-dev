@@ -81,8 +81,10 @@ class TestController extends AppController {
 
 	}
 
-	public function datetest() {
-		echo $this->app->account->get(10)->name;
+	public function testUser() {
+		$this->app->loader->register('UserProfileHelper', 'helpers:userprofile.php');
+		$user = new UserProfileHelper($this->app);
+		var_dump($user);
 	}
 
 
