@@ -136,9 +136,10 @@ $storeItem = $this->app->item->create($item, 'ccc');
         </div>
         <div class="uk-width-1-3 uk-margin-top">
             <div class="uk-width-1-1 uk-grid price-container">
-                <?php if ($this->checkPosition('pricing')) : ?>
-                        <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
-                <?php endif; ?>
+                <div id="ccc-price"class="uk-width-1-1">
+                        <i class="currency"></i>
+                        <span class="price">0.00</span>
+                </div>
             </div>
             <div class="uk-width-1-1">
                 <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>

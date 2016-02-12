@@ -156,29 +156,27 @@ $price['ttopboatcover.37Freeman.shipping.price'] = 45;
 
 // //TTop Accessories
 
+$price['accessories.global.allowMarkup'] = false;
+
 $price['sandbags.item.base'] = 15;
 $price['sandbags.item.discount'] = 0.3;
-$price['sandbags.item.allowMarkup'] = false;
 $price['sandbags.shipping.weight'] = 8;
 $price['sandbags.shipping.price'] = 7.5;
 
 $price['tie-down-set.item.base'] = 25;
 $price['tie-down-set.item.discount'] = 0.4;
-$price['tie-down-set.item.allowMarkup'] = false;
 $price['tie-down-set.shipping.weight'] = 2;
 $price['tie-down-set.shipping.price'] = 0;
 
 $price['suction-cups.item.base'] = 38;
 $price['suction-cups.shipping.weight'] = 1;
 $price['suction-cups.shipping.price'] = 0;
-$price['suction-cups.item.allowMarkup'] = false;
 
 $price['storage-bag.item.base'] = 0;
 $price['storage-bag.item.option.size.l'] = 30;
 $price['storage-bag.item.option.size.xl'] = 45;
 $price['storage-bag.shipping.weight'] = 2;
 $price['storage-bag.shipping.price'] = 0;
-$price['storage-bag.item.allowMarkup'] = false;
 
 // // Boat Shade Kit
 $price['bsk.A.item.base'] = 280;

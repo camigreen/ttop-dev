@@ -272,6 +272,7 @@
             this.cart.confirmed = false;
         },
         getItem: function(id) {
+            console.log(id);
             return this.items[id];
         },
         _confirmation: function (items, cart_id) { 

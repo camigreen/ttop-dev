@@ -103,10 +103,10 @@ $storeItem = $this->app->item->create($item, 'bsk');
                                             </a>
                                         </div>
                                     </div>
-                                    <div id="bsk-aft-price"class="uk-width-1-2">
-                                        <i class="currency"></i>
-                                            <span class="price">0.00</span>
-
+                                    <div id="bsk-aft-price"class="uk-width-1-2 price-main" data-id="bsk-aft">
+                                            <?php if ($this->checkPosition('pricing')) : ?>
+                                                <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                                            <?php endif; ?>
                                     </div>
                                     <div class="uk-width-1-2">
                                         <label>Quantity</label>

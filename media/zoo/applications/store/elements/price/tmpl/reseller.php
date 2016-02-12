@@ -6,7 +6,7 @@ $price = $item->getPrice();
 <div id="<?php echo $item->id; ?>-price">
 	<i class="currency"></i>
 	<span class="price"><?php echo $this->app->number->precision($price->get('markup'), 2); ?></span>
-	<a id="price_display-<?php echo $item->id; ?>" href="#"class="uk-icon-button uk-icon-info-circle uk-text-top" style="margin-left:10px;" data-uk-tooltip title="Click here for pricing info!"></a>
+	<a id="price_display-<?php echo $item->id; ?>" href="#"class="uk-icon-button uk-icon-info-circle uk-text-top" style="margin-left:10px;" data-uk-tooltip data-id="<?php echo $item->id; ?>" title="Click here for pricing info!"></a>
 	<input type="hidden" name="markup" data-name="Markup" value="<?php echo $price->getMarkupRate(); ?>" />
 </div>
 
@@ -15,7 +15,9 @@ $price = $item->getPrice();
 		$(document).ready(function(){
 			$('#price_display-<?php echo $item->id; ?>').on('click', function(e) {
 				var modal;
-				var StoreItem = $("#storeOrderForm").StoreItem('getItem',<?php echo $item->id; ?>);
+				var id = $(this).parents('.price-main').data('id') ? $(this).parents('.price-main').data('id') : $(this).data('id');
+				console.log(id);
+				var StoreItem = $("#storeOrderForm").StoreItem('getItem',id);
 				console.log(StoreItem);
 				$.ajax({
 	                type: 'POST',
