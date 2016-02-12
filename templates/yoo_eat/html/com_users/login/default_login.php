@@ -11,7 +11,6 @@ defined('_JEXEC') or die;
 
 JHtml::_('behavior.keepalive');
 $mod = JModuleHelper::getModule('mod_clef');
-var_dump($mod);
 $clef = JModuleHelper::renderModule($mod);
 ?>
 <div class="login<?php echo $this->pageclass_sfx?> uk-container-center uk-width-1-3">
