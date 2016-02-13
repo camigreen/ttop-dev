@@ -79,7 +79,7 @@ class CheckoutController extends AppController {
 
         $order = $this->CR->order;
         $account = $order->getAccount();
-        var_dump($account);
+        //var_dump($account);
         $user = $order->getUser();
         $this->page = 'customer';
         if($account && $account->type != 'store') {
