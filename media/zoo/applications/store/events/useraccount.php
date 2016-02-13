@@ -11,7 +11,7 @@
  *
  * @package Component.Events
  */
-class UserProfileEvent {
+class UserAccountEvent {
 
 	/**
 	 * When an application is loaded on the frontend,
@@ -21,18 +21,11 @@ class UserProfileEvent {
 	 */
 	public static function init($event) {
 
-		$profile = $event->getSubject();
-        $app         = $profile->app;
-        $new 	= 	$event['new'];
+		$user = $event->getSubject();
+        $app = $user->app;
 
-        if($new) {
-        	$user = new JUser();
-        } else {
-        	$user = $app->user->get($profile->user_id);
-        }
-
-        $profile->setUser($user);
-        $profile->type = $profile->elements->get('type','not_set');
+  //       $profile = JUserHelper::getProfile($user->id);
+		// $user->profile = $app->parameter->create($profile->get('profile'));
 
 	}
 

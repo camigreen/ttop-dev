@@ -82,11 +82,7 @@ class TestController extends AppController {
 	}
 
 	public function testUser() {
-		$user = $this->app->user->get(776);
-		$profile = JUserHelper::getProfile($user->id);
-		$user->profile = $this->app->parameter->create($profile->profile);
-		var_dump($profile);
-		var_dump($user->profile->get('test2', 'default'));
+		//$this->app->useraccount->get();
 	}
 
 

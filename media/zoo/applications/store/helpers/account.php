@@ -15,6 +15,7 @@ class AccountHelper extends AppHelper {
 
 	protected $_accounts = array();
 
+
 	public function __construct($app) {
 		parent::__construct($app);
 
@@ -26,19 +27,15 @@ class AccountHelper extends AppHelper {
 
 	public function get($id = null) {
 
+		// If and id is not provided, then get the account by the current user.
 		if(!$id) {
 			$user = $this->app->user->get();
+			$profile = JUserHelper::getProfile($user->id);
+			$user->profile = $this->app->parameter->create($profile->profile);
+			var_dump($user);
 		}
 
-		if (!isset($this->_accounts[$id])) {
-			$account = $this->table->get($id);
-			if(!$account) {
-				$account = $this->create();
-			}
-			$this->_accounts[$id] = $account;
-		}
-		
-		return $this->_accounts[$id]; 
+
 	}
 
 	public function create($type = 'default', $args = array()) {

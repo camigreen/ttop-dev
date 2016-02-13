@@ -10,8 +10,8 @@ class StoreApplication extends Application {
     
     public function __construct() {
         parent::__construct();
-        
-        $zoo = APP::getInstance('zoo');
+
+        $zoo = App::getInstance('zoo');
 
         // Set defines
 
@@ -48,9 +48,9 @@ class StoreApplication extends Application {
         $zoo->event->dispatcher->connect('order:init', array('OrderEvent', 'init'));
         $zoo->event->register('AccountEvent');
         $zoo->event->dispatcher->connect('account:init', array('AccountEvent', 'init'));
-        $zoo->event->register('UserProfileEvent');
-        $zoo->event->dispatcher->connect('userprofile:init', array('UserProfileEvent', 'init'));
-        $zoo->event->dispatcher->connect('userprofile:saved', array('UserProfileEvent', 'saved'));
+        $zoo->event->register('UserAccountEvent');
+        $zoo->event->dispatcher->connect('useraccount:init', array('UserAccountEvent', 'init'));
+        $zoo->event->dispatcher->connect('useraccount:saved', array('UserAccountEvent', 'saved'));
         $zoo->event->register('StoreItemEvent');
         $zoo->event->dispatcher->connect('storeitem:init', array('StoreItemEvent', 'init'));
 //        Add CSS
