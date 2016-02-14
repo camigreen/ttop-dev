@@ -103,10 +103,12 @@ $storeItem = $this->app->item->create($item, 'bsk');
                                             </a>
                                         </div>
                                     </div>
-                                    <div id="bsk-aft-price"class="uk-width-1-2">
-                                        <i class="currency"></i>
-                                            <span class="price">0.00</span>
-
+                                    <div class="uk-width-1-2 price-main" data-id="bsk-aft">
+                                        <div class="uk-width-1-1 uk-grid price-container">
+                                            <?php if ($this->checkPosition('pricing')) : ?>
+                                                    <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                     <div class="uk-width-1-2">
                                         <label>Quantity</label>
@@ -169,9 +171,12 @@ $storeItem = $this->app->item->create($item, 'bsk');
                                             </a>
                                         </div>
                                     </div>
-                                    <div id="bsk-bow-price" class="uk-width-1-2">
-                                        <i class="currency"></i>
-                                            <span class="price">0.00</span>
+                                    <div class="uk-width-1-2 price-main" data-id="bsk-bow">
+                                        <div class="uk-width-1-1 uk-grid price-container">
+                                            <?php if ($this->checkPosition('pricing')) : ?>
+                                                    <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                     <div class="uk-width-1-2">
                                         <label>Quantity</label>
@@ -424,8 +429,14 @@ $storeItem = $this->app->item->create($item, 'bsk');
                             this.fields['bsk-aft'] = $.extend(true, {}, fields);
                             this.fields['bsk-bow'] = $.extend(true, {}, fields);
                             $('#use_on_bow').on('change',function(e){
-                                self.trigger('measure', {item: this.items['bsk-aft'], type: ['aft']});
+                                self.trigger('measure', {item: self.items['bsk-aft'], type: ['aft']});
                             });
+
+                            $('.price-main').each(function (k, v) {
+                                var id = $(this).data('id');
+                                $(this).find('.price-container div:first-child').prop('id', id+'-price');
+                                $(this).find('a#price_display-bsk').prop('id', 'price_display-'+id);
+                            })
 
                             $('.bsk-chooser .bsk-chooser-buttons li').on('click',function(e){
                                     var index = $(this).index();

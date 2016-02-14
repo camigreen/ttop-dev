@@ -1,7 +1,6 @@
 @import 'https://fonts.googleapis.com/css?family=Lato:900,700,400,300';
 @import 'https://fonts.googleapis.com/css?family=ABeeZee';
 @import 'https://fonts.googleapis.com/css?family=Asap';
-@import 'https://fonts.googleapis.com/css?family=Kite+One';
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -12,7 +11,7 @@
  */
 html {
   /* 1 */
-  font: 400 16px / 24px 'Lato';
+  font: normal 16px / 24px 'Lato';
   /* 2 */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -217,7 +216,7 @@ h6 {
   font-family: 'Lato';
   font-weight: 700;
   color: #525252;
-  text-transform: capitalize;
+  text-transform: none;
 }
 /*
  * Margins
@@ -1290,7 +1289,7 @@ h6 {
   font-size: 18px;
   line-height: 25px;
   font-weight: 700;
-  text-transform: capitalize;
+  text-transform: none;
   color: #525252;
 }
 /* Sub-object: `uk-panel-badge`
@@ -1568,8 +1567,8 @@ h6 {
 .uk-article-title {
   font-size: 50px;
   line-height: 53px;
-  font-weight: 500;
-  text-transform: capitalize;
+  font-weight: 100;
+  text-transform: Capitalize;
 }
 .uk-article-title a {
   color: inherit;
@@ -1768,7 +1767,7 @@ h6 {
 .uk-nav-header {
   padding: 7px 15px;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
 }
 .uk-nav-header:not(:first-child) {
@@ -1789,7 +1788,7 @@ ul.uk-nav-sub {
   padding: 10px 0 10px 0;
   padding: 10px 20px;
   border-top: 1px solid #eaeaea;
-  background: rgba(255, 255, 255, 0.08);
+  background: #354a72;
 }
 /* Modifier: `uk-nav-parent-icon`
  ========================================================================== */
@@ -1900,7 +1899,7 @@ ul.uk-nav-sub {
  * Items
  */
 .uk-nav-navbar > li > a {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.8);
   -webkit-transition: background-color 0.1s ease-in-out;
   transition: background-color 0.1s ease-in-out;
 }
@@ -1937,6 +1936,7 @@ ul.uk-nav-sub {
 }
 .uk-nav-navbar ul a:hover {
   color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
 }
 /* Modifier `uk-nav-offcanvas`
  ========================================================================== */
@@ -2055,7 +2055,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   border-top: transparent;
 }
 .uk-panel-box .uk-open.uk-parent ul.uk-nav-sub {
-  background: rgba(255, 255, 255, 0.08);
+  background: #354a72;
 }
 .uk-panel-box .uk-open.uk-parent > a {
   border-bottom: 1px solid #eaeaea;
@@ -2108,14 +2108,14 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   padding: 0 15px;
   line-height: 60px;
   /* 2 */
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 14px;
-  font-family: 'Kite One';
-  font-weight: bold;
-  background-image: linear-gradient(#1c3767, #1c3767 50%, #1c3767 50%, #1c3767);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
+  font-family: 'Lato';
+  font-weight: 100;
+  background-image: linear-gradient(#354a72, #354a72 50%, #1c3767 50%, #1c3767);
   background-position: 0 100%;
   background-size: 100% 210%;
-  text-transform: uppercase;
+  text-transform: none;
 }
 /* Appear not as link */
 .uk-navbar-nav > li > a[href='#'] {
@@ -2130,7 +2130,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-navbar-nav > li:hover > a,
 .uk-navbar-nav > li > a:focus,
 .uk-navbar-nav > li.uk-open > a {
-  background-color: #1c3767;
+  background-color: #354a72;
   color: #ffffff;
   /* 3 */
   outline: none;
@@ -2145,9 +2145,9 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 }
 /* Active */
 .uk-navbar-nav > li.uk-active > a {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: #354a72;
   color: #ffffff;
-  font-weight: bold;
+  font-weight: 400;
 }
 .uk-navbar-nav > li.uk-active > a:hover {
   color: #ffffff;
@@ -2158,7 +2158,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   line-height: 48px;
 }
 .uk-navbar-nav-subtitle > div {
-  margin-top: -16px;
+  margin-top: -13px;
   font-size: 10px;
   line-height: 12px;
 }
@@ -3123,7 +3123,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
 .uk-table thead th {
   border: 1px solid #eaeaea;
   color: #525252;
-  text-transform: capitalize;
+  text-transform: none;
   text-align: center;
 }
 .uk-table thead th:first-child,
@@ -3662,7 +3662,6 @@ select.uk-form-width-mini {
   font: inherit;
   color: #5b5b5b;
   /* 6 */
-  text-transform: none;
   /* 7 */
   display: inline-block;
   box-sizing: border-box;
@@ -3683,7 +3682,7 @@ select.uk-form-width-mini {
   background-image: -webkit-linear-gradient(top, #f3f3f3, #bebebe);
   background-image: linear-gradient(to bottom, #f3f3f3, #bebebe);
   box-shadow: inset 0 -1px rgba(0, 0, 0, 0.09);
-  text-transform: capitalize;
+  text-transform: none;
   font-size: 14px;
 }
 .uk-button:not(:disabled) {
@@ -6102,7 +6101,7 @@ a.uk-badge:hover {
   border: 1px solid #eaeaea;
   border-radius: 0 2px 2px 0;
   box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.03);
-  text-transform: capitalize;
+  text-transform: none;
   font-weight: 400;
 }
 .uk-alert h2 + p {
@@ -7388,7 +7387,7 @@ a.uk-thumbnail:focus {
  * 1. Reset button group whitespace hack
  */
 .uk-dropdown {
-  padding: 30px;
+  padding: 15px;
   background: #ffffff;
   color: #1c3767;
   /* 1 */
@@ -7435,7 +7434,7 @@ a.uk-thumbnail:focus {
 /* Nav in dropdown
  ========================================================================== */
 .uk-dropdown .uk-nav {
-  margin: 0 -30px;
+  margin: 0 -15px;
 }
 /* Grid and panel in dropdown
  ========================================================================== */
@@ -7447,11 +7446,11 @@ a.uk-thumbnail:focus {
  * Higher specificity to override large gutter
  */
 .uk-grid .uk-dropdown-grid + .uk-dropdown-grid {
-  margin-top: 30px;
+  margin-top: 15px;
 }
 /* Panels */
 .uk-dropdown-grid > [class*='uk-width-'] > .uk-panel + .uk-panel {
-  margin-top: 30px;
+  margin-top: 15px;
 }
 /* Tablet and bigger */
 @media (min-width: 768px) {
@@ -7459,12 +7458,12 @@ a.uk-thumbnail:focus {
      * Horizontal gutter
      */
   .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid {
-    margin-left: -30px;
-    margin-right: -30px;
+    margin-left: -15px;
+    margin-right: -15px;
   }
   .uk-dropdown:not(.uk-dropdown-stack) > .uk-dropdown-grid > [class*='uk-width-'] {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   /*
      * Column divider
@@ -7500,7 +7499,7 @@ a.uk-thumbnail:focus {
      * Vertical gutter
      */
   .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
-    margin-top: 30px;
+    margin-top: 15px;
   }
 }
 /*
@@ -7510,7 +7509,7 @@ a.uk-thumbnail:focus {
   width: 100%;
 }
 .uk-dropdown-stack > .uk-dropdown-grid > [class*='uk-width-']:nth-child(n+2) {
-  margin-top: 30px;
+  margin-top: 15px;
 }
 /* Modifier `uk-dropdown-small`
  ========================================================================== */
@@ -7533,7 +7532,7 @@ a.uk-thumbnail:focus {
  ========================================================================== */
 .uk-dropdown-navbar {
   margin-top: 0;
-  background: #1c3767;
+  background: #354a72;
   color: #818a94;
   box-shadow: 1px 0 0 rgba(47, 49, 53, 0.05), -1px 0 0 rgba(47, 49, 53, 0.05), 0 1px 0 rgba(47, 49, 53, 0.05);
 }
@@ -7548,8 +7547,8 @@ a.uk-thumbnail:focus {
   border-bottom: 1px solid rgba(255, 255, 255, 0);
 }
 .uk-open > .uk-dropdown-navbar {
-  -webkit-animation: uk-slide-top-fixed 0.2s ease-in-out;
-  animation: uk-slide-top-fixed 0.2s ease-in-out;
+  -webkit-animation: uk-slide-bottom-fixed 0.2s ease-in-out;
+  animation: uk-slide-bottom-fixed 0.2s ease-in-out;
 }
 /* Modifier `uk-dropdown-scrollable`
  ========================================================================== */
@@ -7574,8 +7573,8 @@ body .uk-dropdown .uk-nav,
   margin: 0;
 }
 .uk-open > .uk-dropdown-navbar {
-  -webkit-animation: uk-slide-top-fixed 0.2s ease-in;
-  animation: uk-slide-top-fixed 0.2s ease-in;
+  -webkit-animation: uk-slide-bottom-fixed 0.2s ease-in;
+  animation: uk-slide-bottom-fixed 0.2s ease-in;
 }
 .uk-dropdown-navbar:not(.uk-dropdown-stack) > .uk-grid > [class*='uk-width-']:nth-child(n+2) {
   border-left-color: rgba(234, 234, 234, 0.1);
@@ -9526,7 +9525,7 @@ body .uk-dropdown .uk-nav,
   -webkit-transition: all linear 0.2s;
   transition: all linear 0.2s;
   vertical-align: middle;
-  text-transform: capitalize;
+  text-transform: none;
   font-weight: 300;
   font-size: 14px;
 }
@@ -10143,6 +10142,15 @@ button.uk-button {
  */
 .uk-navbar-content:last-child {
   padding: 0;
+}
+.uk-nav-header li > a {
+  font-weight: normal;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.8);
+}
+.uk-navbar-nav > li.uk-active > a {
+  color: rgba(255, 255, 255, 0.8);
+  background-image: none;
 }
 /*
  * Sticky navbar

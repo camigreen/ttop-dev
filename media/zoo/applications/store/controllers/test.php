@@ -82,7 +82,13 @@ class TestController extends AppController {
 	}
 
 	public function testUser() {
+<<<<<<< HEAD
 		//$this->app->useraccount->get();
+=======
+		$this->app->loader->register('UserProfileHelper', 'helpers:userprofile.php');
+		$user = new UserProfileHelper($this->app);
+		var_dump($user);
+>>>>>>> 1.0.2
 	}
 
 

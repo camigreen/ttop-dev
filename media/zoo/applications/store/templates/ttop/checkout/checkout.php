@@ -9,14 +9,10 @@ $order = $this->order;
 
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/jquery.validate.min.js');
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-methods.min.js');
+
 ?>
 <?php if($this->app->merchant->testMode()) : ?>
-<script>
-jQuery(function ($) {
-     
-})
-    
-</script>
+
 <div class="uk-width-1-1 uk-margin ttop-checkout">
     <div class="uk-width-1-1 uk-text-center">
         <span class="uk-text-danger uk-text-large testing-mode">TESTING MODE</span>

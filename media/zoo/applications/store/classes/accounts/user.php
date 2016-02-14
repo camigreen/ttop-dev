@@ -60,11 +60,16 @@ class UserAccount extends Account {
 
     public function loadUser() {
 
-        if(empty($this->_user) && $this->id) {
+        if(!$this->id) {
+            $this->_user = new JUser();
+        }
+
+        if(empty($this->_user)) {
 
             $db = $this->app->database;
 
             $uid = $db->queryResult('SELECT child FROM #__zoo_account_user_map WHERE parent = '.$this->id);
+
             if($uid) {
                 $this->_user = $this->app->user->get($uid);
                 $this->name = $this->_user->name;
@@ -73,10 +78,7 @@ class UserAccount extends Account {
             }
 
             $this->_userGroups = $this->_user->getAuthorisedGroups();
-        } else {
-            $this->_user = new JUser();
-        }
-        
+        } 
         return $this;
     }
 

@@ -424,7 +424,7 @@
 		},
 		"113": {
 			"columns": "1",
-			"columnwidth": "",
+			"columnwidth": "300px",
 			"icon": "",
 			"subtitle": ""
 		},
@@ -441,10 +441,6 @@
 			"subtitle": ""
 		},
 		"123": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"124": {
 			"icon": "",
 			"subtitle": ""
 		},
@@ -514,10 +510,6 @@
 			"icon": "",
 			"subtitle": ""
 		},
-		"173": {
-			"icon": "",
-			"subtitle": ""
-		},
 		"174": {
 			"icon": "",
 			"subtitle": ""
@@ -572,59 +564,7 @@
 			"icon": "",
 			"subtitle": ""
 		},
-		"209": {
-			"columns": "1",
-			"columnwidth": "",
-			"icon": "",
-			"subtitle": ""
-		},
-		"210": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"211": {
-			"icon": "",
-			"subtitle": ""
-		},
 		"213": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"214": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"215": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"217": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"218": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"219": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"220": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"221": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"222": {
-			"columns": "1",
-			"columnwidth": "",
-			"icon": "",
-			"subtitle": ""
-		},
-		"223": {
 			"icon": "",
 			"subtitle": ""
 		},
@@ -640,49 +580,7 @@
 			"icon": "",
 			"subtitle": ""
 		},
-		"227": {
-			"columns": "1",
-			"columnwidth": "",
-			"icon": "",
-			"subtitle": ""
-		},
-		"228": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"229": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"230": {
-			"columns": "1",
-			"columnwidth": "",
-			"icon": "",
-			"subtitle": ""
-		},
-		"248": {
-			"columns": "1",
-			"columnwidth": "",
-			"icon": "",
-			"subtitle": ""
-		},
 		"249": {
-			"columns": "1",
-			"columnwidth": "",
-			"icon": "",
-			"subtitle": ""
-		},
-		"253": {
-			"columns": "1",
-			"columnwidth": "",
-			"icon": "",
-			"subtitle": ""
-		},
-		"259": {
-			"icon": "",
-			"subtitle": ""
-		},
-		"260": {
 			"columns": "1",
 			"columnwidth": "",
 			"icon": "",
@@ -690,7 +588,7 @@
 		},
 		"261": {
 			"columns": "1",
-			"columnwidth": "",
+			"columnwidth": "320px",
 			"icon": "",
 			"subtitle": ""
 		},
@@ -700,13 +598,53 @@
 			"icon": "",
 			"subtitle": ""
 		},
-		"263": {
-			"columns": "1",
-			"columnwidth": "",
+		"275": {
+			"icon": "uk-icon-user uk-margin-small-right",
+			"subtitle": ""
+		},
+		"277": {
 			"icon": "",
 			"subtitle": ""
 		},
-		"264": {
+		"278": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"279": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"299": {
+			"icon": "uk-icon-unlock uk-margin-small-right",
+			"subtitle": ""
+		},
+		"300": {
+			"columns": "2",
+			"columnwidth": "250px",
+			"icon": "",
+			"subtitle": ""
+		},
+		"301": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"302": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"303": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"304": {
+			"icon": "uk-icon-cog uk-margin-small-right",
+			"subtitle": ""
+		},
+		"305": {
+			"icon": "uk-icon-users uk-margin-small-right",
+			"subtitle": ""
+		},
+		"306": {
 			"icon": "",
 			"subtitle": ""
 		}

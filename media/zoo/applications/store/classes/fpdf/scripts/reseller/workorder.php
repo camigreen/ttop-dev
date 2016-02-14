@@ -65,7 +65,7 @@ class WorkOrderFormPDF extends FormPDF {
 	    $order->set('items', $item_array);
 	    $tzoffset = $this->app->date->getOffset();
 	    $salesperson = $this->app->user->get($order->created_by) ?  $this->app->user->get($order->created_by)->name : 'Website';
-	    $order->set('created', $this->app->html->_('date', $order->created, JText::_('DATE_FORMAT_STORE1'), $tzoffset));
+	    $order->set('created', $this->app->html->_('date', $order->created, JText::_('DATE_STORE_RECEIPT')));
 	    $order->set('salesperson', $salesperson);
 	    $order->set('delivery_method', JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : ''));
 	    $order->set('account_name', $order->elements->get('payment.account_name'));

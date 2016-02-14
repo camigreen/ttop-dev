@@ -201,7 +201,7 @@ class AccountController extends AppController {
         $this->partialLayout = $type;
         $this->groups = $this->form->getGroups();
         $this->form->setValue('canEdit', $this->app->customer->canEdit());
-        $this->getView()->addTemplatePath($this->template->getPath().'/accounts')->addTemplatePath($this->app->path->path('views:configuration/tmpl/'));
+        $this->getView()->addTemplatePath($this->template->getPath().'/accounts');
         $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
 
     }

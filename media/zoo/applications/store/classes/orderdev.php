@@ -43,12 +43,9 @@ class OrderDev {
 		$cUser = $this->app->customer->get();
 
     	// set created date
-		try {
-            $this->created = $this->app->date->create($this->created, $tzoffset)->toSQL();
-        } catch (Exception $e) {
-            $this->created = $now->toSQL();
-        }
-        $this->created_by = $cUser->id;
+		if(!$this->created) {
+			$this->created = $now->toSQL();
+		}
 
         // Set Modified Date
         $this->modified = $now->toSQL();
@@ -121,10 +118,8 @@ class OrderDev {
 		return $this;
 	}
 
-	public function getOrderDate() {
-		$tzoffset   = $this->app->date->getOffset();
-		$date = $this->app->date->create($this->created, $tzoffset);
-		return $date->format('m/d/Y g:i a');
+	public function getOrderDate($format = 'DATE_STORE_RECEIPT') {
+		return $this->app->html->_('date', $this->created, JText::_($format));
 	}
 
 	public function getItemPrice($sku) {
@@ -137,7 +132,9 @@ class OrderDev {
 	}
 
 	public function getSubtotal($display = 'retail') {
-
+		if($this->isProcessed()) {
+			return $this->subtotal;
+		}
 		if(!$items = $this->elements->get('items.')) {
 			$items = $this->app->cart->getAllItems();
 		}
@@ -216,7 +213,6 @@ class OrderDev {
 		// Init vars
 		$taxtotal = 0;
 		$taxrate = 0.07;
-
 		if(!$this->isTaxable()) {
 			$this->tax_total = 0;
 			return $this->tax_total;
@@ -274,6 +270,13 @@ class OrderDev {
 
     public function getShippingMethod() {
     	return JText::_('SHIPPING_METHOD_'.$this->elements->get('shipping_method'));
+    }
+
+    public function getCreator() {
+    	if($this->created_by == 0) {
+    		return 'Website';
+    	}
+    	return $this->getUser()->name;
     }
 
 }

@@ -109,7 +109,9 @@ class Price
 		foreach($prices->get($this->_item->type.'.global.option.', array()) as $k => $global) {
 			$this->_price_options->set($k, $global);
 		}
-		$this->allowMarkup = $prices->get($this->_group.'.item.allowMarkup', true);
+		$this->allowMarkup = $prices->get($this->_item->type.'.global.allowMarkup', true);
+		$this->allowMarkup = $prices->get($this->_group.'.item.allowMarkup', $this->allowMarkup);
+
 		$this->_base = $prices->get($this->_group.'.item.base');
 		$this->_shipWeight = $prices->get($this->_group.'.shipping.weight');
 		if($this->app->customer->isReseller()) {

@@ -10,6 +10,8 @@
 defined('_JEXEC') or die;
 
 JHtml::_('behavior.keepalive');
+$mod = JModuleHelper::getModule('mod_clef');
+$clef = JModuleHelper::renderModule($mod);
 ?>
 <div class="login<?php echo $this->pageclass_sfx?> uk-container-center uk-width-1-3">
 	<?php if ($this->params->get('show_page_heading')) : ?>
@@ -84,6 +86,9 @@ JHtml::_('behavior.keepalive');
 			<?php echo JHtml::_('form.token'); ?>
 		</fieldset>
 	</form>
+	<div class="uk-width-1-1 uk-margin">
+		<?php echo $clef; ?>
+	</div>
 </div>
 <div class="uk-container-center uk-width-1-3 uk-margin-top">
 	<ul class="nav nav-tabs nav-stacked uk-list">

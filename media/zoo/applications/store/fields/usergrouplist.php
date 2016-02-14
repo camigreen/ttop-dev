@@ -19,6 +19,7 @@ $attr .= (string) $node->attributes()->onchange ? ' onchange="'.(string) $node->
 
 //echo $this->app->html->_('usergrouplist', array(), $control_name.'['.$name.']', $attr, 'value', 'text', $value, $control_name.$name);
 $options = JHtmlUser::groups();
+$exclude = array('Public', 'Guest');
 //var_dump($options);
 if(!$parent->getValue('id')) {
 	$value = (string) $node->attributes()->default;
@@ -26,10 +27,13 @@ if(!$parent->getValue('id')) {
 if(is_string($value)) {
 	$value = explode(',', $value);
 }
-
 printf('<select %s>', $attr);
 
 foreach ($options as $option) {
+	$text = str_replace('- ', '', JText::_($option->text));
+	if(in_array($text, $exclude)) {
+		continue;
+	}
 	$attributes = array();
 	$attributes['value'] = $option->value;
 	// is checked ?
@@ -37,7 +41,7 @@ foreach ($options as $option) {
 		$attributes['selected'] = 'selected';
 	}
 
-	printf('<option %s>%s</option>', $this->app->field->attributes($attributes), JText::_($option->text));
+	printf('<option %s>%s</option>', $this->app->field->attributes($attributes), $text);
 }
 
 printf('</select>');
