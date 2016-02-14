@@ -1937,6 +1937,7 @@ ul.uk-nav-sub {
 }
 .uk-nav-navbar ul a:hover {
   color: #fffffd;
+  background: rgba(255, 255, 255, 0.08);
 }
 /* Modifier `uk-nav-offcanvas`
  ========================================================================== */
@@ -10143,6 +10144,15 @@ button.uk-button {
  */
 .uk-navbar-content:last-child {
   padding: 0;
+}
+.uk-nav-header li > a {
+  font-weight: normal;
+  text-transform: none;
+  color: rgba(255, 255, 253, 0.8);
+}
+.uk-navbar-nav > li.uk-active > a {
+  color: rgba(255, 255, 253, 0.8);
+  background-image: none;
 }
 /*
  * Sticky navbar

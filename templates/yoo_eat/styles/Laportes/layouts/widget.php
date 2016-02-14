@@ -44,7 +44,6 @@ if (in_array($widget->position, array('headerbar', 'toolbar-r' ,'toolbar-l', 'fo
 }
 // Render menu
 if ($widget->menu) {
-
 	// Set menu renderer
 	if (isset($params['menu'])) {
 		$renderer = $params['menu'];
@@ -64,7 +63,7 @@ if ($widget->menu) {
 
 
 	$content = $this['menu']->process($widget, array('pre', 'subnav', $renderer, 'post'));
-
+	
 }
 
 // Render widget
@@ -73,16 +72,24 @@ if (in_array($widget->position, array('breadcrumbs', 'logo', 'logo-small', 'sear
 
 } elseif ($widget->position == 'menu') {
 	if ($widget->menu) {
+		$zoo = APP::getInstance('zoo');
+		if($widget->parameter->get('menutype') == 'account') {
+			$content = str_replace('{Account}', $zoo->user->get()->name, $content);
+			$content = str_replace('<ul class="uk-navbar-nav uk-hidden-small">', '<ul class="uk-navbar-nav uk-hidden-small uk-navbar-flip">', $content);
+		}
+		echo $content;
+	} elseif ($widget->module == 'mod_zoocart') {
 		echo $content;
 	} else {
 		echo '
-		<ul class="uk-navbar-nav uk-hidden-small">
-			<li class="uk-parent" data-uk-dropdown>
-				<a href="#">'.$title.'</a>
-				<div class="tm-dropdown uk-dropdown uk-dropdown-navbar">'.$content.'</div>
-			</li>
-		</ul>';
+			<ul class="uk-navbar-nav uk-hidden-small '.$cart_class.'">
+				<li class="uk-parent" data-uk-dropdown>
+					<a href="#">'.$title.'</a>
+					<div class="tm-dropdown uk-dropdown uk-dropdown-navbar">'.$content.'</div>
+				</li>
+			</ul>';
 	}
+		
 } else {
 
 	$classes = array($panel);
