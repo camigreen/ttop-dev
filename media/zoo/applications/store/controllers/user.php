@@ -178,7 +178,7 @@ class UserController extends AppController {
         }
         echo 'Save</br>';
         var_dump($storeuser);
-        //return;
+        return;
 
         $msg = 'The user was saved successfully.';
         $link = $this->baseurl;
