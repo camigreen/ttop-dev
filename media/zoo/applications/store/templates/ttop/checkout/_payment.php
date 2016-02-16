@@ -8,7 +8,6 @@ $order = $this->order;
 $elements = $order->elements;
 $params = $order->params;
 $page = $this->page;
-var_dump($this->cUser->getAccount()->getParam('terms', 'DUR') == 'DUR');
 ?>
 <div class="uk-width-1-1 uk-container-center ttop-checkout-payment">
     <div class="uk-grid">
