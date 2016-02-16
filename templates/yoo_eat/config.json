@@ -620,9 +620,9 @@
 		},
 		"300": {
 			"columns": "2",
-			"columnwidth": "250px",
+			"columnwidth": "275px",
 			"icon": "",
-			"subtitle": ""
+			"subtitle": "{account-name}"
 		},
 		"301": {
 			"icon": "",
@@ -644,8 +644,42 @@
 			"icon": "uk-icon-users uk-margin-small-right",
 			"subtitle": ""
 		},
-		"306": {
+		"307": {
+			"columns": "1",
+			"columnwidth": "",
 			"icon": "",
+			"subtitle": ""
+		},
+		"308": {
+			"icon": "uk-icon-lock uk-margin-small-right",
+			"subtitle": ""
+		},
+		"309": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"310": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"311": {
+			"icon": "uk-icon-institution uk-margin-small-right",
+			"subtitle": ""
+		},
+		"312": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"313": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"314": {
+			"icon": "",
+			"subtitle": ""
+		},
+		"315": {
+			"icon": "uk-icon-users uk-margin-small-right",
 			"subtitle": ""
 		}
 	}

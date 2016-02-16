@@ -82,14 +82,46 @@ class TestController extends AppController {
 	}
 
 	public function testUser() {
-<<<<<<< HEAD
-		//$this->app->useraccount->get();
-=======
-		$this->app->loader->register('UserProfileHelper', 'helpers:userprofile.php');
-		$user = new UserProfileHelper($this->app);
-		var_dump($user);
->>>>>>> 1.0.2
+		$storeuser = $this->app->storeuser->get();
+		if(!$storeuser) {
+			$this->app->error->raiseError('USER.001', JText::_('ERROR.USER.001'));
+			return;
+		}
+		// $profile = $storeuser->getUserProfile();
+		// $user->profile = $profile;
+		// //$storeuser->save();
+		echo 'User:</br>';
+		var_dump($storeuser);
+		echo 'Is Account Admin:</br>';
+		var_dump($storeuser->isAccountAdmin());
+		echo 'Is Store Admin:</br>';
+		var_dump($storeuser->isStoreAdmin());
+		echo 'User Can Edit Accounts:</br>';
+		var_dump($storeuser->CanEdit('account'));
+		echo 'User Can Edit Orders:</br>';
+		var_dump($storeuser->CanEdit('order'));
+		echo 'User Can Edit Own:</br>';
+		var_dump($storeuser->CanEditOwn(0,$storeuser->id));
+		echo 'User Can Edit State(Orders):</br>';
+		var_dump($storeuser->CanEditState('order'));
+		echo 'User Can Edit State(Accounts):</br>';
+		var_dump($storeuser->CanEditState('account'));
 	}
+	public function testAccount() {
+		$aid = $this->app->request->get('aid', 'int', false);
+		if($aid) {
+			$account = $this->app->account->get($aid);
+		} else {
+			$storeuser = $this->app->storeuser->get();
+			$account = $storeuser->getAccount(true);
+		}
+		$account->addUser('779', true);
+		echo 'Account:</br>';
+		var_dump($account);
+		echo 'Account User IDs:</br>';
+		var_dump($account->getUsers());
+	}
+
 
 
 }

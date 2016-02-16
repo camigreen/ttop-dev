@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+
+	<layout title="My Profile">
+		<message><![CDATA[My Profile]]></message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request" addfieldpath="/administrator/components/com_zoo/joomla/fields">  
+			<field name="task" type="hidden" label="Display User Profile" default="getProfile" required="true" />
+			<field name="controller" type="hidden" default="user" />        
+		</fieldset>
+	</fields>
+
+</metadata>

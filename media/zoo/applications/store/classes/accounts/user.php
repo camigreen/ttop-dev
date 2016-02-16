@@ -119,7 +119,7 @@ class UserAccount extends Account {
      * @since 3.2
      */
     public function canEdit() {
-        return $this->app->customer->canEdit($this->getAssetName(), $this->getUser()->id);
+        return $this->app->storeuser->get()->canEdit($this->getAssetName(), $this->getUser()->id);
     }
 
     /**

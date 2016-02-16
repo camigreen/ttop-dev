@@ -25,8 +25,8 @@ class MerchantHelper extends AppHelper {
 
         parent::__construct($app);
         $application = $this->app->zoo->getApplication();
-        $this->params = $this->app->account->getStoreAccount()->params;
-        $this->testMode = (bool) $this->params->get('anet.test_mode');
+        $this->params = $this->app->store->get()->params;
+        $this->testMode = $this->app->store->merchantTestMode();
         
     }
 

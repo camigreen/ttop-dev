@@ -4,9 +4,9 @@
 	$selected = array();
 
 	if($id = $parent->getValue('id')) {
-		$account = $this->app->account->get($id);
-		$available =$this->app->table->account->all(array('conditions' => 'type = "dealership"'));
-		$selected = $account->getParents();
+		$account = $this->app->user->get($id);
+		$available =$this->app->table->account->all();
+		$selected = $user->getAccount()->id;
 	}
 
 	$name = $control_name."[$name][]";

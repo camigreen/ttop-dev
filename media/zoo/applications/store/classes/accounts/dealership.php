@@ -43,7 +43,7 @@ class DealershipAccount extends Account {
     public function getAllOEMs($activeOnly = true) {
 
         if($this->id) {
-            $this->_loadMappedAccounts();
+            $this->loadMappedAccounts();
         }
 
         $oems = array();

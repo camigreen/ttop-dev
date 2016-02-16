@@ -30,9 +30,6 @@ class AccountTable extends AppTable {
 			$this->_objects[$object->$key_name] = $object;
 		}
 
-		// trigger init event
-		$this->app->event->dispatcher->notify($this->app->event->create($object, 'account:init'));
-
 		return $object;
 	}
 
@@ -55,7 +52,7 @@ class AccountTable extends AppTable {
 		// fetch object and execute init callback
 		$object = null;
 		if ($object = $this->database->fetchObject($result)) {
-			$type = $oject->type;
+			$type = $object->type;
 			$class = $type."Account";
 
 			$this->app->loader->register($class, 'classes:accounts/'.strtolower($type).'.php');
@@ -124,9 +121,6 @@ class AccountTable extends AppTable {
 		}
 
 		$result = parent::save($object);
-
-		// trigger save event
-		$this->app->event->dispatcher->notify($this->app->event->create($object, 'account:saved', compact('new')));
 
 		return $result;
 	}

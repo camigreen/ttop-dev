@@ -34,7 +34,7 @@ class AccountController extends AppController {
         // set base url
         $this->baseurl = $this->app->link(array('controller' => $this->controller), false);
 
-        $this->cUser = $this->app->user->get();
+        $this->cUser = $this->app->storeuser->get();
 
 
         // registers tasks
@@ -58,7 +58,7 @@ class AccountController extends AppController {
     }
 
     public function testCC() {
-        var_dump(explode("\n", $this->app->account->getStoreAccount()->params->get('notify_emails')));
+        var_dump(explode("\n", $this->app->store->get()->params->get('notify_emails')));
         // $customerProfile = new AuthorizeNetCustomer;
         // $customerProfile->description = "Gibbons Marine";
         // $customerProfile->merchantCustomerId = 8;
@@ -77,7 +77,7 @@ class AccountController extends AppController {
 
 
     public function gateway() {
-        if (!$this->app->customer->isAccountAdmin() && !$this->app->customer->isStoreAdmin()) {
+        if (!$this->cUser->isAccountAdmin() && !$this->cUser->isStoreAdmin()) {
             return $this->app->error->raiseError(500, JText::_('You are not authorized to view this page.<p><a href="/">Click Here</a> to return to the home page.</p>'));
         }
         $task = $this->getTask();
@@ -117,11 +117,11 @@ class AccountController extends AppController {
         $conditions[] = 'state != 3';
         $conditions[] = "type != 'store'";
 
-        if($this->app->customer->isStoreAdmin()) {
+        if($this->cUser->isStoreAdmin()) {
             $options['conditions'] = implode(' AND ', $conditions);
-            $this->accounts = $this->app->table->account->all($options);
+            $this->accounts = $this->app->account->all($options);
         } else {
-            $parent = $this->app->customer->getParent();
+            $parent = $this->cUser->getParent();
             $this->accounts = $this->app->account->getUsersByParent($parent, $conditions);
         }
         
@@ -135,14 +135,14 @@ class AccountController extends AppController {
 
     }
 
-    public function viewProfile() {
-        $aid = $this->app->customer->get()->id;
+    public function viewMyAccount() {
+        $aid = $this->cUser->getAccount()->id;
         $this->app->request->set('aid', $aid);
         $this->edit();
     }
 
-    public function viewParentProfile() {
-        $aid = $this->app->customer->get()->getParentAccount()->id;
+    public function viewStoreAccount() {
+        $aid = $this->app->store->get()->id;
         $this->app->request->set('aid', $aid);
         $this->edit();
     }
@@ -174,7 +174,7 @@ class AccountController extends AppController {
         $aid = $this->app->request->get('aid', 'int');
         $edit = $aid > 0;
         if($edit) {
-            if(!$this->account = $this->table->get($aid)) {
+            if(!$this->account = $this->app->account->get($aid)) {
                 $this->app->error->raiseError(500, JText::sprintf('Unable to access an account with the id of %s', $aid));
                 return;
             }
@@ -200,55 +200,19 @@ class AccountController extends AppController {
         $layout = 'edit';
         $this->partialLayout = $type;
         $this->groups = $this->form->getGroups();
-        $this->form->setValue('canEdit', $this->app->customer->canEdit());
+        $this->form->setValue('canEdit', $this->cUser->canEdit());
         $this->getView()->addTemplatePath($this->template->getPath().'/accounts');
         $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
 
     }
-
-    public function edit2() {
-
-
-        if (!$this->template = $this->application->getTemplate()) {
-            return $this->app->error->raiseError(500, JText::_('No template selected'));
-        }
-
-        $aid = $this->app->request->get('aid', 'int');
-        $edit = $aid > 0;
-        if($edit) {
-            if(!$this->account = $this->table->get($aid)) {
-                $this->app->error->raiseError(500, JText::sprintf('Unable to access an account with the id of %s', $aid));
-                return;
-            }
-            $type = $this->account->type;
-            $this->title = 'Edit '.$this->account->getClassName().' Account';
-        } else {
-            $type = $this->app->request->get('type', 'string');
-            $this->account = $this->app->account->create($type);
-            $this->title = $type == 'default' ? "Create a New $template Account" : "Create a New $type Account";
-
-        }
-        $xml = simplexml_load_file($this->template->getPath().'/accounts/config2.xml');
-        $this->form = JForm::getInstance('com_zoo.new.'.$type, $xml->asXML());
-        $this->form->bind(array('test' => 'test'));
-        $layout = 'edit2';
-        $this->type = $type;
-         
-        $this->getView()->addTemplatePath($this->template->getPath().'/accounts');
-
-        $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
-
-    }
-
-
 
     public function add () {
         if (!$this->template = $this->application->getTemplate()) {
             return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
-        if(!$this->app->customer->isStoreAdmin()) {
-            $this->app->request->set('parent', $this->app->customer->getParent()->id);
-            $link = $this->baseurl.'&task=edit&aid='.$account->id.'&type='.'user.'.$this->app->customer->getParent()->type;
+        if(!$this->cUser->isStoreAdmin()) {
+            $this->app->request->set('parent', $this->cUser->getParent()->id);
+            $link = $this->baseurl.'&task=edit&aid='.$account->id.'&type='.'user.'.$this->cUser->getParent()->type;
             $this->setRedirect($link);
         }
         $this->title = 'Choose an Account Type';
@@ -274,7 +238,7 @@ class AccountController extends AppController {
         //return;
 
         if($aid) {
-            $account = $this->table->get($aid);
+            $account = $this->app->account->get($aid);
         } else {
             $account = $this->app->account->create($type);
         }
@@ -299,7 +263,7 @@ class AccountController extends AppController {
                 $link .= '&task=add';
                 break;
             default:
-                if($this->app->customer->isAccountAdmin()) {
+                if($this->cUser->isAccountAdmin()) {
                     $link .= '&task=search';
                 } else {
                     $link = '/';

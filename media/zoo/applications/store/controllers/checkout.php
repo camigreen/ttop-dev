@@ -37,6 +37,8 @@ class CheckoutController extends AppController {
         // set base url
         $this->baseurl = $this->app->link(array('controller' => $this->controller), false);
 
+        $this->cUser = $this->app->storeuser->get();
+
 
         $this->cart = $this->app->cart;
 
@@ -255,7 +257,7 @@ class CheckoutController extends AppController {
     }
 
     public function processPayment () {
-        $terms = $this->app->customer->getAccountTerms();
+        $terms = $this->app->storeuser->get()->getAccount()->getParam('terms', 'DUR');
         $order = $this->CR->processPayment($terms);
         $this->app->document->setMimeEncoding('application/json');
         $result = array(

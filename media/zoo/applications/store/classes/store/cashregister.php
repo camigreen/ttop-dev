@@ -53,7 +53,7 @@ class CashRegister {
         $this->order = $this->app->orderdev->create();
         $this->application = $this->app->zoo->getApplication();
 
-        $this->account = $this->app->customer->get();
+        $this->account = $this->app->storeuser->get()->getAccount();
     }
     
     protected function updateItemQty() {
@@ -73,11 +73,11 @@ class CashRegister {
     }
     
     protected function getNotificationEmails() {
-        return explode("\n", $this->app->account->getStoreAccount()->params->get('notify_emails'));
+        return explode("\n", $this->app->store->get()->params->get('notify_emails'));
     }
     
     public function sendNotificationEmail($oid, $for = 'payment') {
-        if(!$this->app->account->getStoreAccount()->params->get('notify_email_enable', true)) {
+        if(!$this->app->store->get()->params->get('notify_email_enable', true)) {
             return;
         }
         $order = $this->app->orderdev->get($oid);
@@ -227,7 +227,7 @@ class CashRegister {
         $sale->freight = $this->shipping;
 //        $sale->duty = $duty = "Duty1<|>export<|>15.00";
 //        $sale->po_num = $po_num = "12";
-        $priceDisplay = ($this->app->customer->isReseller() ? 'reseller' : 'retail');
+        $priceDisplay = ($this->app->storeuser->get()->isReseller() ? 'reseller' : 'retail');
         foreach($items as $item) {
             $sale->addLineItem(
                 $item->id,

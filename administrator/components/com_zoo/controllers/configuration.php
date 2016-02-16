@@ -86,7 +86,6 @@ class ConfigurationController extends AppController {
 			if (!$asset->loadByName($assetName)) {
 				$assetName = $this->application->getAssetName();
 			}
-
 			$this->storePermissions[$section]->bind(array('asset_id' => $assetName));
 		}
 		

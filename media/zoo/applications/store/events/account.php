@@ -22,8 +22,8 @@ class AccountEvent {
 	public static function init($event) {
 
 		$account = $event->getSubject();
-        $app = $account->app;
-
+        $app = APP::getInstance('zoo');
+        $new = $event['new'];
         if (is_string($account->params) || is_null($account->params)) {
             // decorate data as this
             $account->params = $app->parameter->create($account->params);
@@ -33,6 +33,8 @@ class AccountEvent {
             // decorate data as this
             $account->elements = $app->parameter->create($account->elements);
         }
+
+        $account->loadMappedAccounts();
 
 	}
 

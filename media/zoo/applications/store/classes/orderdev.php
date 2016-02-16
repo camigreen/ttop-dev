@@ -40,7 +40,7 @@ class OrderDev {
 
 		$tzoffset = $this->app->date->getOffset();
 		$now        = $this->app->date->create();
-		$cUser = $this->app->customer->get();
+		$cUser = $this->app->storeuser->get();
 
     	// set created date
 		if(!$this->created) {
@@ -51,8 +51,8 @@ class OrderDev {
         $this->modified = $now->toSQL();
         $this->modified_by = $cUser->id; 
 
-        $this->params->set('terms', $this->app->customer->get()->getParentAccount()->params->get('terms', 'DUR'));
-        if($this->app->customer->isReseller()) {
+        $this->params->set('terms', $this->app->storeuser->get()->getAccount()->params->get('terms', 'DUR'));
+        if($this->app->storeuser->get()->isReseller()) {
         	$this->getTotal('reseller');
         } else {
         	$this->getTotal('retail');
@@ -188,10 +188,10 @@ class OrderDev {
 
 	public function getUser() {
 		if($this->created_by) {
-			$this->_user = $this->app->account->get($this->created_by);
+			$this->_user = $this->app->storeuser->get($this->created_by);
 		}
 		if(empty($this->_user)) {
-			$this->_user = $this->app->customer->get();
+			$this->_user = $this->app->storeuser->get();
 			$this->created_by = $this->_user->id;
 		}
 		
@@ -199,7 +199,7 @@ class OrderDev {
 	}
 
 	public function getAccount() {
-		$this->_account = $this->app->customer->getParent();
+		$this->_account = $this->app->storeuser->get()->getAccount();
 		$this->account = $this->_account->id;
 		return $this->_account;
 	}

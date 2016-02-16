@@ -6,9 +6,9 @@
 	</layout>
 	<fields name="request">
 		<fieldset name="request" addfieldpath="/administrator/components/com_zoo/joomla/fields">  
-			<field name="task" type="list" label="Display Accounts" default="all" required="true">
-				<option value="viewProfile">My Profile</option>
-				<option value="viewParentProfile">Parent Account</option>
+			<field name="task" type="list" label="Display Accounts" default="viewMyAccount" required="true">
+				<option value="viewMyAccount">My Account</option>
+				<option value="viewStoreAccount">Store Account</option>
 			</field>
 			<field name="controller" type="hidden" default="account" />        
 		</fieldset>

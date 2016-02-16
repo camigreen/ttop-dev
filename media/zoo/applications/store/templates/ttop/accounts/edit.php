@@ -20,7 +20,7 @@
 	    	<div class="uk-width-1-6">
 	    		<button class="uk-width-1-1 uk-button uk-button-primary uk-margin-small-bottom task-button" data-task="save">Save and Close</button>
 	    	</div>
-	    	<?php if($this->app->customer->canCreate()) : ?>
+	    	<?php if($this->app->storeuser->get()->canCreate()) : ?>
 		    	<div class="uk-width-1-6">
 		    		<button class="uk-width-1-1 uk-button uk-button-primary uk-margin-small-bottom task-button" data-task="save2new">Save and New</button>
 		    	</div>
@@ -36,11 +36,11 @@
 				<div>Created:</div>
 				<div class="uk-text-muted"><?php echo $this->account->created == null ? JText::_('Not created') : $this->app->html->_('date', $this->account->created, JText::_('DATE_FORMAT_LC2'), $this->app->date->getOffset()); ?></div>
 				<div>Created By:</div>
-				<div class="uk-text-muted"><?php echo $this->account->created_by ? $this->app->account->get($this->account->created_by)->name : null; ?></div>
+				<div class="uk-text-muted"><?php echo $this->account->created_by ? $this->app->user->get($this->account->created_by)->name : null; ?></div>
 				<div>Modified:</div>
 				<div class="uk-text-muted"><?php echo $this->account->modified == null ? JText::_('Not modified') : $this->app->html->_('date', $this->account->modified, JText::_('DATE_FORMAT_LC2'), $this->app->date->getOffset()); ?></div>
 				<div>Modified By:</div>
-				<div class="uk-text-muted"><?php echo $this->account->modified_by ? $this->app->account->get($this->account->modified_by)->name: null; ?></div>
+				<div class="uk-text-muted"><?php echo $this->account->modified_by ? $this->app->user->get($this->account->modified_by)->name: null; ?></div>
 
 			</div>
 		</div>

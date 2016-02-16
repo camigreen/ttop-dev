@@ -11,7 +11,7 @@
  *
  * @package Component.Events
  */
-class UserAccountEvent {
+class StoreUserEvent {
 
 	/**
 	 * When an application is loaded on the frontend,
@@ -21,11 +21,15 @@ class UserAccountEvent {
 	 */
 	public static function init($event) {
 
-		$user = $event->getSubject();
-        $app = $user->app;
+		$storeuser = $event->getSubject();
+        $app = $storeuser->app;
+        $storeuser->set('password', null);
+        $profile = JUserHelper::getProfile($storeuser->id);
+        $profile = $app->parameter->create($profile->get('profile'));
+        $storeuser->params = $app->parameter->create($profile->get('params'));
+        $storeuser->elements = $app->parameter->create($profile->get('elements'));
 
-  //       $profile = JUserHelper::getProfile($user->id);
-		// $user->profile = $app->parameter->create($profile->get('profile'));
+		
 
 	}
 

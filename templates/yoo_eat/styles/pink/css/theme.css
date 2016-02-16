@@ -1934,7 +1934,6 @@ ul.uk-nav-sub {
 }
 .uk-nav-navbar ul a:hover {
   color: #866d5d;
-  background: #f7f6f5;
 }
 /* Modifier `uk-nav-offcanvas`
  ========================================================================== */
@@ -10150,6 +10149,18 @@ button.uk-button {
 .uk-navbar-nav > li.uk-active > a {
   color: rgba(255, 255, 255, 0.8);
   background-image: none;
+}
+.uk-nav-header li:hover {
+  background: #f7f6f5;
+}
+.uk-navbar-nav-subtitle .test-mode {
+  line-height: 18px;
+}
+.uk-navbar-nav-subtitle .test-mode span {
+  font-size: 15px;
+  color: #dc4559;
+  font-weight: bold;
+  margin-left: 5px;
 }
 /*
  * Sticky navbar

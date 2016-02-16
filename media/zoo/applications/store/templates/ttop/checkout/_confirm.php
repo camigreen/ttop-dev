@@ -32,7 +32,7 @@ list($page) = explode('.',$this->page, 2);
         <div class="uk-width-1-1 uk-margin-top">
             <div>E-mail: <?php echo $elements->get('email'); ?></div>
         </div>
-        <?php if($this->app->customer->isReseller()) : ?>
+        <?php if($this->app->storeuser->get()->isReseller()) : ?>
             <div class="uk-width-1-1 uk-margin-top">
                 <div>Sales Rep: <?php echo $order->getCreator(); ?></div>
             </div>
@@ -40,7 +40,7 @@ list($page) = explode('.',$this->page, 2);
         <div class="uk-width-1-1 uk-margin-top">
             <div>Delivery Method: <?php echo $elements->get('shipping_method') == 'LP' ? 'Local Pickup' : 'UPS Ground' ?></div>
         </div>
-        <?php if($this->app->customer->isReseller()) : ?>
+        <?php if($this->app->storeuser->get()->isReseller()) : ?>
         <div class="uk-width-1-1 uk-margin-top">
             <h3>Payment</h3>
             <div>Account Name:  <?php echo $params->get('payment.account_name'); ?></div>
@@ -50,7 +50,7 @@ list($page) = explode('.',$this->page, 2);
         </div>
         <?php endif; ?>
         <div class='uk-width1-1 uk-margin-top'>
-            <?php if($this->app->customer->isReseller()) : ?>
+            <?php if($this->app->storeuser->get()->isReseller()) : ?>
             <div class='uk-width1-1 items-table'>
                 <?php echo $this->partial('item.table.reseller',compact('order', 'page')); ?>
             </div>

@@ -21,7 +21,7 @@ class PricesHelper extends AppHelper {
         include $this->app->path->path('prices:prices.php');
         $this->items = $this->app->parameter->create($price);
         $this->shipping = $this->app->parameter->create();
-        $this->account = $this->app->customer->get();
+        $this->account = $this->app->storeuser->get();
     }
 
     public function test() {
@@ -54,7 +54,7 @@ class PricesHelper extends AppHelper {
 
     public function getMarkupList($group) {
         $default = (float) $this->account->params->get('markup')/100;
-        $store = $this->app->account->getStoreAccount();
+        $store = $this->app->store->get();
         $markups = $store->params->get('options.markup.');
         $list = array();
         foreach($markups as $value => $text) {

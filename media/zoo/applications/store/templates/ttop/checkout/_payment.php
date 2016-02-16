@@ -8,10 +8,11 @@ $order = $this->order;
 $elements = $order->elements;
 $params = $order->params;
 $page = $this->page;
+var_dump($this->cUser->getAccount()->getParam('terms', 'DUR') == 'DUR');
 ?>
 <div class="uk-width-1-1 uk-container-center ttop-checkout-payment">
     <div class="uk-grid">
-        <?php if($this->app->customer->isReseller()) : ?>
+        <?php if($this->app->storeuser->get()->isReseller()) : ?>
             <div class="uk-width-1-1">
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table uk-hidden" data-uk-toggle="{target:'.items-table'}">Hide Full Invoice</button>
                 <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table" data-uk-toggle="{target:'.items-table'}">View Full Invoice</button>
@@ -51,7 +52,7 @@ $page = $this->page;
                         </legend>
                     </div>
                     <div class="uk-width-1-1">
-                    <?php if($this->app->customer->isReseller()) : ?>
+                    <?php if($this->app->storeuser->get()->isReseller()) : ?>
                         <?php $this->form->setValues($params); ?>
                         <?php if($this->form->checkGroup('purchase_order')) : ?>
                             <div class="uk-form-row">
@@ -61,7 +62,7 @@ $page = $this->page;
                             </div>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <?php if($this->app->customer->getAccountTerms() == 'DUR') : ?>
+                    <?php if($this->cUser->getAccount()->getParam('terms', 'DUR') == 'DUR') : ?>
                         <div class="uk-width-1-1">
                             <?php echo $this->partial('payment.creditcard',compact('order')); ?>
                         </div>

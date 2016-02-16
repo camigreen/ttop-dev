@@ -33,10 +33,10 @@ class ElementPrice extends ElementStore {
         
     public function render($params = array())
     {
-        $account = $this->app->customer->getParent();
+        $account = $this->app->storeuser->get()->getAccount();
         $layout = str_replace('user.','',$account->type);
         $allowMarkups = $params['item']->getPrice()->allowMarkups();
-        if(file_exists($this->app->path->path('elements:price/tmpl/reseller.php')) && $this->app->customer->isReseller() && $allowMarkups) {
+        if(file_exists($this->app->path->path('elements:price/tmpl/reseller.php')) && $this->app->storeuser->get()->isReseller() && $allowMarkups) {
             return $this->renderLayout($this->app->path->path('elements:price/tmpl/reseller.php'), compact('params'));
         } else {
             return $this->renderLayout($this->app->path->path('elements:price/tmpl/default.php'), compact('params'));

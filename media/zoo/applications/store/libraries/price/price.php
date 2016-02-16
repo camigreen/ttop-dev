@@ -94,7 +94,7 @@ class Price
 	public function __construct($app, StoreItem $item, $resource = null) {
 		$this->app = $app;
 		// Set the Markup
-		$account = $this->app->customer->getParent();
+		$account = $this->app->storeuser->get()->getAccount();
 		$this->_markupRate = $account->params->get('markup')/100;
 
 		// Set the Discount
@@ -114,7 +114,7 @@ class Price
 
 		$this->_base = $prices->get($this->_group.'.item.base');
 		$this->_shipWeight = $prices->get($this->_group.'.shipping.weight');
-		if($this->app->customer->isReseller()) {
+		if($this->app->storeuser->get()->isReseller()) {
 			$this->_discountRate = $prices->get($this->_group.'.item.discount') ? $prices->get($this->_group.'.item.discount') : $this->_discountRate;
 			$this->_markupRate = $this->allowMarkup ? $this->_markupRate : 0;
 		}
@@ -269,7 +269,7 @@ class Price
 	 */
 	public function getMarkupList() {
         $default = $this->_markupRate;
-        $store = $this->app->account->getStoreAccount();
+        $store = $this->app->store->get();
         $markups = $store->params->get('options.markup.');
         $list = array();
         foreach($markups as $value => $text) {

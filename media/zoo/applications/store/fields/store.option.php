@@ -1,6 +1,6 @@
 <?php
 	$editPermission = (string) $node->attributes()->edit;
-	$store = $this->app->account->getStoreAccount();
+	$store = $this->app->store->get();
 	$optionset = $node->attributes()->optionset;
 	$options = $store->params->get('options.'.$optionset.'.');
 	$class = $parent->getValue('class');
@@ -10,7 +10,7 @@
 	$canEdit = $parent->getValue('canEdit');
 	$viewOnly = (bool) $node->attributes()->viewOnly;
 
-	if($this->app->customer->isStoreAdmin() || ($canEdit && !$viewOnly)) {
+	if($this->app->storeuser->get()->isStoreAdmin() || ($canEdit && !$viewOnly)) {
 		$name = "{$control_name}[$name]";
 		$html[] = '<select class="'.$class.'" name="'.$name.'" >';
 		foreach($options as $key => $text) {

@@ -48,9 +48,9 @@ class StoreApplication extends Application {
         $zoo->event->dispatcher->connect('order:init', array('OrderEvent', 'init'));
         $zoo->event->register('AccountEvent');
         $zoo->event->dispatcher->connect('account:init', array('AccountEvent', 'init'));
-        $zoo->event->register('UserAccountEvent');
-        $zoo->event->dispatcher->connect('useraccount:init', array('UserAccountEvent', 'init'));
-        $zoo->event->dispatcher->connect('useraccount:saved', array('UserAccountEvent', 'saved'));
+        $zoo->event->register('StoreUserEvent');
+        $zoo->event->dispatcher->connect('storeuser:init', array('StoreUserEvent', 'init'));
+        $zoo->event->dispatcher->connect('storeuser:saved', array('StoreUserEvent', 'saved'));
         $zoo->event->register('StoreItemEvent');
         $zoo->event->dispatcher->connect('storeitem:init', array('StoreItemEvent', 'init'));
 //        Add CSS

@@ -15,7 +15,7 @@ $salesperson = null;
     <div class="uk-grid">
         <div class='uk-width-1-1'>
             <p class='uk-text-center'>
-                Orders are shipped within <?php echo $this->app->customer->getAccount()->isReseller() ? ' 5-10 ' : ' 5-15 ' ?>business days.
+                Orders are shipped within <?php echo $this->app->storeuser->get()->getAccount(false)->isReseller() ? ' 5-10 ' : ' 5-15 ' ?>business days.
             </p>
 
         </div>

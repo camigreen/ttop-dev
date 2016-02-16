@@ -5,9 +5,8 @@
 	if($id = $parent->getValue('id')) {
 		$account = $this->app->account->get($id);
 		//var_dump($node->attributes);
-		$uType = (string) $node->attributes()->usertype;
-		$available = $this->app->table->account->getUnassignedAccountsByType($uType);
-		$selected = $account->getChildrenByType($uType);
+		$available = $this->app->store->getUnassignedUsers();
+		$selected = $account->getUsers(true);
 	}
 
 	$name = $control_name."[$name][]";
@@ -23,10 +22,10 @@
 	<?php if(empty($selected)) : ?>
 		<li class="empty uk-text-small">There are no users assigned to this account.</li>
 	<?php endif; ?>
-	<?php foreach($selected as $id => $profile) : ?>
-		<li id="<?php echo $profile->id; ?>" data-name="<?php echo $profile->getUser()->name; ?>">
-			<input type="text" name="<?php echo $name; ?>" value="<?php echo $profile->id; ?>" />
-			<?php echo $profile->getUser()->name.'<a href="#" class="uk-close uk-float-right uk-text-muted"></a>'; ?>
+	<?php foreach($selected as $id => $user) : ?>
+		<li id="<?php echo $user->id; ?>" data-name="<?php echo $user->name; ?>">
+			<input type="text" name="<?php echo $name; ?>" value="<?php echo $user->id; ?>" />
+			<?php echo $user->name.'<a href="#" class="uk-close uk-float-right uk-text-muted"></a>'; ?>
 		</li>
 	<?php endforeach; ?>
 	</ul>
@@ -44,11 +43,11 @@
         	<?php if(empty($available)) : ?>
         		<li class="empty uk-text-small">No Available Users Found!</li>
         	<?php endif; ?>
-        	<?php foreach($available as $profile) : ?>
-        	<li id="<?php echo $profile->id; ?>" data-name="<?php echo $profile->getUser()->name; ?>">
+        	<?php foreach($available as $user) : ?>
+        	<li id="<?php echo $user->id; ?>" data-name="<?php echo $user->name; ?>">
 	        	<label>
 	    			<input type="checkbox">
-	    			<?php echo $profile->getUser()->name; ?>
+	    			<?php echo $user->name; ?>
 	    		</label>
     		</li>
     		<?php endforeach; ?>

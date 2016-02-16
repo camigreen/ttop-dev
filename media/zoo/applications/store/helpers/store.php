@@ -13,26 +13,42 @@
  */
 class StoreHelper extends AppHelper {
     
-    
-    public function __construct($app) {
-        parent::__construct($app);
-        
-        $app->loader->register('StoreItem','classes:storeitem.php');
+
+    public function get() {
+        return $this->app->account->get(7);
     }
-    
-    public function create($item) {
-        
-        $class = str_replace('-','',$item->type).'item';
-        
-        if (file_exists($this->app->path->path('classes:'.basename($class,'item').'.php'))) {
-            $this->app->loader->register($class, 'classes:'.basename($class,'item').'.php');
-        } else {
-            $class = 'StoreItem';
+
+    public function getUnassignedUsers() {
+
+        $unassigned = array();
+
+        $query = 'SELECT child FROM #__zoo_account_user_map';
+
+        $rows = $this->app->database->queryResultArray($query);
+
+        $assigned = $rows;
+
+        $query = 'SELECT id FROM #__users';
+
+        $rows = $this->app->database->queryResultArray($query);
+
+        $users = $rows;
+
+        foreach($users as $user) {
+            if(!in_array($user, $assigned)) {
+                $usr = $this->app->user->get($user);
+                if(!$usr->superadmin || true){
+                    $unassigned[$usr->id] = $usr;
+                }
+            }
+
         }
+        return $unassigned;
         
-        $object = new $class($this->app, $item);
-        
-        return $object;
+    }
+
+    public function merchantTestMode() {
+        return (bool) $this->get()->getParam('anet.test_mode', false) || $this->app->storeuser->get()->getParam('test_mode', false);
     }
     
 }

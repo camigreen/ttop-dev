@@ -1,5 +1,6 @@
 <?php
-
+	$users = $this->users;
+	//var_dump($this->app->store->merchantTestMode());
 ?>
 <div class="ttop ttop-account-search">
 	<div class="uk-width-1-1">
@@ -26,23 +27,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php if(count($this->profiles) < 1) : ?>
+				<?php if(count($users) < 1) : ?>
 					<tr><td colspan="7" class="uk-text-center">No Users Found!</td></tr>
 				<?php endif; ?>
-				<?php foreach($this->profiles as $profile) : ?>
-				<tr id="<?php echo $profile->id; ?>">
-					<td class="uk-text-center" >
-						<?php echo $this->app->button->render('edit', 'Edit', $profile->canEdit($this->cUser));  ?>
-						<?php echo $this->app->button->render('delete', 'Delete', $profile->canDelete($this->cUser));  ?>
-						<?php echo $this->app->button->render('view', 'View');  ?>
+				<?php foreach($users as $user) : ?>
+				<tr id="<?php echo $user->id; ?>">
+					<td class="uk-text-center">
+						<?php echo $this->app->button->render('edit', 'Edit', $this->cUser->canEdit('account', $user->id));  ?>
+						<?php echo $this->app->button->render('delete', 'Delete', $this->cUser->canDelete('account'));  ?>
+						<?php //echo $this->app->button->render('view', 'View');  ?>
 					</td>
-					<?php $user = $profile->getUser(); ?>
-					<?php $account = $profile->getAccount(); ?>
+					<?php $account = $user->getAccount(true); ?>
 					<td><?php echo $user->name; ?></td>
 					<td><?php echo $user->email; ?></td>
-					<td><?php echo $account ? $account->name : null; ?></td>
-					<td><?php echo Jtext::_('PROFILE_TYPE_'.$profile->type); ?></td>
-					<td><?php echo $this->app->userprofile->getStatus($profile); ?></td>
+					<td><?php echo $account || !is_null($account->id) ? $account->name : 'Unassigned'; ?></td>
+					<td><?php echo Jtext::_('USER_TYPE_'.$user->getParam('type', 'default')); ?></td>
+					<td><?php echo $this->app->status->get('user', $user->getParam('status')); ?></td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>

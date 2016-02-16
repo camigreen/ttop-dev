@@ -19,10 +19,10 @@ class StatusHelper extends AppHelper {
         3 => 'ACCOUNT_STATUS_TRASHED'
     );
 
-    protected $profile = array(
-        1 => 'PROFILE_STATUS_ACTIVE',
-        2 => 'PROFILE_STATUS_SUSPENDED',
-        3 => 'PROFILE_STATUS_TRASHED'
+    protected $user = array(
+        1 => 'ACCOUNT_STATUS_ACTIVE',
+        2 => 'ACCOUNT_STATUS_SUSPENDED',
+        3 => 'ACCOUNT_STATUS_TRASHED'
     );
 
     protected $order;

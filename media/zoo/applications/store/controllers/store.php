@@ -292,7 +292,7 @@ class StoreController extends AppController {
         // get request vars
         $page        = $this->app->request->getInt('page', 1);
             $category_id = (int) $this->app->request->getInt('category_id', $this->params->get('category'));
-            $this->products = $this->app->table->application->all();
+            //$this->products = $this->app->table->application->all();
 
             // init vars
             $this->categories = $this->application->getCategoryTree(true, $this->app->user->get(), true);

@@ -1,10 +1,17 @@
+<?php
+	
+	$user = $this->storeuser->getUser();
+	$params = $this->storeuser->params;
+	$account = $this->storeuser->getAccount(true);
+?>
+
 <div class="ttop ttop-account-edit uk-grid">
 	
 		<div class="uk-width-1-1">
 			<div class="uk-article-title uk-text-center">
 				<?php echo $this->title; ?>
-				<?php if($this->user->id) : ?>
-					<div class="uk-article-lead"><?php echo $this->user->name.' | ID: '.$this->user->id; ?></div>
+				<?php if($user->id) : ?>
+					<div class="uk-article-lead"><?php echo $user->name.' | ' . $params->get('type', 'default') . ' | ID: '.$user->id; ?></div>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -25,39 +32,14 @@
 			    	</div>
 		    	</div>
 			</div>
-			<div class="uk-width-2-10 side-bar">
-				<div class="uk-grid" uk-grid-margin>
-					<div class="uk-grid-margin-1-1 uk-text-small">
-						<div>Created:</div>
-						<div class="uk-text-muted"><?php echo $this->profile->created == null ? JText::_('Not created') : $this->app->html->_('date', $this->profile->created, JText::_('DATE_FORMAT_LC2'), $this->app->date->getOffset()); ?></div>
-						<div>Created By:</div>
-						<div class="uk-text-muted"><?php echo $this->app->user->get($this->profile->created_by)->name; ?></div>
-						<div>Modified:</div>
-						<div class="uk-text-muted"><?php echo $this->profile->modified == null ? JText::_('Not modified') : $this->app->html->_('date', $this->profile->modified, JText::_('DATE_FORMAT_LC2'), $this->app->date->getOffset()); ?></div>
-						<div>Modified By:</div>
-						<div class="uk-text-muted"><?php echo $this->app->user->get($this->profile->modified_by)->name; ?></div>
-
-					</div>
-					<div class="uk-width-1-1 menu-buttons uk-margin-top">
-						
-						
-						
-						
-					</div>
-				</div>
-				
-			</div>
-			<div class="uk-width-8-10">
+			<div class="uk-width-1-1">
 				<div class="uk-width-1-1">
 					<form id="account_admin_form" class="uk-form" method="post" action="<?php echo $this->baseurl; ?>" enctype="multipart/form-data">
-							<?php $this->form->setValues($this->user); ?>
-							<?php $this->form->setValue('status',$this->profile->status); ?>
+							<?php $this->form->setValues($user); ?>
+							<?php $this->form->setValue('status',$params->get('status', 1)); ?>
 							<?php if($this->form->checkGroup('details')) : ?>
 								<div class="uk-form-row">
-									<fieldset id="details">
-										<legend>Details</legend>
-										<?php echo $this->form->render('details')?>
-									</fieldset>
+									<?php echo $this->form->render('details')?>
 								</div>
 							<?php endif; ?>
 							<?php if($this->form->checkGroup('password')) : ?>
@@ -65,7 +47,7 @@
 									<fieldset id="password">
 										<legend>Password</legend>
 										<?php 
-											if($this->app->session->get('user')->id == $this->user->id || !$this->user->id) {
+											if($this->app->user->get()->id == $user->id || !$user->id || true) {
 												echo $this->form->render('password');
 											} else {
 												echo '<button id="resetPWD" class="uk-width-1-3 uk-button uk-button-primary uk-margin" data-task="resetPassword">Reset Password</button>';
@@ -74,27 +56,26 @@
 									</fieldset>
 								</div>
 							<?php endif; ?>
-							<?php $this->form->setValues($this->profile->elements); ?>
+							<?php $this->form->setValues($params); ?>
 							<?php if($this->form->checkGroup('contact')) : ?>
 								<div class="uk-form-row">
-									<fieldset id="contact">
-										<legend>Contact Info</legend>
-										<?php echo $this->form->render('contact')?>
-									</fieldset>
+									<?php echo $this->form->render('contact')?>
 								</div>
 							<?php endif; ?>
-							<?php $this->form->setValue('account', ($this->account ? $this->account->id : 0)); ?>
+							<?php $this->form->setValue('account', ($account ? $account->id : 0)); ?>
 							<?php if($this->form->checkGroup('elements')) : ?>
 								<div class="uk-form-row">
-									<fieldset id="elements">
-										<legend>User Assignments</legend>
-										<?php echo $this->form->render('elements')?>
-									</fieldset>
+									<?php echo $this->form->render('elements')?>
+								</div>
+							<?php endif; ?>
+							<?php if($this->form->checkGroup('params')) : ?>
+								<div class="uk-form-row">
+									<?php echo $this->form->render('params')?>
 								</div>
 							<?php endif; ?>
 						<input type="hidden" name="task" value="apply" />
-						<input type="hidden" name="uid" value="<?php echo $this->profile->id; ?>" />
-						<input type="hidden" name="elements[type]" value="<?php echo $this->profile->type; ?>" />
+						<input type="hidden" name="uid" value="<?php echo $user->id; ?>" />
+						<input type="hidden" name="params[type]" value="<?php echo $params->get('type', 'default'); ?>" />
 						<?php echo $this->app->html->_('form.token'); ?>
 					</form>
 					<script>

@@ -27,14 +27,21 @@ class AccountHelper extends AppHelper {
 
 	public function get($id = null) {
 
-		// If and id is not provided, then get the account by the current user.
+		// if id is null then get the logged in account.
 		if(!$id) {
-			$user = $this->app->user->get();
-			$profile = JUserHelper::getProfile($user->id);
-			$user->profile = $this->app->parameter->create($profile->profile);
-			var_dump($user);
+			$account = $this->create();
+			return $account;
 		}
 
+		if(!is_null($id) && !isset($this->_accounts[$id])) {
+			$account = $this->table->get($id);
+			$this->_accounts[$id] = $account;
+			$new = false;
+			// trigger init event
+			$this->app->event->dispatcher->notify($this->app->event->create($this->_accounts[$id], 'account:init', compact('new')));
+		}
+
+		return $this->_accounts[$id];
 
 	}
 
@@ -53,9 +60,10 @@ class AccountHelper extends AppHelper {
 		$account->type = $classname.($type ? '.'.$type : '');
 		$account->app = $this->app;
 
+		$new = true;
 		
 		// trigger init event
-		$this->app->event->dispatcher->notify($this->app->event->create($account, 'account:init'));
+		$this->app->event->dispatcher->notify($this->app->event->create($account, 'account:init', compact('new')));
 		
 		if(!empty($args)) {
 			$account->bind($args);
@@ -64,131 +72,26 @@ class AccountHelper extends AppHelper {
 
 	}
 
-	public function getByTypes() {
-		return $this->app->table->account->all();
-	}
-
-	public function getStoreAccount() {
-		return $this->table->find('first', array('conditions' => "type = 'store'"));
+	public function all($options = array()) {
+		$accounts = $this->table->all($options);
+		foreach($accounts as $account) {
+			$new = false;
+			// trigger init event
+			$this->app->event->dispatcher->notify($this->app->event->create($account, 'account:init', compact('new')));
+		}
+		return $accounts;
 	}
 
 	public function getByUser($user = null) {
 
 		$db = $this->app->database;
 		$id = $db->queryResult('SELECT parent FROM #__zoo_account_user_map WHERE child = '.$user->id);
-		if(!$id) {
-			return null;
+		if(is_null($id)) {
+			return $this->create();
 		} 
-		
 		$account = $this->get($id);
 
 		return $account;
 	}
-
-	public function getAccountUsers($account) {
-
-		$db = $this->app->database;
-		$users = $db->queryResultArray("SELECT user_id FROM #__user_profiles WHERE profile_key = 'profile.account' AND profile_value = '$account->id'");
-		if(!$id) {
-			return null;
-		} 
-		
-		$account = $this->get($id);
-
-		return $account;
-	}
-
-	public function getUsersByParent($parent = null, $conditions = array()) {
-
-		$db = $this->app->database;
-		
-		$query = 'SELECT child FROM #__zoo_account_map WHERE parent = '.$parent->id;
-
-		$users = $db->queryResultArray($query);
-
-		$conditions[] = 'id IN ('.implode(',',$users).')';
-		
-		$options['conditions'] = implode(' AND ',$conditions);
-		// var_dump($options);
-		// return;
-
-		$accounts = $this->table->all($options);
-		return $accounts;
-	}
-
-	public function getUnassignedOEMs($options = null) {
-		$oems = $this->app->table->account->getUnassignedOEMs();
-		$assignments = array();
-        foreach($oems as $oem) {
-            if($oem->parent) {
-                $assignments[$oem->parent][$oem->id] = $oem;
-            } else {
-                $assignments['unassigned'][$oem->id] = $oem;
-            }
-        }
-        return $assignments;
-
-	}
-
-	/**
-	 * Evaluates user permission
-	 *
-	 * @param JUser $user User Object
-	 * @param int $asset_id
-	 *
-	 * @return boolean True if user has permission
-	 *
-	 * @since 3.2
-	 */
-	public function isAdmin($user = null, $asset_id = 0) {
-		return $this->authorise($user, 'core.admin', $asset_id);
-	}
-
-	/**
-	 * Evaluates user permission
-	 *
-	 * @param JUser $user User Object
-	 * @param int $asset_id
-	 * @param int $created_by
-	 *
-	 * @return boolean True if user has permission
-	 *
-	 * @since 3.2
-	 */
-	public function canEdit($user = null, $asset_id = 0, $created_by = 0) {
-		
-		if(!$user) {
-			$user = $this->app->customer->getUser();
-		}
-		$account = $this->app->customer->get();
-
-		return $this->isAdmin($user, $asset_id) || $this->authorise($user, 'account.edit', $asset_id) || ($created_by === $account->id && $user->authorise('account.edit.own', $asset_id));
-	}
-
-
-	/**
-	 * Evaluates user permission
-	 *
-	 * @param JUser $user User Object
-	 * @param string $action
-	 * @param int $asset_id
-	 *
-	 * @return boolean True if user has permission
-	 *
-	 * @since 3.2
-	 */
-	protected function authorise($user, $action, $asset_id) {
-		if (!$asset_id) {
-			$asset_id = 'com_zoo';
-		}
-		if (is_null($user)) {
-			$user = $this->get();
-		}
-
-		return (bool) $user->authorise($action, $asset_id);
-	}
-
-    
-
     
 }

@@ -13,7 +13,7 @@ $type = $parent->getValue('type');
 $canEdit = $parent->getValue('canEdit');
 $viewOnly = (bool) $node->attributes()->viewOnly;
 
-if($this->app->customer->isStoreAdmin() || ($canEdit && !$viewOnly)) {
+if($this->app->storeuser->get()->isStoreAdmin() || ($canEdit && !$viewOnly)) {
 	$attributes = array('type' => 'text', 'name' => "{$control_name}[{$name}]", 'value' => $value, 'class' => isset($class) ? $class : '');
 
 	$disabled = (bool) $node->attributes()->disabled ? 'disabled' : ''; 

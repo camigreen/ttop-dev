@@ -7,7 +7,8 @@
  */
 
 // set attributes
-$attributes = array('id' => $name,'type' => 'text', 'name' => "{$control_name}[{$name}]", 'value' => $value, 'class' => isset($class) ? $class : '');
+$control_name = $control_name == 'null' ? $name : $control_name."[$name]";
+$attributes = array('id' => $name,'type' => 'text', 'name' => "$control_name", 'value' => $value, 'class' => isset($class) ? $class : '');
 if($node->attributes()->disabled) {
 	$attributes['disabled'] = true;
 }
