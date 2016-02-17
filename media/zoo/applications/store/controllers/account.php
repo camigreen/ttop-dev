@@ -199,7 +199,7 @@ class AccountController extends AppController {
         $this->form->setValues($this->account);
         $layout = 'edit';
         $this->partialLayout = $type;
-        $this->groups = $this->form->getGroups();
+        $this->form->setAssetName($account->getAssetName())->setBelongsTo($account->id);
         $this->form->setValue('canEdit', $this->cUser->canEdit());
         $this->getView()->addTemplatePath($this->template->getPath().'/accounts');
         $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();

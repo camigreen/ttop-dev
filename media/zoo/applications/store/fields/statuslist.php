@@ -1,7 +1,10 @@
 <?php
-
-	$name = $control_name.'['.$name.']';
-	$html[] = '<select name="'.$name.'" class="'.$class.'">';
+	
+	$attributes['name'] = $control_name.'['.$name.']';	
+	$attributes['class'] = $class;
+	$attributes['disabled'] = $disabled;
+	var_dump($disabled);
+	$html[] = sprintf('<select %s >', $this->app->field->attributes($attributes, array('label', 'description', 'default')));
 	$html[] = '<option value="0">- Select -</option>';
 
 	$states = $this->app->status->getList($node->attributes()->value);

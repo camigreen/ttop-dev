@@ -67,6 +67,11 @@ class StoreUser {
         return true;
 	}
 
+    public function getAssetName() {
+        $application = $this->app->zoo->getApplication();
+        return 'com_zoo.application.'.$application->id.'.users';
+    }
+
     public function getUser() {
         return $this->_user;
     }
@@ -169,10 +174,6 @@ class StoreUser {
      * @since 1.0.0
      */
     public function canAccess($access = 0) {
-
-        if (is_null($this->_user)) {
-            $this->_user = $this->userhelper->get();
-        }
 
         return in_array($access, $this->_user->getAuthorisedViewLevels());
 

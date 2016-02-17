@@ -14,6 +14,8 @@
  */
 class FormHelper extends AppHelper {
 
+	
+
 	/**
 	 * Creates a parameter form instance
 	 *
@@ -54,6 +56,13 @@ class FormHelper extends AppHelper {
  */
 class AppForm {
 
+
+	public $assetName;
+
+	public $cUser;
+
+	public $belongsTo = 0;
+
 	/**
 	 * App instance
 	 *
@@ -87,6 +96,25 @@ class AppForm {
 		// init vars
 		$this->app = $app;
 		$this->loadXML($xml, $params);
+		$this->cUser = $this->app->storeuser->get();
+	}
+
+	public function setAssetName($assetName) {
+		$this->assetName = $assetName;
+		return $this;
+	}
+
+	public function setBelongsTo($id = 0) {
+		$this->belongsTo = $id;
+		return $this;
+	}
+
+	public function checkAccess($access) {
+		return $this->cUser->canAccess($access);
+	}
+
+	public function canEdit() {
+		return $this->cUser->canEdit($this->assetName, $this->belongsTo);
 	}
 
 	/**
@@ -374,9 +402,8 @@ class AppForm {
 			}
 			$html[] = '';
 			
-			
-			$adminOnly = (bool) $this->_xml[$group]->attributes()->admin;
-			if($adminOnly && (!$this->app->storeuser->get()->isStoreAdmin())) {
+			$access = $this->_xml[$group]->attributes()->access ? (int) $this->_xml[$group]->attributes()->access : 1;
+			if(!$this->checkAccess($access)) {
 				continue;
 			}
 
@@ -390,8 +417,8 @@ class AppForm {
 
 			// add params
 			foreach ($this->_xml[$group]->field as $field) {
-				$adminOnly = (bool) $field->attributes()->admin;
-				if($adminOnly && (!$this->app->storeuser->get()->isStoreAdmin())) {
+				$access = $field->attributes()->access ? (int) $field->attributes()->access : 1; 
+				if(!$this->checkAccess($access)) {
 					continue;
 				}
 				// init vars
@@ -404,8 +431,9 @@ class AppForm {
 				$value = $this->getValue($name, $default);
 				$class = 'uk-width-1-1' . ($required ? ' required' : '');
 				$control_name = $field->attributes()->controlname ? $field->attributes()->controlname : $group_control_name;
-				
-				$_field = '<div class="field">'.$this->app->field->render($type, $name, $value, $field, array('control_name' => $control_name, 'parent' => $this, 'class' => $class)).'</div>';
+				$disabled = !$this->canEdit();
+
+				$_field = '<div class="field">'.$this->app->field->render($type, $name, $value, $field, array('control_name' => $control_name, 'parent' => $this, 'class' => $class, 'disabled' => $disabled)).'</div>';
 				
 				if ($type != 'hidden') {
 					$html[] = '<li id="'.$group.'-'.$name.'" class="parameter uk-width-'.$width.'">';

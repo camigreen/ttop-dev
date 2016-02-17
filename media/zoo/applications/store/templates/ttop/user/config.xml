@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <user>
-	<type name="default">
+	<type name="default" access="">
 		<fieldset group="details" label="Details" controlname="user" >
 			<field name="name" type="text.store" width="6-10" default="" label="Name" description="Name of the account." />
 			<field name="username" type="text.store" width="4-10" default="" label="Username" description="Username for the account." />
@@ -20,12 +20,12 @@
 		</fieldset>
 	</type>
 	<type name="employee">
-		<fieldset group="details" label="Details" controlname="user" >
+		<fieldset group="details" label="Details" controlname="user" access="2">
 			<field name="name" type="text.store" width="6-10" default="" label="Name" description="Name of the account." />
 			<field name="username" type="text.store" width="4-10" default="" label="Username" description="Username for the account." />
 			<field name="email" type="text.store" width="4-10" default="" label="Email" description="An email address for the user." />
 			<field name="status" controlname="params" type="statuslist" width="2-10" default="" label="Account Status" value="account" description="The current status for the user." />
-			<field name="sendEmail" type="radio.store" width="2-10" toggle_width="80" default="0" label="Send Emails" description="Send emails to this account?">
+			<field name="sendEmail" type="radio.store" width="2-10" toggle_width="80" default="0" label="Send Emails" description="Send emails to this account?" access="8">
 				<option value="off">No</option>
 				<option value="on">Yes</option>
 			</field>
@@ -64,11 +64,11 @@
 	</type>
 	<type name="dealer">
 		<fieldset group="details" label="Details" controlname="user" >
-			<field name="name" type="text.store" width="6-10" default="" label="Name" description="Name of the account." />
+			<field name="name" type="text.store" width="6-10" default="" label="Name" description="Name of the account" />
 			<field name="username" type="text.store" width="4-10" default="" label="Username" description="Username for the account." />
 			<field name="email" type="text.store" width="4-10" default="" label="Email" description="An email address for the user." />
 			<field name="status" controlname="params" type="statuslist" width="2-10" default="" label="Account Status" value="account" description="The current status for the user." />
-			<field name="sendEmail" type="radio.store" width="2-10" default="0" label="Send Emails" description="Send emails to this account?">
+			<field name="sendEmail" type="radio.store" width="2-10" default="0" label="Send Emails" description="Send emails to this account?" access="8">
 				<option value="off">No</option>
 				<option value="on">Yes</option>
 			</field>

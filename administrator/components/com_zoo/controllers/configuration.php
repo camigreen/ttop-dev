@@ -77,7 +77,7 @@ class ConfigurationController extends AppController {
 			$this->assetPermissions[$typeName]->bind(array('asset_id' => $assetName));
 		}
 
-		$sections = array('account', 'order', 'store');
+		$sections = array('account', 'order', 'store', 'users');
 		foreach($sections as $section) {
 			$xml->fieldset->field->attributes()->section = $section;
 			$xml->fieldset->field->attributes()->name = 'rules_'.$section;
