@@ -84,7 +84,7 @@
 		</fieldset>
 		<fieldset group="elements" label="User Settings" controlname="params" width="1-1">
 			<field name="account" type="accountlist" width="1-3" default="" label="Assigned to" description="An account that this user is assigned to." canEdit="store.account" access="8"/>
-			<field name="test_mode" type="radio.store" width="1-2" default="0" label="Transaction Test Mode (User Level)" description="This user will conduct transactions in test mode." >
+			<field name="test_mode" type="radio.store" width="1-2" default="0" label="Transaction Test Mode (User Level)" description="This user will conduct transactions in test mode." access="8" >
 				<option value="off">Off</option>
 				<option value="on">On</option>
 			</field>
