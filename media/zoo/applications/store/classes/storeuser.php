@@ -15,7 +15,7 @@ class StoreUser {
 
 	protected $_user;
 	protected $_account;
-    protected $_permissions;
+    protected $_permissions = array();
 
 	public $params;
 	public $elements;
@@ -50,7 +50,10 @@ class StoreUser {
             $this->setParam('type', $account->getParam('user_type', 'default'));
         }
         if(isset($data['permissions'])) {
-            $this->_permissions[] = $data['permissions'];
+            $this->_permissions = array();
+            foreach($data['permissions'] as $permission) {
+                $this->_permissions[$permission] = $permission;
+            }
         }
 
 	}
@@ -69,6 +72,8 @@ class StoreUser {
         $this->_user->save();
 
 		$this->mapAccount($this->_account);
+
+        JUserHelper::setUserGroups($this->_user->id, $this->_permissions);
 
         return true;
 	}

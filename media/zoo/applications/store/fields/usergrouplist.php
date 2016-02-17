@@ -13,7 +13,7 @@ $attr .= ((string) $node->attributes()->disabled == 'true') ? ' disabled="disabl
 $attr .= (string) $node->attributes()->size ? ' size="'.(int) $node->attributes()->size.'"' : '';
 $attr .= ((bool) $node->attributes()->multiple) ? ' multiple="multiple"' : '';
 $attr .= (int) $node->attributes()->rows ? ' rows="'.(int) $node->attributes()->rows.'"' : '';
-$attr .= "name=\"$control_name\"";
+$attr .= (bool) $node->attributes()->multiple ? 'name="'.$control_name.'[]"' : 'name="'.$conrol_name.'"';
 
 // Initialize JavaScript field attributes.
 $attr .= (string) $node->attributes()->onchange ? ' onchange="'.(string) $node->attributes()->onchange.'"' : '';
