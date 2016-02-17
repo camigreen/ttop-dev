@@ -169,6 +169,7 @@ class UserController extends AppController {
         $storeuser->bind($post);
         echo 'Bind</br>';
         var_dump($storeuser);
+
         //return;
 
         if(!$storeuser->save()) {
@@ -179,6 +180,7 @@ class UserController extends AppController {
         }
         echo 'Save</br>';
         var_dump($storeuser);
+        var_dump($storeuser->getUser()->profile);
         //return;
 
         $msg = 'The user was saved successfully.';

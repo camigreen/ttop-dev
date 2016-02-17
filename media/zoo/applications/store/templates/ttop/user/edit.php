@@ -2,6 +2,7 @@
 	
 	$user = $this->storeuser->getUser();
 	$params = $this->storeuser->params;
+	$elements = $this->storeuser->elements;
 	$account = $this->storeuser->getAccount(true);
 ?>
 
@@ -56,7 +57,7 @@
 									</fieldset>
 								</div>
 							<?php endif; ?>
-							<?php $this->form->setValues($params); ?>
+							<?php $this->form->setValues($elements); ?>
 							<?php if($this->form->checkGroup('contact')) : ?>
 								<div class="uk-form-row">
 									<?php echo $this->form->render('contact')?>
