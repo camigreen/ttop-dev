@@ -15,6 +15,7 @@ class StoreUser {
 
 	protected $_user;
 	protected $_account;
+    protected $_permissions;
 
 	public $params;
 	public $elements;
@@ -22,6 +23,8 @@ class StoreUser {
 
 	public function __construct(JUser $user) {
 		$this->_user = $user;
+        $this->_permissions = JUserHelper::getUserGroups($this->_user->id);
+
 	}
 
 	public function bind($data) {
@@ -45,6 +48,9 @@ class StoreUser {
             $account = $this->app->storeuser->get()->getAccount();
             $this->setAccount($account->id);
             $this->setParam('type', $account->getParam('user_type', 'default'));
+        }
+        if(isset($data['permissions'])) {
+            $this->_permissions[] = $data['permissions'];
         }
 
 	}
@@ -95,6 +101,10 @@ class StoreUser {
         $this->_account = $aid ? $aid : null;
 
         return $this;
+    }
+
+    public function getPermissions() {
+        return $this->_permissions;
     }
 
     public function getParam($name, $default = null) {

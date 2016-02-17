@@ -4,6 +4,7 @@
 	$params = $this->storeuser->params;
 	$elements = $this->storeuser->elements;
 	$account = $this->storeuser->getAccount(true);
+	$this->form->setValue('permissions', $this->storeuser->getPermissions());
 ?>
 
 <div class="ttop ttop-account-edit uk-grid">
