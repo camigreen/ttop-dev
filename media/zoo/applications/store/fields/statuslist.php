@@ -2,8 +2,10 @@
 	
 	$attributes['name'] = $control_name.'['.$name.']';	
 	$attributes['class'] = $class;
-	$attributes['disabled'] = $disabled;
-	var_dump($disabled);
+	if($disabled || !$cUser->canEditState($assetName)) {
+		$attributes['disabled'] = true;
+	}
+	
 	$html[] = sprintf('<select %s >', $this->app->field->attributes($attributes, array('label', 'description', 'default')));
 	$html[] = '<option value="0">- Select -</option>';
 

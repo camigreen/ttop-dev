@@ -117,6 +117,18 @@ class AppForm {
 		return $this->cUser->canEdit($this->assetName, $this->belongsTo);
 	}
 
+	public function checkPermissions($values) {
+		$canEdit = $this->canEdit();
+		if(!is_null($values)) {
+			$admins = explode('.', $values, 2);
+
+			foreach($admins as $admin) {
+				$canEdit = $this->cUser->isAppAdmin($admin);
+			}
+		}
+		return $canEdit;
+	}
+
 	/**
 	 * Retrieve a form value
 	 *
@@ -431,9 +443,10 @@ class AppForm {
 				$value = $this->getValue($name, $default);
 				$class = 'uk-width-1-1' . ($required ? ' required' : '');
 				$control_name = $field->attributes()->controlname ? $field->attributes()->controlname : $group_control_name;
-				$disabled = !$this->canEdit();
+				$admins = $field->attributes()->canEdit ? (string) $field->attributes()->canEdit : null;
+				$disabled = !$this->checkPermissions($admins);
 
-				$_field = '<div class="field">'.$this->app->field->render($type, $name, $value, $field, array('control_name' => $control_name, 'parent' => $this, 'class' => $class, 'disabled' => $disabled)).'</div>';
+				$_field = '<div class="field">'.$this->app->field->render($type, $name, $value, $field, array('cUser' => $this->cUser, 'assetName' => $this->assetName, 'control_name' => $control_name, 'parent' => $this, 'class' => $class, 'disabled' => $disabled)).'</div>';
 				
 				if ($type != 'hidden') {
 					$html[] = '<li id="'.$group.'-'.$name.'" class="parameter uk-width-'.$width.'">';

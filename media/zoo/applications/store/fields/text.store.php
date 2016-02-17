@@ -9,7 +9,6 @@
 // set attributes
 $control_name = $control_name == 'null' ? $name : $control_name."[$name]";
 $attributes = array('id' => $name,'type' => 'text', 'name' => "$control_name", 'value' => $value, 'class' => isset($class) ? $class : '');
-
 if($disabled) {
 	$attributes['disabled'] = true;
 }

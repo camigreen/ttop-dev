@@ -140,7 +140,6 @@ class UserController extends AppController {
         $this->type = $type;
         $this->form = $this->app->form->create(array($this->template->getPath().'/user/config.xml', compact('type')));
         $this->form->setAssetName($this->storeuser->getAssetName())->setBelongsTo($this->storeuser->id);
-        var_dump($this->form);
         $layout = 'edit';
         $this->getView()->addTemplatePath($this->template->getPath().'/user/');
         $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();

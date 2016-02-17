@@ -201,6 +201,10 @@ class StoreUser {
         return $this->authorise('store.admin', 'store');
     }
 
+    public function isAppAdmin($admin) {
+        return $this->authorise($admin.'.admin', $admin);
+    }
+
     /**
      * Evaluates user permission
      *
