@@ -169,8 +169,7 @@ class UserController extends AppController {
         $storeuser->bind($post);
         echo 'Bind</br>';
         var_dump($storeuser);
-
-        //return;
+        return;
 
         if(!$storeuser->save()) {
             var_dump($storeuser->getErrors());

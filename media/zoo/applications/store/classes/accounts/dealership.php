@@ -18,6 +18,7 @@ class DealershipAccount extends Account {
     public function bind($data = array()) {
         
         parent::bind($data);
+        $this->setParam('user_type', 'dealer');
 
     }
 

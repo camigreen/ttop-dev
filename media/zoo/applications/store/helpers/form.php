@@ -248,7 +248,10 @@ class AppForm {
 	 * @since 2.0
 	 */
 	public function checkGroup($group) {
-		if (!is_array($this->_xml)) {
+		if (!isset($this->_xml[$group])) {
+			return false;
+		}
+		if(count($this->_xml[$group]) == 0) {
 			return false;
 		}
 

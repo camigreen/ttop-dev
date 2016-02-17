@@ -52,6 +52,7 @@
 				<input type="hidden" name="task" />
 				<input type="hidden" name="aid" value="<?php echo $this->account->id; ?>" />
 				<input type="hidden" name="type" value="<?php echo $this->account->type; ?>" />
+				<input type="hidden" name="params[user_type]" value="<?php echo $this->account->getParam('user_type'); ?>" />
 				<?php echo $this->app->html->_('form.token'); ?>
 			</form>
 			<script>
