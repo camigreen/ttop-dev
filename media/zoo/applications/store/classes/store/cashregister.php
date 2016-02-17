@@ -254,7 +254,7 @@ class CashRegister {
             $order->elements->set('items.', $items);
             
             $order->setStatus(2);
-            if($this->app->merchant->testMode()) {
+            if($this->app->store->merchantTestMode()) {
                 $order->params->set('payment.transaction_id','Test Mode');
                 $order->save(true);
             } else {

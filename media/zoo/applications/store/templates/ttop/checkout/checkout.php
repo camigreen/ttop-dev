@@ -11,7 +11,7 @@ $this->app->document->addScript('assets:js/jquery-validate-1.14.1/jquery.validat
 $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-methods.min.js');
 
 ?>
-<?php if($this->app->merchant->testMode()) : ?>
+<?php if($this->app->store->merchantTestMode()) : ?>
 
 <div class="uk-width-1-1 uk-margin ttop-checkout">
     <div class="uk-width-1-1 uk-text-center">
@@ -21,6 +21,7 @@ $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-met
         <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom" data-uk-toggle="{target:'#variables'}">Show/Hide Variables</button>
     </div>
     <div id="variables" class="uk-width-1-1 uk-hidden">
+        <?php var_dump($this->app->merchant->getParams()); ?>
         <?php var_dump($order); ?>
         <?php var_dump($this->cart->getAllItems()); ?>
     </div>

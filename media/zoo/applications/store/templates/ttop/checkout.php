@@ -8,7 +8,7 @@
 $CR = $this->CR;
 $this->app->document->addScript('assets:js/jquery-validation-1.13.1/dist/jquery.validate.min.js');
 ?>
-<?php if($this->app->merchant->testMode()) : ?>
+<?php if($this->app->store->merchantTestMode()) : ?>
 <div class="uk-width-1-1 uk-margin">
     <div class="uk-width-1-1 uk-text-center">
         <span class="uk-text-danger uk-text-large testing-mode">TESTING MODE</span>

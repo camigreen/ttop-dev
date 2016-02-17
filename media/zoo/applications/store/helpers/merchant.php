@@ -44,6 +44,9 @@ class MerchantHelper extends AppHelper {
         $this->merchant['anet'] = new \AuthorizeNetAIM;
 
     }
+    public function getParams() {
+        return $this->params;
+    }
 
     public function createProfile($profile) {
         $this->loadCreds();
