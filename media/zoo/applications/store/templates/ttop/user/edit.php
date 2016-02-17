@@ -5,6 +5,7 @@
 	$elements = $this->storeuser->elements;
 	$account = $this->storeuser->getAccount(true);
 	$this->form->setValue('permissions', $this->storeuser->getPermissions());
+	$this->form->setValues($params);
 ?>
 
 <div class="ttop ttop-account-edit uk-grid">
@@ -70,6 +71,7 @@
 									<?php echo $this->form->render('elements')?>
 								</div>
 							<?php endif; ?>
+							
 							<?php if($this->form->checkGroup('params')) : ?>
 								<div class="uk-form-row">
 									<?php echo $this->form->render('params')?>

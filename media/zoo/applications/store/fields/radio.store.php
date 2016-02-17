@@ -12,6 +12,7 @@ $control_name = $control_name == 'null' ? $name : $control_name."[$name]";
 $options = array();
 $width = $node->attributes()->toggle_width ? (int) $node->attributes()->toggle_width : 60;
 $height = $node->attributes()->height ? (int) $node->attributes()->height : 25;
+
 foreach ($node->children() as $option) {
 	$options[(string) $option->attributes()->value] = JText::_((string) $option);
 }
