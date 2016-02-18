@@ -14,7 +14,7 @@ class ReceiptFormPDF extends FormPDF {
 
 
 	public function setData($order) {
-		$order = $this->app->data->create(get_object_vars($order));
+		$form_data = $this->app->data->create();
 
 		$billto = array(
             $order->elements->get('billing.name'),
@@ -25,7 +25,7 @@ class ReceiptFormPDF extends FormPDF {
             $order->elements->get('email')
         );
 
-		$order->set('billto', $billto);
+		$form_data->set('billto', $billto);
 		
 		if($order->elements->get('shipping_method') != 'LP') {
         	$shipto = array(
@@ -35,7 +35,7 @@ class ReceiptFormPDF extends FormPDF {
 	            $order->elements->get('shipping.city').', '.$order->elements->get('shipping.state').' '.$order->elements->get('shipping.postalCode'),
 	            $order->elements->get('shipping.phoneNumber').' '.$order->elements->get('shipping.altNumber')
         	);
-        	$order->set('shipto', $shipto);
+        	$form_data->set('shipto', $shipto);
     	}
     	$item_array = array();
 	    foreach($order->elements->get('items.', array()) as $item) {
@@ -57,21 +57,23 @@ class ReceiptFormPDF extends FormPDF {
 
 	    }
 
-	    $order->set('items', $item_array);
-	    $tzoffset = $this->app->date->getOffset();
-	    $order->set('created', $this->app->html->_('date', $order->created, JText::_('DATE_FORMAT_STORE1'), $tzoffset));
-	    $order->set('salesperson', $this->app->account->get($order->created_by)->name);
-	    $order->set('delivery_method', JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : ''));
-	    $order->set('account_name', $order->elements->get('payment.account_name'));
-	    $order->set('account_number', $order->elements->get('payment.account_number'));
-	    $order->set('po_number', $order->elements->get('payment.po_number'));
-	    $order->set('customer', $order->elements->get('payment.customer_name'));
-	    $order->set('terms', JText::_(($terms = $order->params->get('terms')) ? 'ACCOUNT_TERMS_'.$terms : ''));
-	    $order->set('balance_due', $order->params->get('payment.status') == 3 ? '0.00' : $order->total);
+	    $form_data->set('items', $item_array);
+	    $form_data->set('id', $order->id);
+	    $form_data->set('created', $this->app->html->_('date', $order->created, JText::_('DATE_STORE_RECEIPT')));
+	    $form_data->set('salesperson', $order->getCreator());
+	    $form_data->set('delivery_method', JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : ''));
+	    $form_data->set('account_name', $order->params->get('payment.account_name'));
+	    $form_data->set('account_number', $order->params->get('payment.account_number'));
+	    $form_data->set('po_number', $order->params->get('payment.po_number'));
+	    $form_data->set('customer', $order->params->get('payment.customer_name'));
+	    $form_data->set('terms', JText::_(($terms = $order->params->get('terms')) ? 'ACCOUNT_TERMS_'.$terms : ''));
+	    $form_data->set('subtotal', $order->getSubtotal());
+	    $form_data->set('tax_total', $order->getTaxTotal());
+	    $form_data->set('ship_total', $order->getShippingTotal());
+	    $form_data->set('total', $order->getTotal());
+	    $form_data->set('balance_due', $order->params->get('payment.status') == 3 ? 0 : $order->total);
 
-	    $order->remove('app');
-
-		return parent::setData($order);
+		return parent::setData($form_data);
 	}
 	
 }
