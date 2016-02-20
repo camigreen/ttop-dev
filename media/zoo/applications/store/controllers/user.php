@@ -81,6 +81,7 @@ class UserController extends AppController {
         }
 
         $options = array();
+        $options['order'] = 'name ASC';
         $search = $this->app->request->get('s', 'string', $this->app->session->get('return'));
         $this->app->session->set('return', $search);
 
