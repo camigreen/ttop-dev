@@ -116,7 +116,7 @@ class AccountController extends AppController {
 
         $conditions[] = 'state != 3';
         $conditions[] = "type != 'store'";
-
+        $options['order'] = 'name ASC';
         if($this->cUser->isStoreAdmin()) {
             $options['conditions'] = implode(' AND ', $conditions);
             $this->accounts = $this->app->account->all($options);
