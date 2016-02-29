@@ -48,18 +48,30 @@ list($page) = explode('.',$this->page, 2);
             <div>Customer Name:  <?php echo $params->get('payment.customer_name'); ?></div>
             <div>Purchase Order Number:  <?php echo $params->get('payment.po_number'); ?></div>
         </div>
-        <?php endif; ?>
-        <div class='uk-width1-1 uk-margin-top'>
-            <?php if($this->app->storeuser->get()->isReseller()) : ?>
-            <div class='uk-width1-1 items-table'>
+        <?php endif; ?>        
+        <?php if($this->app->storeuser->get()->isReseller()) : ?>
+            <div class="uk-width-1-1 uk-margin-top">
+                <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table uk-hidden" data-uk-toggle="{target:'.items-table'}">Hide Full Invoice</button>
+                <button class="uk-button uk-button-primary uk-width-1-3 uk-margin-bottom items-table" data-uk-toggle="{target:'.items-table'}">View Full Invoice</button>
+            </div>
+            <div class='uk-width1-1 items-table uk-hidden'>
                 <?php echo $this->partial('item.table.reseller',compact('order', 'page')); ?>
             </div>
+             <div class='uk-width1-1 items-table'>
+                <?php echo $this->partial('item.table',compact('order', 'page')); ?>
+            </div>
+            <script>
+                jQuery(function($) {
+                    $('button.items-table').on('click', function(e){
+                        e.preventDefault();
+                    })
+                })
+            </script>
         <?php else : ?>
-            <div class='uk-width1-1 items-table'>
+            <div class='uk-width1-1 items-table retail'>
                 <?php echo $this->partial('item.table',compact('order', 'page')); ?>
             </div>
         <?php endif; ?>
-        </div>
         <div class="uk-width-1-1">
             <?php if($elements->get('shipping_method') == 'LP') : ?>
                 You have chosen the Local Pickup option.  Your item will be available for pickup at our warehouse in North Charleston, SC.  It is located at
