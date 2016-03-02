@@ -24,8 +24,10 @@ class JFormFieldConfig extends JFormField
   		// Load jQuery
 		JHtml::_('jquery.framework');
 
+		$template = $this->form->getValue('template') ? $this->form->getValue('template') : \JFactory::getApplication()->getTemplate();
+
 		// get warp
-        $warp = require(JPATH_ROOT.'/templates/'.$this->form->getValue('template').'/warp.php');
+        $warp = require(JPATH_ROOT.'/templates/'.$template.'/warp.php');
         $warp['system']->document->addScript($warp['path']->url('warp:vendor/jquery/jquery-mustache.js'));
         $warp['system']->document->addScript($warp['path']->url('warp:vendor/jquery/jquery-cookie.js'));
         $warp['system']->document->addScript($warp['path']->url('warp:vendor/jquery/jquery-less.js'));

@@ -82,10 +82,19 @@ class Navbar
             }
         }
 
+        // dropdown settings
+        $dropdown = str_replace('"', '\'', json_encode(array_merge(
+            array("preventflip" => "y"),
+            isset($module->nav_settings['dropdown']) ? (array)$module->nav_settings['dropdown'] : array()
+        )));
+
+
         foreach ($element->find('li.level1') as $li) {
             // add attributes, if element has dropdown
             if ($li->children('div.uk-dropdown')->length) {
-                $li->attr("data-uk-dropdown", "{preventflip:'y'}");
+
+                $li->attr("data-uk-dropdown", $dropdown);
+
                 $li->attr("aria-haspopup", "true");
                 $li->attr("aria-expanded", "false");
             }

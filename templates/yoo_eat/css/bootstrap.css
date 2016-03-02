@@ -1,3 +1,5 @@
+/* Copyright (C) YOOtheme GmbH, YOOtheme Proprietary Use License (http://www.yootheme.com/license) */
+
 @import 'https://fonts.googleapis.com/css?family=Lato:900,700,400,300';
 article,
 aside,
@@ -6278,11 +6280,11 @@ th .tooltip-inner {
  * Due to a bug in the compiler that doesn't handle the relative paths correctly, the @font-face stuff needs to go in the templates less files
 @font-face {
 	font-family: 'IcoMoon';
-	src: url("../../../media/jui/fonts/IcoMoon.eot");
-	src: url("../../../media/jui/fonts/IcoMoon.eot?#iefix") format('embedded-opentype'),
-		url("../../../media/jui/fonts/IcoMoon.woff") format('woff'),
-		url("../../../media/jui/fonts/IcoMoon.ttf") format('truetype'),
-		url("../../../media/jui/fonts/IcoMoon.svg#IcoMoon") format('svg');
+	src: url('../fonts/IcoMoon.eot');
+	src: url('../fonts/IcoMoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/IcoMoon.woff') format('woff'),
+		url('../fonts/IcoMoon.ttf') format('truetype'),
+		url('../fonts/IcoMoon.svg#IcoMoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -7027,8 +7029,8 @@ th .tooltip-inner {
 }
 @font-face {
   font-family: 'IcoMoon';
-  src: url("../../../media/jui/fonts/IcoMoon.eot");
-  src: url("../../../media/jui/fonts/IcoMoon.eot?#iefix") format('embedded-opentype'), url("../../../media/jui/fonts/IcoMoon.woff") format('woff'), url("../../../media/jui/fonts/IcoMoon.ttf") format('truetype'), url("../../../media/jui/fonts/IcoMoon.svg#IcoMoon") format('svg');
+  src: url('../../../media/jui/fonts/IcoMoon.eot');
+  src: url('../../../media/jui/fonts/IcoMoon.eot?#iefix') format('embedded-opentype'), url('../../../media/jui/fonts/IcoMoon.woff') format('woff'), url('../../../media/jui/fonts/IcoMoon.ttf') format('truetype'), url('../../../media/jui/fonts/IcoMoon.svg#IcoMoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -8076,6 +8078,16 @@ ol.unstyled,
 .pager,
 .pagination ul {
   padding-left: 0;
+}
+/* Fix text-rendering property in headings
+========================================================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-rendering: auto;
 }
 /* Fixes UIkit defacement caused by Bootstrap
  ========================================================================== */

@@ -11,8 +11,9 @@
     <hr class="uk-article-divider">
 
     <?php
+    $app = JApplicationCms::getInstance('site');
     foreach ($menus as $menu) :
-        if (!$items = \JMenu::getInstance('site')->getItems(array('menutype', 'access', 'language'), array($menu->value, null, null))) continue;
+        if (!$items = \JMenu::getInstance('site', array('app' => $app))->getItems(array('menutype', 'access', 'language'), array($menu->value, null, null))) continue;
     ?>
     <table data-menu="<?php echo $menu->value ?>" class="uk-table uk-table-hover uk-table-middle tm-table">
         <thead>

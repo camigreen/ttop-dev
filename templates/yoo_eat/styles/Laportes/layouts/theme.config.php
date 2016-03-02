@@ -248,6 +248,12 @@ $this['asset']->addFile('css', 'css:custom.css');
 
 $this['asset']->addFile('css', 'css:components/notify.css');
 
+$this['asset']->addFile('css', 'css:components/datepicker.css');
+
+$this['asset']->addFile('css', 'css:components/timepicker.css');
+
+$this['asset']->addFile('css', 'css:components/tooltip.css');
+
 
 
 
@@ -264,6 +270,12 @@ $this['asset']->addFile('js', 'warp:vendor/uikit/js/components/sticky.js');
 $this['asset']->addFile('js', 'warp:vendor/uikit/js/components/upload.js');
 
 $this['asset']->addFile('js', 'warp:vendor/uikit/js/components/notify.js');
+
+$this['asset']->addFile('js', 'warp:vendor/uikit/js/components/datepicker.js');
+
+$this['asset']->addFile('js', 'warp:vendor/uikit/js/components/timepicker.js');
+
+$this['asset']->addFile('js', 'warp:vendor/uikit/js/components/tooltip.js');
 
 $this['asset']->addFile('js', 'js:social.js');
 

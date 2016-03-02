@@ -1,9 +1,11 @@
+/* Copyright (C) YOOtheme GmbH, YOOtheme Proprietary Use License (http://www.yootheme.com/license) */
+
 @import 'https://fonts.googleapis.com/css?family=Lato:900,700,400,300';
 /* ========================================================================
    Component: Base
  ========================================================================== */
 /*
- * 1. Normalizes default `font-family` and sets `font-size` here to support `rem` units
+ * 1. Normalize default `font-family` and set `font-size` to support `rem` units
  * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
  * 3. Style
  */
@@ -32,7 +34,7 @@ a {
   background: transparent;
 }
 /*
- * Improves readability when focused and also mouse hovered in all browsers.
+ * Improve readability of focused elements when they are also in an active/hover state.
  */
 a:active,
 a:hover {
@@ -55,13 +57,13 @@ a:hover,
 /* Text-level semantics
  ========================================================================== */
 /*
- * Addresses styling not present in Chrome, Safari, Opera and IE 8/9/10.
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
  */
 abbr[title] {
   border-bottom: 1px dotted;
 }
 /*
- * Addresses style set to `bolder` in Firefox
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
  */
 b,
 strong {
@@ -136,13 +138,23 @@ sup {
 sub {
   bottom: -0.25em;
 }
-/* Images
+/* Embedded content
  ========================================================================== */
+/*
+ * Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers.
+ */
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
 /*
  * 1. Responsiveness: Sets a maximum width relative to the parent and auto scales the height
  * 2. Corrects `max-width` behavior if padding and border are used
  * 3. Remove border when inside `a` element in IE 8/9/10.
- * 4. Remove the gap between images and the bottom of their containers
  */
 img {
   /* 1 */
@@ -152,8 +164,6 @@ img {
   box-sizing: border-box;
   /* 3 */
   border: 0;
-  /* 4 */
-  vertical-align: middle;
 }
 /*
  * Preserve original image dimensions
@@ -344,7 +354,9 @@ pre {
 /* HTML5 elements
  ========================================================================== */
 /*
- * Corrects `block` display not defined in IE 8/9.
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
  */
 article,
 aside,
@@ -360,7 +372,7 @@ summary {
   display: block;
 }
 /*
- * Addresses inconsistent vertical alignment of `progress` in Chrome, Firefox and Opera.
+ * Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
  */
 progress {
   vertical-align: baseline;
@@ -372,8 +384,8 @@ audio:not([controls]) {
   display: none;
 }
 /*
- * Address `[hidden]` styling not present in IE 8/9.
- * Hide the `template` element in IE and Safari
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
  */
 [hidden],
 template {
@@ -645,8 +657,14 @@ h6 {
 .uk-grid-width-1-10 > * {
   width: 10%;
 }
+.uk-grid-width-auto > * {
+  width: auto;
+}
 /* Phone landscape and bigger */
 @media (min-width: 480px) {
+  .uk-grid-width-small-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-small-1-2 > * {
     width: 50%;
   }
@@ -668,6 +686,9 @@ h6 {
 }
 /* Tablet and bigger */
 @media (min-width: 768px) {
+  .uk-grid-width-medium-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-medium-1-2 > * {
     width: 50%;
   }
@@ -689,6 +710,9 @@ h6 {
 }
 /* Desktop and bigger */
 @media (min-width: 960px) {
+  .uk-grid-width-large-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-large-1-2 > * {
     width: 50%;
   }
@@ -710,6 +734,9 @@ h6 {
 }
 /* Large screen and bigger */
 @media (min-width: 1220px) {
+  .uk-grid-width-xlarge-1-1 > * {
+    width: 100%;
+  }
   .uk-grid-width-xlarge-1-2 > * {
     width: 50%;
   }
@@ -1223,23 +1250,23 @@ h6 {
 .uk-grid-divider > [class*='uk-width-8-']:nth-child(n+2),
 .uk-grid-divider > [class*='uk-width-9-']:nth-child(n+2) {
   border-left-style: dotted;
-  -webkit-border-image: url("../../../less/uikit/images/border_dotted_vertical.svg") 0 0 0 2 repeat;
-  border-image: url("../../../less/uikit/images/border_dotted_vertical.svg") 0 0 0 2 repeat;
+  -webkit-border-image: url('../../../less/uikit/images/border_dotted_vertical.svg') 0 0 0 2 repeat;
+  border-image: url('../../../less/uikit/images/border_dotted_vertical.svg') 0 0 0 2 repeat;
 }
 /* Tablet and bigger */
 @media (min-width: 768px) {
   .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
     border-left-style: dotted;
-    -webkit-border-image: url("../../../less/uikit/images/border_dotted_vertical.svg") 0 0 0 2 repeat;
-    border-image: url("../../../less/uikit/images/border_dotted_vertical.svg") 0 0 0 2 repeat;
+    -webkit-border-image: url('../../../less/uikit/images/border_dotted_vertical.svg') 0 0 0 2 repeat;
+    border-image: url('../../../less/uikit/images/border_dotted_vertical.svg') 0 0 0 2 repeat;
   }
 }
 /* Desktop and bigger */
 @media (min-width: 960px) {
   .uk-grid-divider > [class*='uk-width-large-']:not(.uk-width-large-1-1):nth-child(n+2) {
     border-left-style: dotted;
-    -webkit-border-image: url("../../../less/uikit/images/border_dotted_vertical.svg") 0 0 0 2 repeat;
-    border-image: url("../../../less/uikit/images/border_dotted_vertical.svg") 0 0 0 2 repeat;
+    -webkit-border-image: url('../../../less/uikit/images/border_dotted_vertical.svg') 0 0 0 2 repeat;
+    border-image: url('../../../less/uikit/images/border_dotted_vertical.svg') 0 0 0 2 repeat;
   }
 }
 /* ========================================================================
@@ -1412,7 +1439,7 @@ h6 {
   display: block;
   height: 10px;
   margin-top: 10px;
-  background: url("../../../less/uikit/images/default/border_striped_horizontal.png") 0 0 repeat-x;
+  background: url('../../../less/uikit/images/default/border_striped_horizontal.png') 0 0 repeat-x;
 }
 /* Modifier: `uk-panel-space`
  ========================================================================== */
@@ -8164,12 +8191,10 @@ body .uk-dropdown .uk-nav,
 @media (min-width: 768px) {
   .uk-align-medium-left {
     margin-right: 20px;
-    margin-bottom: 20px;
     float: left;
   }
   .uk-align-medium-right {
     margin-left: 20px;
-    margin-bottom: 20px;
     float: right;
   }
 }
@@ -8498,6 +8523,7 @@ body .uk-dropdown .uk-nav,
  ========================================================================== */
 /*
  * Display
+ * 1. Required if child is a responsive image
  */
 .uk-display-block {
   display: block !important;
@@ -8507,6 +8533,8 @@ body .uk-dropdown .uk-nav,
 }
 .uk-display-inline-block {
   display: inline-block !important;
+  /* 1 */
+  max-width: 100%;
 }
 /*
  * Visibility
@@ -9032,7 +9060,9 @@ body .uk-dropdown .uk-nav,
    Component: Print
  ========================================================================== */
 @media print {
-  * {
+  *,
+  *:before,
+  *:after {
     background: transparent !important;
     color: black !important;
     box-shadow: none !important;
@@ -10141,27 +10171,6 @@ button.uk-button {
 .uk-navbar-content:last-child {
   padding: 0;
 }
-.uk-nav-header li > a {
-  font-weight: normal;
-  text-transform: none;
-  color: rgba(255, 255, 255, 0.8);
-}
-.uk-navbar-nav > li.uk-active > a {
-  color: rgba(255, 255, 255, 0.8);
-  background-image: none;
-}
-.uk-nav-header li:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-.uk-navbar-nav-subtitle .test-mode {
-  line-height: 18px;
-}
-.uk-navbar-nav-subtitle .test-mode span {
-  font-size: 15px;
-  color: #e44b39;
-  font-weight: bold;
-  margin-left: 5px;
-}
 /*
  * Sticky navbar
  */
@@ -10289,8 +10298,8 @@ button.uk-button {
 .uk-article + .uk-article {
   padding-top: 35px;
   border-top: 2px dotted #eaeaea;
-  -webkit-border-image: url("../../../less/uikit/images/border_dotted_horizontal.svg") 2 0 0 0 repeat;
-  border-image: url("../../../less/uikit/images/border_dotted_horizontal.svg") 2 0 0 0 repeat;
+  -webkit-border-image: url('../../../less/uikit/images/border_dotted_horizontal.svg') 2 0 0 0 repeat;
+  border-image: url('../../../less/uikit/images/border_dotted_horizontal.svg') 2 0 0 0 repeat;
 }
 /*
  * 2 or 3 columns
@@ -10311,8 +10320,8 @@ button.uk-button {
 .tm-leading-article + .uk-grid .uk-article:first-child {
   padding-top: 35px;
   border-top: 2px dotted #eaeaea;
-  -webkit-border-image: url("../../../less/uikit/images/border_dotted_horizontal.svg") 2 0 0 0 repeat;
-  border-image: url("../../../less/uikit/images/border_dotted_horizontal.svg") 2 0 0 0 repeat;
+  -webkit-border-image: url('../../../less/uikit/images/border_dotted_horizontal.svg') 2 0 0 0 repeat;
+  border-image: url('../../../less/uikit/images/border_dotted_horizontal.svg') 2 0 0 0 repeat;
 }
 /*
  * Space for pagnination
@@ -10676,8 +10685,8 @@ body {
 .tm-bottom .uk-grid-divider > [class*='uk-width-']:not(.uk-width-1-1):nth-child(n+2),
 .tm-bottom .uk-grid-divider > [class*='uk-width-']:nth-child(n+2),
 .tm-bottom .uk-grid-divider > [class*='uk-width-medium-']:not(.uk-width-medium-1-1):nth-child(n+2) {
-  -webkit-border-image: url("../../../less/uikit/images/border_dotted_vertical_white.svg") 0 0 2 repeat;
-  border-image: url("../../../less/uikit/images/border_dotted_vertical_white.svg") 0 0 0 2 repeat;
+  -webkit-border-image: url('../../../less/uikit/images/border_dotted_vertical_white.svg') 0 0 2 repeat;
+  border-image: url('../../../less/uikit/images/border_dotted_vertical_white.svg') 0 0 0 2 repeat;
 }
 /*
  * Default Style

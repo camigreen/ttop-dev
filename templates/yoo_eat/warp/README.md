@@ -1,21 +1,50 @@
 # Warp Theme Framework #
 
-- Version: 7.3.15
-- Date: December 2015
+- Version: 7.3.20
+- Date: February 2016
 - Author: YOOtheme GmbH
 - Website: <http://www.yootheme.com/warp>
 
 
 ## Changelog
 
+    7.3.20
+    + Added new font selection in customizer
+    ^ Updated UIkit to 2.25.0
+    ^ Updated menu settings in template options (J 3.5)
+    # Fixed headings text-rendering attribute in bootstrap-fix.less (J)
+    # Fixed widget assignment on search results (WP)
+
+    7.3.19
+    + Added support for additional article meta information (J)
+    # Fixed search widget
+    # Fixed number of posts on frontpage setting (WP)
+    # Fixed article multi column in blog + featured view (J)
+
+    7.3.18
+    + Added class for articles in columns
+    # Fixed article icon links spacing
+    # Fixed tag_cloud widget (WP)
+    # Fixed widget nav settings
+    # Fixed detection of current menu item (J)
+
+    7.3.17
+    # Fixed scrollspy-nav issue
+
+    7.3.16
+    ^ Updated UIkit to 2.24.3
+    # Fixed namespacing issue in JsCompressorFilter
+    # Fixed unstyled WooCommerce widgets on not WooCommerce pages
+    # Fixed scrollspy apply detection
+
     7.3.15
     + Added preventflip:y for navbar dropdowns
     + Added automatically apply uk-scrollspy-nav on menus when needed
+    + Added theme documentation links to admin section
     ^ Updated UIkit to 2.24.2
     # Fixed youtube iframes when search module is published (J)
     # Fixed frontend editing layout (J)
     - Removed unnecessary div from article.php (J)
-    + Added theme documentation links to admin section
 
     7.3.14
     ^ Moved template cache to /media (J)
