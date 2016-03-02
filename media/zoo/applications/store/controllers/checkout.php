@@ -48,6 +48,7 @@ class CheckoutController extends AppController {
         $this->registerTask('confirm', 'display');
         $this->registerTask('save', 'display');
         $this->registerTask('processPayment', 'display');
+        $this->registerTask('addCoupon', 'display');
         // $this->taskMap['display'] = null;
         // $this->taskMap['__default'] = null;
     }
@@ -71,6 +72,21 @@ class CheckoutController extends AppController {
         $task = $this->task;
         $this->$task();
 
+    }
+
+    public function addCoupon() {
+        
+        $order = $this->CR->order;
+        $post = $this->app->request->get('post:', 'array', array());
+        if(isset($post['params']['coupon.code']) && $post['params']['coupon.code'] != '') {
+            $order->params->set('coupon.code', $post['params']['coupon.code']);
+            $order->save();
+            echo 'Coupon Added';
+        } else {
+            $order->params->remove('coupon.code');
+        }
+        
+        $this->payment();
     }
 
     public function customer() {
@@ -297,6 +313,8 @@ class CheckoutController extends AppController {
         $order = $this->CR->order;
         $next = $this->app->request->get('next','word', 'customer');
         $post = $this->app->request->get('post:', 'array', array());
+        var_dump($post);
+        //return;
         
         if(isset($post['elements'])) {
             foreach($post['elements'] as $key => $value) {

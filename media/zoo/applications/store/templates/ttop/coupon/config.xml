@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkout>
+	<type name="default">
+		<fieldset group="test" controlname="core" >
+			<field name="code" type="text.store" width="1-1" default="" label="Coupon Code Name" description="Enter the name of the Coupon" required="1" />
+			<field name="start.date" controlname="expiration" type="calendar.store" width="2-6" default="" label="Start Date" description="Start Date of the Coupon." required="1" />
+			<field name="start.time" controlname="expiration" type="time.store" width="1-6" default="" label="Start Time" description="Start Time of the Coupon." required="1" />
+			<field name="expire.date" controlname="expiration" type="calendar.store" width="2-6" default="" label="Expiration Date" description="Expiration Date of the Coupon." />
+			<field name="expire.time" controlname="expiration" type="time.store" width="1-6" default="" label="Expiration Time" description="Expiration Date of the Coupon." />
+			<field name="limit" controlname="quantity" type="number.slider.store" width="1-3" min="0" max="50" default="" label="Allowed Quantity" description="The total allowed number of coupons." />
+		</fieldset>
+	</type>
+</checkout>

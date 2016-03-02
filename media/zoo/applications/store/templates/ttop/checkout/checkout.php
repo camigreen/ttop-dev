@@ -346,6 +346,14 @@ $this->app->document->addScript('assets:js/jquery-validate-1.14.1/additional-met
                                 $(this).closest('form').submit();
                             });
 
+                            $('#add_coupon.ttop-checkout-button').unbind("click").on("click",function(e){
+                                e.preventDefault();
+                                $('input[name="task"]').val($(e.target).data('task'));
+                                $('input[name="next"]').val($(e.target).data('next'));
+                                self.$element.find('input, select').addClass('ignore');
+                                $(this).closest('form').submit();
+                            });
+
                             $('.update-qty').on('click',function(e){
                                 var elem = $(this), sku = $(this).closest('tr').prop('id'), qty = $(this).closest('tr').find('input[name="qty"]').val();
                                 e.preventDefault();

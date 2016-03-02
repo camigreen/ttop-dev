@@ -9,6 +9,7 @@
 			<field name="task" type="list" label="Test Page" default="all" required="true">
 				<option value="testUser">Test User</option>
 				<option value="testAccount">Test Account</option>
+				<option value="testCoupon">Test Coupon</option>
 			</field>
 			<field name="controller" type="hidden" default="test" />        
 		</fieldset>

@@ -36,5 +36,9 @@
 			<field name="payment.customer_name" type="text.store.checkout" width="1-1" default="" label="Customer Name" description=""  required="1" />
 			<field name="payment.po_number" type="text.store.checkout" width="1-1" default="" label="P.O. Number" description="" required="1" />
 		</fieldset>
+		<fieldset group="coupon_code" controlname="params" >
+			<field name="coupon.code" type="text.store.checkout" width="1-2" default="" label="Coupon Code" description=""/>
+			<field name="add_coupon" type="button" width="1-2" default="Add Coupon" task="addCoupon" next="payment" description=""/>
+		</fieldset>
 	</type>
 </checkout>

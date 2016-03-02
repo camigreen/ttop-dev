@@ -43,6 +43,7 @@ $page = $this->page;
 <div class="uk-width-1-2 uk-container-center">
     <div class="uk-grid" data-uk-grid-margin>
         <div class='uk-width-1-1'>
+            <?php echo $this->partial('coupon_code', compact('params')); ?>
             <fieldset id="payment-info">
                 <div class="uk-grid" data-uk-margin>
                     <div class="uk-width-1-1">

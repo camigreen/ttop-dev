@@ -35,6 +35,7 @@ class StoreApplication extends Application {
         $zoo->path->register($path.'/fields', 'fields');
         $zoo->path->register($path.'/libraries', 'store.lib');
         $zoo->path->register($path.'/logs', 'logs');
+        $zoo->path->register(JPATH_ROOT.'/templates/yoo_eat', 'template');
         include_once $path.'/vendor/autoload.php';
 
 //        Load Classes
@@ -53,6 +54,8 @@ class StoreApplication extends Application {
         $zoo->event->dispatcher->connect('storeuser:saved', array('StoreUserEvent', 'saved'));
         $zoo->event->register('StoreItemEvent');
         $zoo->event->dispatcher->connect('storeitem:init', array('StoreItemEvent', 'init'));
+        $zoo->event->register('CouponEvent');
+        $zoo->event->dispatcher->connect('coupon:init', array('CouponEvent', 'init'));
 //        Add CSS
         $zoo->document->addStyleSheet('assets:css/ttop.css');
 

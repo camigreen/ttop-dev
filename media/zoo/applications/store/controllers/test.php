@@ -123,6 +123,20 @@ class TestController extends AppController {
 	}
 
 
+	public function testCoupon() {
+
+		$coupon = $this->app->coupon->get('TEST');
+		$coupon->setParam('discount', (float)'.30');
+		$this->app->table->coupon->save($coupon);
+		var_dump($coupon);
+		var_dump($coupon->getParam('discount'));
+		$coupon->isExpired();
+
+		echo $this->app->html->_('calendar', $coupon->getExpirationDate(), 'testdate', 'testdate');
+		echo 'Coupon Expired: '.($coupon->isExpired() ? 'Yes' : 'No');
+	}
+
+
 
 }
 ?>

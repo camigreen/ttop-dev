@@ -9,18 +9,19 @@
 
 	$canEdit = $parent->getValue('canEdit');
 	$viewOnly = (bool) $node->attributes()->viewOnly;
+	$disabled = (int) $node->attributes()->disabled == 0 ? false : true;
+
+
 
 	if($this->app->storeuser->get()->isStoreAdmin() || ($canEdit && !$viewOnly)) {
 		$name = "{$control_name}[$name]";
-		$html[] = '<select class="'.$class.'" name="'.$name.'" >';
+		$attributes = array('name' => "$name",'class' => $class);
 		foreach($options as $key => $text) {
 			$selected = $key == $value ? "selected" : "";
-			$html[] = '<option value="'.$key.'" '.$selected.'>'.$text.'</option>';
+			$opts[] = '<option value="'.$key.'" '.$selected.'>'.$text.'</option>';
 		}
-		$html[] = '</select>';
+		printf('<select %s>%s</select>',$this->app->field->attributes($attributes, array('label', 'description', 'default')), implode("\n", $opts));
 	} else {
-		$html[] = '<div>'.$options[$value].'</div>';
+		printf('<div>%s</div>', $options[$value]);
 	}
-
-	echo implode("\n",$html);
 ?>
