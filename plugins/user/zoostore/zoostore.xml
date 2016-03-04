@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="user" method="upgrade">
+	<name>ZooStore User Plugin</name>
+	<author>Shawn Gibbons</author>
+	<creationDate>March 2016</creationDate>
+	<copyright></copyright>
+	<license></license>
+	<authorEmail>sgibbons@palmettoimages.com</authorEmail>
+	<authorUrl>www.palmeetoimages.com</authorUrl>
+	<version>1.0.0</version>
+	<description></description>
+	<files>
+		<filename plugin="zoostore">zoostore.php</filename>
+	</files>
+</extension>
