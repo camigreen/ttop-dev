@@ -97,7 +97,7 @@ class Account {
         // Bind the related accounts.
         if($this->app->storeuser->get()->isAccountAdmin()) {
             $related = isset($data['related']) ? $data['related'] : array();
-            $this->_bindMappedAccounts($data['related']);
+            $this->_bindMappedAccounts($related);
         }
         
         
@@ -313,7 +313,7 @@ class Account {
      * @since 1.0
      */
     public function getUsers($asObjects = false) {
-        $users = $this->_mappedAccounts->get('users.');
+        $users = $this->_mappedAccounts->get('users.', array());
         if($asObjects) {
             $userArray = array();
             foreach($users as $id => $user) {
@@ -532,46 +532,20 @@ class Account {
      * @since 1.0
      */
     protected function _bindMappedAccounts($data = array()) {
-
+        $accounts = $this->app->parameter->create();
         // Deal with the child accounts.
-        $accounts = array();
         if(isset($data['accounts.children'])) {
-            $this->_mappedAccounts->remove('accounts.children.');
-            foreach($data['accounts.children'] as $child) {
-                if($child) {
-                    $accounts[] = $child;
-                }
-            }
-            if(!empty($accounts)) {
-                $this->_mappedAccounts->set('accounts.children.', $accounts);
-            }
+            $accounts->set('accounts.children.', $data['accounts.children']);
         }
         // Deal with the user accounts.
-        $accounts = array();
         if(isset($data['users'])) {
-            $this->_mappedAccounts->remove('users.');
-            foreach($data['users'] as $child) {
-                if($child) {
-                    $accounts[] = $child;
-                }
-            }
-            if(!empty($accounts)) {
-                $this->_mappedAccounts->set('users.', $accounts);
-            }
+            $accounts->set('accounts.users.', $data['users']);
         }
         // Deal with the parent accounts.
-        $accounts = array();
-        if(isset($data['parents'])) {
-            $this->_mappedAccounts->remove('parents.');
-            foreach($data['parents'] as $parent) {
-                if($parent) {;
-                    $accounts[] = $parent;
-                }
-            }
-            if(!empty($accounts)) {
-                $this->_mappedAccounts->set('parents.', $accounts);
-            } 
+        if(isset($data['accounts.parents'])) {
+            $accounts->set('accounts.parents.', $data['accounts.parents']);
         }
+        $this->_mappedAccounts = $accounts;
         return $this;
     }
 
@@ -618,7 +592,7 @@ class Account {
         }
 
         // Map all of the parent accounts to the database.
-        foreach($this->_mappedAccounts->get('users.', array()) as $child) {
+        foreach($this->_mappedAccounts->get('accounts.users.', array()) as $child) {
             $query = 'INSERT INTO #__zoo_account_user_map (parent, child) VALUES ('.$this->id.','.$child.')';
             $this->app->database->query($query);
         }

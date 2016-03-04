@@ -73,7 +73,7 @@
 			</field>
 		</fieldset>
 		<fieldset group="users" label="Assigned Users" controlname="related" width="1-1">
-			<field name="children" type="userselect" width="1-2" default="" usertype="user.dealership" label="Account Users" description="" />
+			<field name="users" type="userselect" width="1-2" default="" usertype="user.dealership" label="Account Users" description="" />
 		</fieldset>
 		<fieldset group="subaccounts" label="Assigned Sub-Accounts" controlname="related" width="1-1" access="8">
 			<field name="children" type="oemselect" multiple="1" width="1-2" label="Assigned OEMs" description="" />
