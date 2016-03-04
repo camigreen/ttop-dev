@@ -14,7 +14,7 @@
 			<div class="uk-article-title uk-text-center">
 				<?php echo $this->title; ?>
 				<?php if($user->id) : ?>
-					<div class="uk-article-lead"><?php echo $user->name.' | ' . $params->get('type', 'default') . ' | ID: '.$user->id; ?></div>
+					<div class="uk-article-lead"><?php echo $user->name.' | ' . JText::_('USER_TYPE_'.$params->get('type', 'default')). ' | ID: '.$user->id; ?></div>
 				<?php endif; ?>
 			</div>
 		</div>

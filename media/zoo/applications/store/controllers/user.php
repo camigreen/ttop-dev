@@ -130,6 +130,7 @@ class UserController extends AppController {
             $this->app->error->raiseError('USER.001', JText::_('ERROR.USER.001'));
             return;
         }
+
         $edit = $this->storeuser->id > 0;
         if($edit) {
             $this->title = 'Edit User';

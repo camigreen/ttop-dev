@@ -68,16 +68,28 @@ class PlgAuthenticationZooStore extends JPlugin
 
 		// Get a database object
 
-		// Trying by email
+		// Trying by username
+			$db    = JFactory::getDbo();
+			$query = $db->getQuery(true)
+				->select('id, password')
+				->from('#__users')
+				->where('username=' . $db->quote($credentials['username']));
+
+
+			$db->setQuery($query);
+			$result = $db->loadObject();
+
+		if(!$result) {// Trying by email
 			$db    = JFactory::getDbo();
 			$query = $db->getQuery(true)
 				->select('id, password')
 				->from('#__users')
 				->where('email=' . $db->quote($credentials['username']));
 
-
 			$db->setQuery($query);
 			$result = $db->loadObject();
+		}
+		
 		
 
 		if ($result)
@@ -274,6 +286,8 @@ class PlgAuthenticationZooStore extends JPlugin
 
 	public function verifyZooStoreAccount($user, &$response) {
 		$account = $this->app->account->getByUser($user);
+		$storeuser = $this->app->storeuser->get($user->id);
+		// var_dump($storeuser->getState());
 		// var_dump($user);
 		// var_dump($account);
 		// var_dump($account->getParent());
@@ -286,10 +300,7 @@ class PlgAuthenticationZooStore extends JPlugin
 				return;
 		}
 
-		$state = $account->getParentAccount()->getState();
-		if ($state == JText::_('ACCOUNT_STATUS_ACTIVE')) {
-			$state = $account->getState();
-		}
+		$state = $storeuser->getState();
 
 		switch($state) {
 			case 'Active':
@@ -300,12 +311,12 @@ class PlgAuthenticationZooStore extends JPlugin
 			case 'Suspended':
 				// Account Suspended
 				$response->status        = JAuthentication::STATUS_FAILURE;
-				$response->error_message = JText::_('ACCOUNT_AUTH_FAIL_SUSPENDED');
+				$response->error_message = 'suspended';
 				break;
 			case 'Trashed':
 				// Account Trashed
 				$response->status        = JAuthentication::STATUS_FAILURE;
-				$response->error_message = JText::_('ACCOUNT_AUTH_FAIL_TRASHED');
+				$response->error_message = 'trashed';
 				break;
 		}
 	}

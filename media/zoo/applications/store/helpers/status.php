@@ -14,12 +14,14 @@
 class StatusHelper extends AppHelper {
     
     protected $account = array(
+        0 => 'ACCOUNT_STATUS_UNKNOWN',
         1 => 'ACCOUNT_STATUS_ACTIVE',
         2 => 'ACCOUNT_STATUS_SUSPENDED',
         3 => 'ACCOUNT_STATUS_TRASHED'
     );
 
     protected $user = array(
+        0 => 'ACCOUNT_STATUS_UNKNOWN',
         1 => 'ACCOUNT_STATUS_ACTIVE',
         2 => 'ACCOUNT_STATUS_SUSPENDED',
         3 => 'ACCOUNT_STATUS_TRASHED'
@@ -43,7 +45,9 @@ class StatusHelper extends AppHelper {
     }
 
     public function getList($class) {
-        return $this->app->data->create($this->$class);
+        $list = $this->app->data->create($this->$class);
+        $list->remove(0);
+        return $list;
     }
 
     public function getSelect($class, $name = 'state', $attr = array(), $default = 0) {

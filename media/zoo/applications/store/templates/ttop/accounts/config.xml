@@ -26,7 +26,7 @@
 			<field name="sandbox_transaction_key" type="text.store" width="1-2" default="" label="Authorize.net Sandbox Transaction Key" description="" />
 		</fieldset>
 		<fieldset group="users" label="Assigned Users" controlname="related" width="1-1">
-			<field name="children.user" type="userselect" width="1-2" default="" label="Account Users" description="" />
+			<field name="users" type="userselect" width="1-2" default="" label="Account Users" description="" />
 		</fieldset>
 	</type>
 	<type name="dealership">

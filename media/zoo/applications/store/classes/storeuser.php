@@ -49,11 +49,16 @@ class StoreUser {
             $this->setAccount($account->id);
             $this->setParam('type', $account->getParam('user_type', 'default'));
         }
+
         if(isset($data['permissions'])) {
             $this->_permissions = array();
             foreach($data['permissions'] as $permission) {
                 $this->_permissions[$permission] = $permission;
             }
+        }
+
+        if($this->getParam('type', 'default') == 'default') {
+            $this->_permissions = array(1);
         }
 
 	}
@@ -74,9 +79,23 @@ class StoreUser {
 		$this->mapAccount($this->_account);
 
         JUserHelper::setUserGroups($this->_user->id, $this->_permissions);
+        
 
         return true;
 	}
+
+    public function getState() {
+        $state = $this->getAccount(true)->getState();
+        if($state == 'Active') {
+            $state = JText::_($this->app->status->get('user', $this->getParam('status', 0)));
+        }
+        return $state;
+    }
+
+    public function setState($state) {
+        $this->setParam('status', $state);
+        return $this;
+    }
 
     public function getAssetName() {
         $application = $this->app->zoo->getApplication();
@@ -88,7 +107,8 @@ class StoreUser {
     }
 
 	public function getAccount($asObject = true) {
-        if(!$this->_account) {
+
+        if(!$this->_account && $this->id != 0) {
             $query = 'SELECT parent FROM #__zoo_account_user_map WHERE child = '.$this->id;
             $this->_account = $this->app->database->queryResult($query);
         }
