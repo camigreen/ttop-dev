@@ -75,6 +75,11 @@ class Price
 	protected $_markupRate = 0;
 
 	/**
+	 * @var [float]
+	 */
+	protected $_defaultMarkupRate = 0;
+
+	/**
 	 * @var [array]
 	 */
 	protected $_price_options;
@@ -95,7 +100,8 @@ class Price
 		$this->app = $app;
 		// Set the Markup
 		$account = $this->app->storeuser->get()->getAccount();
-		$this->_markupRate = $account->params->get('markup')/100;
+		$this->_defaultMarkupRate = $account->params->get('margin')/100;
+		$this->_markupRate = $this->_defaultMarkupRate;
 
 		// Set the Discount
 		$this->_discountRate = $account->params->get('discount')/100;
@@ -141,6 +147,9 @@ class Price
 	}
 	protected function markup() {
 		$base = $this->base();
+		if($this->app->storeuser->get()->isReseller()) {
+			$base = $this->reseller();
+		}
 		return (float) $base + ($base*$this->_markupRate);
 	}
 	protected function retail() {
@@ -152,6 +161,12 @@ class Price
 	protected function margin() {
 		$margin = $this->markup() - $this->reseller();
 		return (float) $margin;
+	}
+
+	protected function resellerMSRP() {
+		$msrp = $this->reseller();
+		$msrp += $msrp*$this->_defaultMarkupRate;
+		return (float) $msrp;
 	}
 	protected function base() {
 		$options = $this->getCalculatedOptions();
@@ -270,13 +285,13 @@ class Price
 	public function getMarkupList() {
         $default = $this->_markupRate;
         $store = $this->app->store->get();
-        $markups = $store->params->get('options.markup.');
+        $margins = $store->params->get('options.margin.');
         $list = array();
-        foreach($markups as $value => $text) {
-            $price = $this->get('base');
+        foreach($margins as $value => $text) {
+            $price = $this->get('reseller');
             $diff = $price * ($value/100);
             $price += $diff;
-            $list[] = array('markup' => $value/100, 'price' => $price, 'formatted' => $this->app->number->currency($price, array('currency' => 'USD')), 'text' => $text.($text == 'No Markup' ? ' ' : ' Markup '), 'diff' => $diff,'default' => $default == $value/100 ? true : false);
+            $list[] = array('markup' => $value/100, 'price' => $price, 'formatted' => $this->app->number->currency($price, array('currency' => 'USD')), 'text' => ' @ '.$text.' Margin', 'diff' => $diff,'default' => $default == $value/100 ? true : false);
         }
         //var_dump($list);
         return $list;

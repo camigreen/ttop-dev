@@ -66,6 +66,7 @@
 		<fieldset group="settings" label="Account Settings" controlname="params" width="1-1">
 			<field name="discount" type="store.option" optionset="discount" width="1-4" viewOnly="1" default="" label="Dealer Price Discount" description="The dealer price discount." />
 			<field name="markup" type="store.option" optionset="markup" width="1-4" default="" label="Dealer Markup" description="The dealer's additional markup to an item." />
+			<field name="margin" type="store.option" optionset="margin" width="1-4" default="" label="Dealer Margin" description="The dealer's additional margin to an item." />
 			<field name="terms" type="store.option" optionset="terms" width="1-4" viewOnly="1" default="DUR" label="Terms" description="The payment terms for the account." />
 			<field name="tax_exempt" type="radio" width="1-4" default="1" admin="1" label="Tax Exemption" description="Is the dealer tax exempt?" access="8">
 				<option value="0">No</option>

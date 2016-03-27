@@ -13,10 +13,10 @@ foreach($markupList as $value) {
 	<p class="uk-article-title">Pricing Options</p>
 	<p class="uk-article-lead">These are the current pricing options.</p>
 	<div class="uk-h4">Dealer Price</div>
-	<div><?php echo $this->app->number->currency($price->reseller, array('currency' => 'USD')).' ('.$price->getDiscountRate(true).' discount)'; ?></div>
+	<div><?php echo $this->app->number->currency($price->reseller, array('currency' => 'USD')); ?></div>
 	<div class="uk-h4">MSRP</div>
-	<div><?php echo $this->app->number->currency($price->base, array('currency' => 'USD')); ?></div>
-	<div class="uk-h4">Choose your markup</div>
+	<div><?php echo $this->app->number->currency($price->resellerMSRP, array('currency' => 'USD')); ?></div>
+	<div class="uk-h4">Choose your Margins</div>
 	<div>
 		<ul class="uk-list">
 			<?php echo implode("\n", $markupHTML); ?>
