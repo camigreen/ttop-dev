@@ -48,7 +48,7 @@ class InvoiceFormPDF extends FormPDF {
 	    			array('format' => 'item-options','text' => implode("\n",$options))
 	    		),
 	    		'qty' => array('text' => $item->qty),
-	    		'msrp' => array('text' => $item->getTotal('base')),
+	    		'msrp' => array('text' => $item->getTotal('resellerMSRP')),
 	    		'markup_price' => array('text' => $this->app->number->currency($item->getTotal('markup'), array('currency' => 'USD'))."\n".$item->getPrice()->getMarkupRate(true).' Markup'),
 	    		'dealer_price' => array('text' => $this->app->number->currency($item->getTotal('reseller'), array('currency' => 'USD'))."\n".$item->getPrice()->getDiscountRate(true).' Discount'),
 	    		'dealer_profit' => array('text' => $this->app->number->currency($item->getTotal('margin'), array('currency' => 'USD'))."\nTotal Discount ".$item->getPrice()->getProfitRate(true))

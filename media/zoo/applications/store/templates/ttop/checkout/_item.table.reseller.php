@@ -34,7 +34,7 @@
                     </td>
                 <?php endif; ?>
                 <td class="ttop-checkout-item-total">
-                    <?php echo $item->getTotal('base', true); ?>
+                    <?php echo $item->getTotal('resellerMSRP', true); ?>
                 </td>
                 <td class="ttop-checkout-item-total">
                     <?php echo $item->getTotal('markup', true); ?>

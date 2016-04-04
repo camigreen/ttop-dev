@@ -148,14 +148,15 @@ class Price
 	protected function markup() {
 		$base = $this->base();
 		if($this->app->storeuser->get()->isReseller()) {
-			$base = $this->reseller();
+			//$base = $this->reseller();
 		}
 		return (float) $base + ($base*$this->_markupRate);
 	}
-	protected function retail() {
+	protected function retail($markup = null, $discount = null) {
 		$retail = $this->base();
-		$retail += $retail*$this->_markupRate;
-		$retail -= $retail*$this->_discountRate;
+		$retail -= $retail*($discount ? $discount : $this->_discountRate);
+		$retail += $retail*($markup ? $markup : $this->_markupRate);
+		
 		return (float) $retail;
 	}
 	protected function margin() {
@@ -164,7 +165,7 @@ class Price
 	}
 
 	protected function resellerMSRP() {
-		$msrp = $this->reseller();
+		$msrp = $this->base();
 		$msrp += $msrp*$this->_defaultMarkupRate;
 		return (float) $msrp;
 	}
@@ -273,6 +274,7 @@ class Price
 	public function getItemOptions() {
 		return $this->_item->options;
 	}
+
 	/**
 	 * Describe the Function
 	 *
@@ -288,10 +290,12 @@ class Price
         $margins = $store->params->get('options.margin.');
         $list = array();
         foreach($margins as $value => $text) {
-            $price = $this->get('reseller');
-            $diff = $price * ($value/100);
-            $price += $diff;
-            $list[] = array('markup' => $value/100, 'price' => $price, 'formatted' => $this->app->number->currency($price, array('currency' => 'USD')), 'text' => ' @ '.$text.' Margin', 'diff' => $diff,'default' => $default == $value/100 ? true : false);
+            $base = $this->base();
+            $reseller = $this->reseller();
+            $markup = $base += $base*($value/100);
+            $diff = $base - $reseller;
+            $price = $base;
+            $list[] = array('markup' => $value/100, 'price' => $price, 'formatted' => $this->app->number->currency($price, array('currency' => 'USD')), 'text' => ($value === 0 ? '<span class="uk-text-bold"> Base Price </span>' : '').'('.$value.'% Markup + '.($this->getDiscountRate()*100).'% Discount) = ', 'diff' => $diff,'default' => $default == $value/100 ? true : false);
         }
         //var_dump($list);
         return $list;

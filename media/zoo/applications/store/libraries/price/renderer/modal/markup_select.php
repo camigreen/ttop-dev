@@ -5,7 +5,7 @@ foreach($markupList as $value) {
 	if($value['default']) {
 		$markup = $value['markup'];
 	}
-	$markupHTML[] = '<li><label><input id="mus-'.($value['markup']*100).'" name="markup_select" type="radio" value="'.$value['markup'].'"/>'.$value['formatted'].' '.$value['text'].'(+'.$this->app->number->currency($value['diff'],array('currency' => 'USD')).')</label></li>';
+	$markupHTML[] = '<li><label><input id="mus-'.($value['markup']*100).'" name="markup_select" type="radio" value="'.$value['markup'].'"/>'.$value['formatted'].' '.$value['text'].' '.$this->app->number->currency($value['diff'],array('currency' => 'USD')).' Dealer Profit</label></li>';
 }
 ?>
 
