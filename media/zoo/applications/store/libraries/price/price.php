@@ -100,7 +100,7 @@ class Price
 		$this->app = $app;
 		// Set the Markup
 		$account = $this->app->storeuser->get()->getAccount();
-		$this->_defaultMarkupRate = $account->params->get('margin') ? $account->params->get('margin')/100 : 0.15;
+		$this->_defaultMarkupRate = $account->params->get('margin') ? $account->params->get('margin')/100 : ($this->app->storeuser->get()->isReseller() ? 0.15 : 0);
 		$this->_markupRate = $this->_defaultMarkupRate;
 
 		// Set the Discount
