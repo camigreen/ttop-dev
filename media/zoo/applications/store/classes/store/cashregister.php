@@ -81,41 +81,51 @@ class CashRegister {
             return;
         }
         $order = $this->app->orderdev->get($oid);
+        
         $email = $this->app->mail->create();
         $formType = $order->getAccount()->isReseller() ? 'reseller' : 'default';
         $CR = $this;  
            if ($for == 'payment') {
+                $recipents = $this->getNotificationEmails();
                 $pdf = $this->app->pdf->create('workorder', $formType);
                 $filename = $pdf->setData($order)->generate()->toFile();
                 $path = $this->app->path->path('assets:pdfs/'.$filename);
                 $email->setSubject("T-Top Boat Cover Online Order Notification");
                 $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.order.php');
-                $email->addRecipient($this->getNotificationEmails());
                 $email->addAttachment($path,'Order-'.$this->order->id.'.pdf');
+                foreach($recipents as $recipient) {
+                    $email->addRecipient($recipient);
+                }
                 $email->Send();
                 unlink($path);
             } 
             if($for == 'receipt') {
                 $recipients = $order->getAccount()->getNotificationEmails();
-                $recipients[] = $order->elements->get('email');
+                if($order->elements->get('email')) {
+                    $recipients[] = $order->elements->get('email');
+                }
                 $filename = $this->app->pdf->create('receipt', $formType)->setData($order)->generate()->toFile();
                 $path = $this->app->path->path('assets:pdfs/'.$filename);
                 $email->setSubject("Thank you for your order.");
                 $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
-                $email->addRecipient($recipients);
                 $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
+                foreach($recipients as $recipient) {
+                    $email->addRecipient($recipient);
+                }
                 $email->Send();
                 unlink($path);
             } 
             if($for == 'invoice') {
-                $addresses = $order->getAccount()->getNotificationEmails();
-                $addresses[] = $order->elements->get('email');
+                $recipient = $order->getAccount()->getNotificationEmails();
+                $recipient[] = $order->elements->get('email');
                 $filename = $this->app->pdf->create('invoice', $formType)->setData($order)->generate()->toFile();
                 $path = $this->app->path->path('assets:pdfs/'.$filename);
                 $email->setSubject("Thank you for your order.");
                 $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.invoice.php');
-                $email->addRecipient($addresses);
                 $email->addAttachment($path,'Invoice-'.$this->order->id.'.pdf');
+                foreach($recipients as $recipient) {
+                    $email->addRecipient($recipient);
+                }
                 $email->Send();
                 unlink($path);
             } 
