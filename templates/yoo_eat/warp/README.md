@@ -1,12 +1,36 @@
 # Warp Theme Framework #
 
-- Version: 7.3.20
-- Date: February 2016
+- Version: 7.3.25
+- Date: May 2016
 - Author: YOOtheme GmbH
 - Website: <http://www.yootheme.com/warp>
 
 
 ## Changelog
+
+    7.3.25
+    ^ Updated UIkit to 2.26.3
+    # Fixed font selection in customizer (IE)
+
+    7.3.24
+    ^ Updated language files
+    # Fixed use of deprecated function add_object_page() (WP)
+
+    7.3.23
+    ^ Updated UIkit to 2.26.2
+    # Fixed font selection in customizer
+    # Fixed menu settings backward compatibility (J 2.5)
+
+    7.3.22
+    ^ Updated UIkit to 2.26.0
+    # Fixed sticky navbar not changing background-color (Chrome)
+
+    7.3.21
+    + Added Support for widgets count > 6 in a position
+    ^ Updated Wordpress 4.5 compatibility
+    ^ Updated post layouts, render post image with srcset (WP)
+    # Fixed center login-form in offline page (J)
+    # Fixed font selection in customizer
 
     7.3.20
     + Added new font selection in customizer

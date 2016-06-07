@@ -2819,7 +2819,7 @@ input[type="submit"].btn.btn-mini {
   color: #cdac78;
 }
 .alert h4 {
-  margin: 0;
+  margin: 0 0 .5em;
 }
 .alert .close {
   position: relative;

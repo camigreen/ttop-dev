@@ -12,6 +12,11 @@ defined('_JEXEC') or die('Restricted access');
 $class = $item->type.'-full';
 $data_item = array('id' => $item->id, 'name' => 'Center Console Curtain');
 $storeItem = $this->app->item->create($item, 'ccc');
+
+$this->template = $this->app->zoo->getApplication()->getTemplate()->getPath().'/renderer/item/ccc/';
+$type = 'orderform';
+$this->form = $this->app->form->create(array($this->template.'config.xml', compact('type')));
+$this->form->setValue('template', $this->template);
 ?>
 <article>
     <span class="uk-article-title"><?php echo $item->name; ?></span>
@@ -56,63 +61,79 @@ $storeItem = $this->app->item->create($item, 'ccc');
                         <p class="uk-text-danger">Please refer to the maintenance section in the Info & Video Tab above.</p>
                         <div class="uk-grid ccc-measurements">
                             <div class="uk-width-1-2">
-                                <div class="uk-margin-top">
-                                    <a href="<?php echo JURI::root(); ?>/images/curtain/order_form/diagram1.png" data-lightbox title="">
-                                        <img src="<?php echo JURI::root(); ?>/images/curtain/order_form/diagram1.png" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-2">
-                                <div class="uk-width-1-1 uk-grid price-container">
-                                    <?php if ($this->checkPosition('pricing')) : ?>
-                                            <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-2">
-                                <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>
-                            </div>
-                            <div class="uk-width-1-2 uk-margin-top">
-                                <fieldset> 
-                                    <legend>
-                                        <?php echo JText::_('Measurements'); ?>
-                                    </legend>
-                                    <div class="uk-grid">
-                                        <div class="uk-width-1-1 ccc-measurement">
-                                            <label>1) Height from T-Top to the Deck</label>
-                                            <div class="uk-grid">
-                                                <div class="uk-width-2-6">
-                                                   <input type="number" id="ttop2deck" name="ttop2deck" class="required" min="0" value="76" />
-                                                </div>
-                                                <div class="uk-width-1-6">
-                                                    in
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="uk-width-1-1 1 ccc-measurement">
-                                            <label>2) Rear of Helm Seat to Front of Console Seat</label>
-                                            <div class="uk-grid">
-                                                <div class="uk-width-2-6">
-                                                   <input type="number" id="helm2console" name="helm2console" class="required" min="0" value="75" />
-                                                </div>
-                                                <div class="uk-width-1-6">
-                                                    in
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="uk-width-1-1 1 ccc-measurement">
-                                            <label>3) Width of the Helm Seat</label>
-                                            <div class="uk-grid">
-                                                <div class="uk-width-2-6">
-                                                   <input type="number" id="helmSeatWidth" name="helmSeatWidth" class="required" min="0" value="38" />
-                                                </div>
-                                                <div class="uk-width-1-6">
-                                                    in
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="uk-width-1-1">
+                                    <div class="uk-margin-top">
+                                        <a href="<?php echo JURI::root(); ?>/images/curtain/order_form/diagram1.png" data-lightbox title="">
+                                            <img src="<?php echo JURI::root(); ?>/images/curtain/order_form/diagram1.png" />
+                                        </a>
                                     </div>
-                                </fieldset>
+                                </div>
+                            </div>
+                            <div class="uk-width-1-2">
+                                <div class="uk-width-1-1">
+                                    <div class="uk-width-1-1 uk-grid price-container">
+                                        <?php if ($this->checkPosition('pricing')) : ?>
+                                                <?php echo $this->renderPosition('pricing', array('item' => $storeItem)); ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="uk-width-1-1">
+                                    <p class="uk-text-danger" style="font-size:18px">Fill out the measurements below for your custom price.</p>
+                                </div>
+                                <div class="uk-width-1-1 uk-margin-top boat_chooser">
+                                    <p>We may have the measurements for your boat.  Click below to see if we have your boat in our database.</p>
+                                </div>
+                                <div class="uk-width-1-1">
+                                    <div class="chosen_boat uk-text-primary uk-text-large"></div>
+                                </div>
+                                <div class="uk-width-1-1 uk-margin">
+                                    <button id="btn_find_my_boat" class="uk-width-1-1 uk-button uk-button-danger" data-mode='CYB'>Choose My Boat</button>
+                                </div>
+                                <div class="uk-width-1-1 uk-margin-top">
+                                    <button id="btn_my_measurements" class="uk-width-1-1 uk-button uk-button-danger" data-mode="EMM">Enter My Own Measurements</button>
+                                </div>
+                                <div class="uk-width-1-1 uk-margin-top ccc-measurement">
+                                    <fieldset> 
+                                        <legend>
+                                            <?php echo JText::_('Measurements'); ?>
+                                        </legend>
+                                        <div class="uk-grid">
+                                            <div class="uk-width-1-1 ">
+                                                <label>1) Height from T-Top to the Deck</label>
+                                                <div class="uk-grid">
+                                                    <div class="uk-width-2-6">
+                                                       <input type="number" id="ttop2deck" name="ttop2deck" class="required" min="0" value="76" />
+                                                    </div>
+                                                    <div class="uk-width-1-6">
+                                                        in
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-1-1 1 ccc-measurement">
+                                                <label>2) Rear of Helm Seat to Front of Console Seat</label>
+                                                <div class="uk-grid">
+                                                    <div class="uk-width-2-6">
+                                                       <input type="number" id="helm2console" name="helm2console" class="required" min="0" value="75" />
+                                                    </div>
+                                                    <div class="uk-width-1-6">
+                                                        in
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-1-1 1 ccc-measurement">
+                                                <label>3) Width of the Helm Seat</label>
+                                                <div class="uk-grid">
+                                                    <div class="uk-width-2-6">
+                                                       <input type="number" id="helmSeatWidth" name="helmSeatWidth" class="required" min="0" value="38" />
+                                                    </div>
+                                                    <div class="uk-width-1-6">
+                                                        in
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
                             </div>
                             <div class="uk-width-1-1 options-container" data-id="ccc">
                                 <label>Additional Information<span class="uk-text-small uk-margin-left">(other)</span></label>
@@ -129,9 +150,6 @@ $storeItem = $this->app->item->create($item, 'ccc');
                         <?php echo $this->renderPosition('tabs', array('style' => 'tab_content')); ?>
                     <?php endif; ?>
                 </ul>
-            </div>
-            <div class="uk-width-1-1 ccc-results">
-
             </div>
         </div>
         <div class="uk-width-1-3 uk-margin-top">
@@ -176,7 +194,6 @@ $storeItem = $this->app->item->create($item, 'ccc');
                     </fieldset>
             </div>
             <?php endif; ?>
-
         </div>
     </div>
     <div class="modals">
@@ -236,6 +253,14 @@ $storeItem = $this->app->item->create($item, 'ccc');
                 </div>
             </div>
         </div>
+                <!-- Start page modal -->
+        <div id="startPage" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <?php if($this->form->checkGroup('chooser')) : ?>
+                    <?php echo $this->form->render('chooser')?>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -243,39 +268,43 @@ $storeItem = $this->app->item->create($item, 'ccc');
 
 <script>
     var info_modal = jQuery.UIkit.modal('#info_modal');
+    var startPageModal = jQuery.UIkit.modal('#startPage');
     var CCC = {
         price: 0.00,
         type: null,
         measurements_changed: false,
+        mode: 'CYB',
         options: {
             ttop2deck: {
                 name: 'T-Top to Deck Measurement',
                 text: null,
                 value: 0,
                 min: 76,
-                max: 88
+                max: 88,
+                default: 76
             }, 
             helm2console: {
                 name: 'Rear of Helm Seat to Front of Console Seat Measurement',
                 text: null,
                 value: 0,
                 min: 75,
-                max: 133
+                max: 133,
+                default: 95
             },
             helmSeatWidth: {
                 name: 'Width of Helm Seat Measurement',
                 text: null,
                 value: 0,
                 min: 38,
-                max: 50
-            },
-            curtain_class: {
-                name: 'Curtain Class',
-                text: null,
-                value: null,
-                visible: false
-            }
-            
+                max: 50,
+                default: 38
+            }   
+        },
+        class: {
+            name: 'Curtain Class',
+            text: null,
+            value: null,
+            visible: false
         }
         
     };
@@ -290,12 +319,13 @@ $storeItem = $this->app->item->create($item, 'ccc');
                 ccc: {
                     onInit: [
                         function (data) {
-                            console.log('test init');
                             var self = this;
+                            this.trigger('backToDefaults', {item: this.items['ccc']});
                             this.trigger('measure', {item: this.items['ccc']});
-       
+                            this.trigger('measure2', {});
+                            $('.ccc-measurement').hide();
                             $('.ccc-measurement input').on('change', function(e){
-                                CCC.measurements_changed = true;
+                                CCC.measurements_changed = 'Customer';
                                 var adjust = false;
                                 if($(e.target).prop('name') === 'helm2console') {
                                     adjust = true;
@@ -307,70 +337,186 @@ $storeItem = $this->app->item->create($item, 'ccc');
                                 console.log('test');
                                 self.trigger('changeColor', {item: self.items['ccc'], fabric: $(e.target).val()});
                             });
+
+                            $('[name="boatmodel"]').on('change', function() {
+                                //self.trigger('backToDefaults', {item: self.items['ccc']});
+                                if($(this).val() == 0 ) {
+                                    return;
+                                }
+                                var make = $('[name="boatmake"] option:selected').text();
+                                var model = $('[name="boatmodel"] option:selected').text();
+                                $('[name="make"]').val(make);
+                                $('[name="model"]').val(model);
+
+                                var m = $(this).val().split(','), proceed = true;
+
+                                $('#ttop2deck').val(m[0]);
+                                
+                                if(self.trigger('measure',{item: self.items['ccc'], location: 'ttop2deck'}).triggerResult) {
+                                    $('#helm2console').val(m[1]);
+                                } else {
+                                    $('#ttop2deck').val(CCC.options.ttop2deck.default);
+                                    proceed = false;
+                                }
+                                if(proceed && self.trigger('measure',{item: self.items['ccc'], adjustHSW: true, location: 'helm2console'}).triggerResult) {
+                                    $('#helmSeatWidth').val(m[2]);
+                                } else {
+                                    $('#helm2console').val(CCC.options.helm2console.default);
+                                    proceed = false;
+                                }
+                              
+                                if(proceed && !self.trigger('measure',{item: self.items['ccc'], adjustHSW: false, location: 'helmSeatWidth'}).triggerResult) {
+                                    $('#helmSeatWidth').val(CCC.options.helmSeatWidth.default);
+                                    proceed = false;
+                                }
+                                
+                                if(proceed) {
+                                    CCC.measurements_changed = 'T-Top';
+                                    $('.chosen_boat').text('Chosen Boat: '+make+' - '+model);
+                                    $('.ccc-measurement').hide();
+                                    CCC.mode = 'CYB';
+                                } else {
+                                    self.trigger('backToDefaults', {item: self.items['ccc'], action: 'measurements'});
+                                    self.trigger('measure', {item: self.items['ccc']});
+                                }
+
+                                
+                            });
+                            $('#startPage #btn_continue').on('click', function() {
+                                startPageModal.hide();
+                            });
+
+                            $('#startPage #btn_enter_my_own').on('click', function() {
+                                self.trigger('backToDefaults', {item: self.items['ccc']});
+                                startPageModal.hide();
+                            });
+
+                            $('#btn_find_my_boat').on('click', function(e) {
+                                var elem = $(e.target);
+                                self.trigger('startPage', {item: self.items['ccc'], mode: elem.data('mode')});
+                                CCC.mode = elem.data('mode');
+                                console.log(CCC.mode);
+                            });
+
+                            $('#btn_my_measurements').on('click', function(e) {
+                                $('.ccc-measurement').show();
+                                var elem = $(e.target);
+                                self.trigger('backToDefaults', {item: self.items['ccc'], mode: elem.data('mode')});
+                                CCC.mode = elem.data('mode') ? elem.data('mode') : CCC.mode;
+                                console.log(CCC.mode);
+                            });
+
+
                             return data;
                         }
                            
                     ],
                     beforeChange: [],
+                    startPage: [
+                        function (data) {
+                            startPageModal.options.bgclose = false;
+                            startPageModal.show();
+
+                            return data;
+                        }
+                    ],
+                    backToDefaults: [
+                        function (data) {
+                            if(CCC.mode === data.args.mode) {
+                                return data;
+                            }
+                            console.log(data);
+                            var m = CCC.options, action = 'all';
+                            m.helmSeatWidth.min = 38;
+                            m.helmSeatWidth.max = 50;
+                            m.helmSeatWidth.default = 38;
+                            m.helmSeatWidth.value = 38;
+                            $('.chosen_boat').text('');
+                            $('#ttop2deck').val(m.ttop2deck.default);
+                            $('#helm2console').val(m.helm2console.default);
+                            $('#helmSeatWidth').val(m.helmSeatWidth.default);
+                            $('#startPage select').val(0).trigger('change');
+                            $('.options-container input').val('');
+
+                            CCC.measurements_changed = false;
+                            
+                            return data;
+                        }
+                    ],
+                    measure2: [
+                        function(data) {
+                            console.log('Running Measure 2');
+
+                            return data;
+                        }
+                    ],
                     measure: [
                         function (data) {
-                            var self = this;
+                            var self = this, location = data.args.location;
                             CCC.options = $.extend(true, CCC.options,this._getOptions());
                             getMeasurements();
-                            getCCCClass();
+                            
                             var adjust = typeof data.args.adjustHSW === 'undefined' ? false : data.args.adjustHSW;
-                            if(adjust) {
-                                adjustHelmSeatWidth();
-                            };
-                            checkMinandMax();
 
+                            if(checkMinandMax(location)) {
+                                getCCCClass();
+                                if(adjust) {
+                                    adjustHelmSeatWidth();
+                                };
+                                this._publishPrice(this.items['ccc']);
+                            } else {
+                                data.triggerResult = false;
+                            }
+
+                            return data;
+                            
 
                             function getMeasurements() {
                                 var measurements = $('.ccc-measurement input[type="number"]'), length = {};
                                 
                                 measurements.each(function(k,v){
-
                                     var name = $(this).prop('name');
-                                    console.log(name);
                                     value = $(v).val();
                                     CCC.options[name].value = value;
                                     CCC.options[name].text = value+' inches';
                                 });
-                                console.log(CCC);
                             };
                             
-                            function checkMinandMax() {
-                                var ttop2deck = CCC.options.ttop2deck, helm2console = CCC.options.helm2console, helmSeatWidth = CCC.options.helmSeatWidth
-                                console.log('minmax');
+                            function checkMinandMax(location) {
+                                var ttop2deck = CCC.options.ttop2deck, helm2console = CCC.options.helm2console, helmSeatWidth = CCC.options.helmSeatWidth, proceed = true;
+                                self._debug('Checking Mins and Maxs');
                                 var data = {item: self.items['ccc']};
                                 // Checking ttop2deck Width
-                                switch (true) {
-                                    case ttop2deck.value < ttop2deck.min:
-                                        self.trigger('ttop2deckTooSmall', data);
-                                        break;
-                                    case ttop2deck.value > ttop2deck.max:
-                                        self.trigger('ttop2deckTooLarge', data);
-                                        break;
-                                }
-                                // Checking helm2console
-                                switch(true) {
-                                    case helm2console.value < helm2console.min:
-                                        self.trigger('helm2consoleTooSmall', data);
-                                        break;
-                                    case helm2console.value > helm2console.max:
-                                        self.trigger('helm2consoleTooLarge', data);
-                                        break;
-                                }
-                                // Checking helmSeatWidth
-                                switch(true) {
-                                    case helmSeatWidth.value < helmSeatWidth.min:
-                                        self.trigger('helmSeatWidthTooSmall', data);
-                                        break;
-                                    case helmSeatWidth.value > helmSeatWidth.max:
-                                        self.trigger('helmSeatWidthTooLarge', data);
-                                        break;
+
+                                if(typeof location === 'undefined') {
+                                    $.each(CCC.options, function(k,v) {
+                                        self._debug('Checking Min and Max on '+k+ ' ('+v.value+')');
+                                        if(v.value < v.min) {
+                                            self.trigger(k+'TooSmall', data);
+                                            return false;
+                                        }
+                                        if(v.value > v.max) {
+                                            self.trigger(k+'TooLarge', data);
+                                            return false;
+                                        }
+                                        self._debug(k+' measurement fit criteria');
+                                    })
+                                    return true;
                                 }
 
+                                entry = CCC.options[location];
+                                self._debug('Checking Min and Max on '+location + ' ('+entry.value+')');
+                                if(entry.value < entry.min) {
+                                    self.trigger(location+'TooSmall', data);
+                                    return false;
+                                }
+
+                                if(entry.value > entry.max) {
+                                    self.trigger(location+'TooLarge', data);
+                                    return false;
+                                }
+                                self._debug(location+' measurement fit criteria');
+                                return true;
                                 
                             };
 
@@ -392,41 +538,43 @@ $storeItem = $this->app->item->create($item, 'ccc');
                                     default:
                                         CCC.type = 'Unknown';
                                 }
-                                CCC.options.curtain_class.value = CCC.type;
-                                CCC.options.curtain_class.text = CCC.type + ' Class';
+                                CCC.class.value = CCC.type;
+                                CCC.class.text = CCC.type + ' Class';
                                 self.items['ccc'].price_group = 'ccc.'+CCC.type;
+                                self._debug('CCC class is '+CCC.type);
 
                                         
                             };
                             function adjustHelmSeatWidth() {
-                                console.log('Helm Seat');
+                                self._debug('Adjusting Helm Seat Width');
                                 var elem = $('[name="helmSeatWidth"]');
                                 switch(CCC.type) {
                                     case 'A':
                                     case 'B':
                                         CCC.options.helmSeatWidth.min = 38;
                                         CCC.options.helmSeatWidth.max = 50;
+                                        CCC.options.helmSeatWidth.default = 38;
                                         CCC.options.helmSeatWidth.value = 38;
                                         elem.val(38);
                                         break;
                                     case 'C':
                                         CCC.options.helmSeatWidth.min = 44;
                                         CCC.options.helmSeatWidth.max = 56;
+                                        CCC.options.helmSeatWidth.default = 44;
                                         CCC.options.helmSeatWidth.value = 44;
                                         elem.val(44);
                                         break;
                                     case 'D':
                                         CCC.options.helmSeatWidth.min = 45;
                                         CCC.options.helmSeatWidth.max = 62;
-                                        CCC.options.helmSeatWidth.value = 50;
-                                        elem.val(50);
+                                        CCC.options.helmSeatWidth.default = 45;
+                                        CCC.options.helmSeatWidth.value = 45;
+                                        elem.val(45);
                                         break;
 
                                 };
+                                console.log(CCC);
                             };
-                            console.log(this.items);
-                            this._publishPrice(this.items['ccc']);
-                            return data;
                         }
                     ],
                     changeColor: [
@@ -462,7 +610,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.ttop2deck.name+' under '+CCC.options.ttop2deck.min+' inches are too small for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #ttop2deck').val(CCC.options.ttop2deck.min).trigger('change');
+                            $('.ccc-measurement #ttop2deck').val(CCC.options.ttop2deck.min);
                             $('#info_modal button.confirm').click(function(){
                                 window.location = '/about-us/contact-us';
                             }).html('Contact Us');
@@ -484,7 +632,8 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.ttop2deck.name+' over '+CCC.options.ttop2deck.max+' inches are too large for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #ttop2deck').val(CCC.options.ttop2deck.max).trigger('change');
+                            
+                            $('.ccc-measurement #ttop2deck').val(CCC.options.ttop2deck.max);
                             
                             $('#info_modal button.confirm').click(function(){
                                 window.location = '/about-us/contact-us';
@@ -507,7 +656,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helm2console.name+' under '+CCC.options.helm2console.min+' inches are too small for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom curtain for your boat.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helm2console').val(CCC.options.helm2console.min).trigger('change');
+                            $('.ccc-measurement #helm2console').val(CCC.options.helm2console.min);
                             
                             $('#info_modal button.confirm').click(function(){
                                 window.location = '/about-us/contact-us';
@@ -530,7 +679,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helm2console.name+' over '+CCC.options.helm2console.max+' inches are too large for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helm2console').val(CCC.options.helm2console.max).trigger('change');
+                            $('.ccc-measurement #helm2console').val(CCC.options.helm2console.max);
                             
                             $('#info_modal button.confirm').click(function(){
                                 window.location = '/about-us/contact-us';
@@ -553,7 +702,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helmSeatWidth.name+' under '+CCC.options.helmSeatWidth.min+' inches are too small for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helmSeatWidth').val(CCC.options.helmSeatWidth.min).trigger('change');
+                            $('.ccc-measurement #helmSeatWidth').val(CCC.options.helmSeatWidth.min);
                             
                             $('#info_modal button.confirm').click(function(){
                                 window.location = '/about-us/contact-us';
@@ -575,7 +724,7 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             $('#info_modal').find('.ttop-modal-title').html('Boats with a '+CCC.options.helmSeatWidth.name+' over '+CCC.options.helmSeatWidth.max+' inches are too large for our Center Console Curtain.');
                             $('#info_modal').find('.ttop-modal-subtitle').html('Contact us for a modified custom Center Console Curtain.  Click the contact us button below to send us an email.');
                             
-                            $('.ccc-measurement #helmSeatWidth').val(CCC.options.helmSeatWidth.max).trigger('change');
+                            $('.ccc-measurement #helmSeatWidth').val(CCC.options.helmSeatWidth.max);
                             
                             $('#info_modal button.confirm').click(function(){
                                 window.location = '/about-us/contact-us';
@@ -631,6 +780,13 @@ $storeItem = $this->app->item->create($item, 'ccc');
                             }
                             var item = data.args.items['ccc'];
                             item.options = $.extend(true,item.options,CCC.options);
+                            item.options.measurement_source = {
+                                name: 'Measurements Provided By',
+                                text: !CCC.measurements_changed ? 'Default': CCC.measurements_changed,
+                                value: !CCC.measurements_changed ? 'Default': CCC.measurements_changed,
+                                visible: true
+                            }
+                            item.options.class = CCC.class;
                             data.args.items['ccc'] = item;
 
                             console.log(data);

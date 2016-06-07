@@ -63,7 +63,7 @@
             messageData: {
                     message : '<span>Please complete the fields in red!</span><i class="uk-icon-arrow-down uk-margin-left" />',
                     status  : 'danger',
-                    timeout : 0,
+                    timeout : 5000,
                     pos     : 'top-center'
             },
             sendMessage: function () {
