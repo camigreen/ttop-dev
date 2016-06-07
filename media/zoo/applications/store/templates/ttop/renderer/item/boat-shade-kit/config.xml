@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bsk>
+	<type name="orderform">
+		<fieldset group="chooser" controlname="elements" >
+			<field name="boat_chooser" type="store.bsk.boat" kind="bsk" width="1-1" default="" description="Name of the account." required="1" />
+		</fieldset>
+	</type>
+</bsk>
