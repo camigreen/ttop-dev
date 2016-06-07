@@ -34,7 +34,7 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
                     <td class="uk-text-center"><?php echo $salesperson ?></td>
                     <td class="uk-text-center"><?php echo $order->id; ?></td>
                     <td class="uk-text-center"><?php echo $order->getOrderDate(); ?></td>
-                    <td class="uk-text-center"><?php echo $elements->get('localPickup') ? 'Local Pickup' : 'UPS Ground'; ?></td>
+                    <td class="uk-text-center"><?php echo JText::_(($ship = $order->elements->get('shipping_method')) ? 'SHIPPING_METHOD_'.$ship : '')); ?></td>
                 </tr>
             </tbody>
         </table>
