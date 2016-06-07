@@ -274,6 +274,13 @@ $this->form->setValue('template', $this->template);
         type: null,
         measurements_changed: false,
         mode: 'CYB',
+        area: 0,
+        classes: {
+            A: 4700,
+            B: 5350,
+            C: 6720,
+            D: 8246
+        },
         options: {
             ttop2deck: {
                 name: 'T-Top to Deck Measurement',
@@ -350,16 +357,16 @@ $this->form->setValue('template', $this->template);
 
                                 var m = $(this).val().split(','), proceed = true;
 
-                                $('#ttop2deck').val(m[0]);
+                                $('#ttop2deck').val(parseInt(m[0]));
                                 
                                 if(self.trigger('measure',{item: self.items['ccc'], location: 'ttop2deck'}).triggerResult) {
-                                    $('#helm2console').val(m[1]);
+                                    $('#helm2console').val(parseInt(m[1]));
                                 } else {
                                     $('#ttop2deck').val(CCC.options.ttop2deck.default);
                                     proceed = false;
                                 }
                                 if(proceed && self.trigger('measure',{item: self.items['ccc'], adjustHSW: true, location: 'helm2console'}).triggerResult) {
-                                    $('#helmSeatWidth').val(m[2]);
+                                    $('#helmSeatWidth').val(parseInt(m[2]));
                                 } else {
                                     $('#helm2console').val(CCC.options.helm2console.default);
                                     proceed = false;
@@ -476,10 +483,12 @@ $this->form->setValue('template', $this->template);
                                 
                                 measurements.each(function(k,v){
                                     var name = $(this).prop('name');
-                                    value = $(v).val();
+                                    value = parseInt($(v).val());
                                     CCC.options[name].value = value;
                                     CCC.options[name].text = value+' inches';
                                 });
+                                CCC.area = CCC.options.helm2console.value*CCC.options.helmSeatWidth.value;
+                                console.log(CCC);
                             };
                             
                             function checkMinandMax(location) {
@@ -521,18 +530,22 @@ $this->form->setValue('template', $this->template);
                             };
 
                             function getCCCClass() {
-                                
-                                switch(true) {
-                                    case (CCC.options.helm2console.value >= 75 && CCC.options.helm2console.value <= 94):
+                                var area = CCC.area;
+                                console.log(area);
+                                switch(area) {
+                                    case area <= CCC.classes.A:
                                         CCC.type = 'A';
                                         break;
-                                    case (CCC.options.helm2console.value >= 95 && CCC.options.helm2console.value <= 107):
+                                    case area > CCC.classes.A:
+                                    case area <= CCC.classes.B:
                                         CCC.type = 'B';
                                         break;
-                                    case (CCC.options.helm2console.value >= 108 && CCC.options.helm2console.value <= 120):
+                                    case area > CCC.classes.B:
+                                    case area <= CCC.classes.C:
                                         CCC.type = 'C';
                                         break;
-                                    case (CCC.options.helm2console.value >= 121 && CCC.options.helm2console.value <= 133):
+                                    case area > CCC.classes.C:
+                                    case area <= CCC.classes.D:
                                         CCC.type = 'D';
                                         break;
                                     default:
