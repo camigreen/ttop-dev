@@ -136,6 +136,16 @@ class TestController extends AppController {
 		echo 'Coupon Expired: '.($coupon->isExpired() ? 'Yes' : 'No');
 	}
 
+	public function testEmail() {
+		$email = JFactory::getMailer();
+		$email->setSubject("Test Email");
+		$email->addRecipient('shawn@ttopcovers.com');
+		$email->setBody('Test Email');
+		$email->SMTPDebug = 2;
+		$email->Send();
+
+	}
+
 
 
 }
