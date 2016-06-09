@@ -27,7 +27,7 @@ class CCCStoreItem extends StoreItem {
         $this->type = 'ccc';
         $this->name = 'Center Console Curtain';
         $this->make = "LaPorte's T-Top Boat Covers";
-        $this->price_group = 'ccc.'.$this->getOption('class')->get('value', 'A');
+        $this->price_group = 'ccc.'.$this->getOption('class')->get('value', 'B');
     }
     
 
