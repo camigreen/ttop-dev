@@ -10,6 +10,7 @@
 		</fieldset>	
 		<fieldset group="settings" label="Account Settings" controlname="params">
 			<field name="notify_emails" type="textarea.store" rows="5" cols="40" width="1-2" default="" label="New Order Notification Emails" description="An email will be sent to the listed emails. Enter a new line between each email." />
+			<field name="notify_email" type="text.store" width="1-2" default="" label="Order Printer" description="Email address of Order Printer" />
 			<field name="allow_coupons" type="radio.store" width="1-5" toggle_width="80" default="0" label="Allow Coupons" description="Allow Coupon Codes?" disabled="1">
 				<option value="on">SETTINGS_ENABLED</option>
 				<option value="off">SETTINGS_DISABLED</option>

@@ -77,7 +77,8 @@ class CashRegister {
     }
     
     public function sendNotificationEmail($oid, $for = 'payment') {
-        if(!$this->app->store->get()->params->get('notify_email_enable', true)) {
+        $params = $this->app->store->get()->params;
+        if(!$params->get('notify_email_enable', true)) {
             return;
         }
         $order = $this->app->orderdev->get($oid);
@@ -86,20 +87,35 @@ class CashRegister {
         $formType = $order->getAccount()->isReseller() ? 'reseller' : 'default';
         $CR = $this;  
            if ($for == 'payment') {
-                $recipents = $this->getNotificationEmails();
+                $recipients = $this->getNotificationEmails();
                 $pdf = $this->app->pdf->create('workorder', $formType);
                 $filename = $pdf->setData($order)->generate()->toFile();
                 $path = $this->app->path->path('assets:pdfs/'.$filename);
                 $email->setSubject("T-Top Boat Cover Online Order Notification");
                 $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.order.php');
                 $email->addAttachment($path,'Order-'.$this->order->id.'.pdf');
-                foreach($recipents as $recipient) {
+                foreach($recipients as $recipient) {
                     $email->addRecipient($recipient);
                 }
+                // try {
+                //         $email->Send();
+                //         echo 'email sent';
+                // } catch (Exception $e) {
+                //         echo 'Caught exception: ',  $e->getMessage(), "\n";
+                // }
                 $email->Send();
+                //Send email to printer.
+                // if($recipient = $params->get('notify_printer')) {
+                //     $email->setSubject('Work Order - '.$oid);
+                //     $email->addAttachment($path,'Order-'.$this->order->id.'.pdf');
+                //     $email->addRecipient($recipient);
+                //     $email->Send();
+                // }
+                
                 unlink($path);
             } 
             if($for == 'receipt') {
+                $email = $this->app->mail->create();
                 $recipients = $order->getAccount()->getNotificationEmails();
                 if($order->elements->get('email')) {
                     $recipients[] = $order->elements->get('email');
@@ -212,6 +228,10 @@ class CashRegister {
         $sale->exp_date = $creditCard['expMonth'].'/'.$creditCard['expYear'];
         $sale->card_code = $creditCard['card_code'];
         $sale->amount = $order->total;
+        // $sale->card_num = '6011000000000012';
+        // $sale->exp_date = '03/2017';
+        // $sale->card_code = '555';
+        // $sale->amount = '10.00';
         list($first, $last) = explode(' ', $shipping['name']);
         $sale->first_name = $first;
         $sale->last_name = $last;
@@ -249,10 +269,12 @@ class CashRegister {
                 ($item->taxable ? 'Y' : 'N')// Item taxable
             );
         }
+
         $response = $sale->authorizeAndCapture();
 
         
         if($response->approved) {
+
             $order->params->set('payment.creditcard.cardNumber', $response->account_number);
             $order->params->set('payment.creditcard.card_type', str_replace(' ','_',strtolower($response->card_type)));
             $order->params->set('payment.creditcard.card_name', $response->card_type);
@@ -262,7 +284,6 @@ class CashRegister {
             $order->params->set('payment.status', 3);
             $order->params->set('payment.type', 'CC');
             $order->elements->set('items.', $items);
-            
             $order->setStatus(2);
             if($this->app->store->merchantTestMode()) {
                 $order->params->set('payment.transaction_id','Test Mode');
@@ -271,12 +292,14 @@ class CashRegister {
                 $order->params->set('payment.transaction_id',$response->transaction_id); ;
                 $order->save(true);
             }
-            $this->sendNotificationEmail($order->id, 'receipt');
+            
+            //$this->sendNotificationEmail($order->id, 'receipt');
+        
             $this->sendNotificationEmail($order->id, 'payment');
+
             $this->clearOrder();
 
         } else {
-
             // trigger payment failure event
             $this->app->event->dispatcher->notify($this->app->event->create($this->order, 'order:paymentFailed', array('response' => $response)));
             $order->params->set('payment.approved', $response->approved);

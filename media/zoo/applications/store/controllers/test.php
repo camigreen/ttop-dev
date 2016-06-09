@@ -137,6 +137,17 @@ class TestController extends AppController {
 	}
 
 
+	public function testEmail() {
+		$email = JFactory::getMailer();
+		$email->setSubject("Test Email");
+		$email->addRecipient('shawn@ttopcovers.com');
+		$email->setBody('Test Email');
+		$email->SMTPDebug = 2;
+		$email->Send();
+
+	}
+
+
 
 }
 ?>
