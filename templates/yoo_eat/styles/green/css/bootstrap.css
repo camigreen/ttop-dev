@@ -2820,7 +2820,7 @@ input[type="submit"].btn.btn-mini {
   color: #eace31;
 }
 .alert h4 {
-  margin: 0;
+  margin: 0 0 .5em;
 }
 .alert .close {
   position: relative;

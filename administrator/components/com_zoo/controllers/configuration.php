@@ -34,8 +34,6 @@ class ConfigurationController extends AppController {
 		// register tasks
 		$this->registerTask('applyassignelements', 'saveassignelements');
 		$this->registerTask('apply', 'save');
-		// var_dump('asdfasdf');
-		// die();
 	}
 
 	public function display($cachable = false, $urlparams = false) {
@@ -77,42 +75,12 @@ class ConfigurationController extends AppController {
 			$this->assetPermissions[$typeName]->bind(array('asset_id' => $assetName));
 		}
 
-		$sections = array('account', 'order', 'store', 'users');
-		foreach($sections as $section) {
-			$xml->fieldset->field->attributes()->section = $section;
-			$xml->fieldset->field->attributes()->name = 'rules_'.$section;
-			$this->storePermissions[$section] = JForm::getInstance('com_zoo.new.'.$section, $xml->asXML());
-			$assetName = $this->application->getAssetName().'.'.$section;
-			if (!$asset->loadByName($assetName)) {
-				$assetName = $this->application->getAssetName();
-			}
-			$this->storePermissions[$section]->bind(array('asset_id' => $assetName));
-		}
-		
-		// manipulate js in J25
-		if ($this->app->joomla->isVersion('2.5')) {
-			JDispatcher::getInstance()->attach(array('event' => 'onAfterDispatch', 'handler' => array($this, 'eventCallback')));
-		}
-
 		// display view
 		$this->getView()->setLayout('application')->display();
 	}
 
-	public function eventCallback() {
-
-		$script = $this->app->system->document->_script['text/javascript'];
-		$types  = array_keys($this->application->getTypes());
-		$types[]= 'application';
-
-		$i = 3;
-		$script = preg_replace_callback('/div#permissions-sliders\.pane-sliders/', function ($match) use (&$i, $types) {
-			return 'div .zoo-'.$types[(int) ($i++ / 3) - 1].'-permissions';
-		}, $script);
-
-		$this->app->system->document->_script['text/javascript'] = $script;
-	}
-
 	public function save() {
+
 		// check for request forgeries
 		$this->app->session->checkToken() or jexit('Invalid Token');
 
@@ -146,9 +114,9 @@ class ConfigurationController extends AppController {
 					$this->application->assetRules[substr($key, 6)] = $value;
 				}
 			}
+
 			// save application
 			$this->table->save($this->application);
-
 
 			// set redirect message
 			$msg = JText::_('Application Saved');

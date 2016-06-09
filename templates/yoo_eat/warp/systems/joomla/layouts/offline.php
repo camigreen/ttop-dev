@@ -24,7 +24,7 @@ $twofactormethods = UsersHelper::getTwoFactorMethods();
 <?php echo $this->render('head', compact('error', 'title')); ?>
 </head>
 
-<body class="uk-height-1-1 uk-vertical-align uk-text-center">
+<body class="uk-height-1-1 uk-flex uk-flex-middle uk-text-center">
 
 	<div class="tm-offline uk-panel uk-panel-box uk-vertical-align-middle uk-container-center">
 

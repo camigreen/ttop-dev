@@ -175,9 +175,19 @@ class TestController extends AppController {
 
         unlink($path);
 
+    }
+
+	public function testBoatModel() {
+		$this->app->document->setMimeEncoding('application/json');
+
+		$make = $this->app->request->get('make', 'string');
+		$kind = $this->app->request->get('kind', 'string');
+		// $make = 'americat';
+		// $kind = 'bsk';
+		echo json_encode($this->app->bsk->getModel($kind, $make));
+
+
 	}
-
-
 
 }
 ?>
