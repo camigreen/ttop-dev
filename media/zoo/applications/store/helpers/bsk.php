@@ -27,7 +27,8 @@ class BSKHelper extends AppHelper {
 		$makes = $this->xml->$type;
 		$result = array();
 		foreach($makes->make as $make) {
-			if($make->model && !empty($this->getModel($type, (string) $make->attributes()->value))) {
+			$models = $this->getModel($type, (string) $make->attributes()->value);
+			if($make->model && !empty($models)) {
 				$result[(string)$make->attributes()->value] = (string) $make->attributes()->name;
 			}
 			
