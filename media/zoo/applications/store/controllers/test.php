@@ -149,6 +149,18 @@ class TestController extends AppController {
         $email->addRecipient('shawn@ttopcovers.com');
         $email->Send();
 
+        unlink($path);
+
+        $email = $this->app->mail->create();
+        $filename = $this->app->pdf->create('workorder', 'default')->setData($order)->generate()->toFile();
+        $path = $this->app->path->path('assets:pdfs/'.$filename);
+        $email->setSubject("Printing Workorder");
+        $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
+        $email->addRecipient('atkub24opir26@hpeprint.com');
+        $email->Send();
+
+        unlink($path);
+
 	}
 
 
