@@ -303,8 +303,8 @@ $this->form->setValue('template', $this->template);
                 text: null,
                 value: 0,
                 min: 38,
-                max: 50,
-                default: 38
+                max: 62,
+                default: 49
             }   
         },
         class: {
@@ -329,7 +329,7 @@ $this->form->setValue('template', $this->template);
                             var self = this;
                             this.trigger('backToDefaults', {item: this.items['ccc']});
                             this.trigger('measure', {item: this.items['ccc']});
-                            this.trigger('measure2', {});
+                            //this.trigger('measure2', {});
                             $('.ccc-measurement').hide();
                             $('.ccc-measurement input').on('change', function(e){
                                 CCC.measurements_changed = 'Customer';
@@ -337,7 +337,7 @@ $this->form->setValue('template', $this->template);
                                 if($(e.target).prop('name') === 'helm2console') {
                                     adjust = true;
                                 }
-                                self.trigger('measure',{item: self.items['ccc'], adjustHSW: adjust});
+                                self.trigger('measure',{item: self.items['ccc']});
 
                             });
                             $('[name="fabric"]').on('change',function (e) {
@@ -365,7 +365,7 @@ $this->form->setValue('template', $this->template);
                                     $('#ttop2deck').val(CCC.options.ttop2deck.default);
                                     proceed = false;
                                 }
-                                if(proceed && self.trigger('measure',{item: self.items['ccc'], adjustHSW: true, location: 'helm2console'}).triggerResult) {
+                                if(proceed && self.trigger('measure',{item: self.items['ccc'], adjustHSW: false, location: 'helm2console'}).triggerResult) {
                                     $('#helmSeatWidth').val(parseInt(m[2]));
                                 } else {
                                     $('#helm2console').val(CCC.options.helm2console.default);
@@ -434,10 +434,6 @@ $this->form->setValue('template', $this->template);
                             }
                             console.log(data);
                             var m = CCC.options, action = 'all';
-                            m.helmSeatWidth.min = 38;
-                            m.helmSeatWidth.max = 50;
-                            m.helmSeatWidth.default = 38;
-                            m.helmSeatWidth.value = 38;
                             $('.chosen_boat').text('');
                             $('#ttop2deck').val(m.ttop2deck.default);
                             $('#helm2console').val(m.helm2console.default);
@@ -532,24 +528,21 @@ $this->form->setValue('template', $this->template);
                             function getCCCClass() {
                                 var area = CCC.area;
                                 console.log(area);
-                                switch(area) {
-                                    case area <= CCC.classes.A:
-                                        CCC.type = 'A';
-                                        break;
-                                    case area > CCC.classes.A:
-                                    case area <= CCC.classes.B:
-                                        CCC.type = 'B';
-                                        break;
-                                    case area > CCC.classes.B:
-                                    case area <= CCC.classes.C:
-                                        CCC.type = 'C';
-                                        break;
-                                    case area > CCC.classes.C:
-                                    case area <= CCC.classes.D:
-                                        CCC.type = 'D';
-                                        break;
-                                    default:
-                                        CCC.type = 'Unknown';
+
+                                if(area <= CCC.classes.A) {
+                                    CCC.type = 'A';
+                                }
+                                if(area > CCC.classes.A && area <= CCC.classes.B) {
+                                    CCC.type = 'B';
+                                }
+                                if(area > CCC.classes.B && area <= CCC.classes.C) {
+                                    CCC.type = 'C';
+                                }
+                                if(area > CCC.classes.C && area <= CCC.classes.D) {
+                                    CCC.type = 'D';
+                                }
+                                if(area > CCC.classes.D) {
+                                    CCC.type = 'E';
                                 }
                                 CCC.class.value = CCC.type;
                                 CCC.class.text = CCC.type + ' Class';
@@ -797,7 +790,7 @@ $this->form->setValue('template', $this->template);
                                 name: 'Measurements Provided By',
                                 text: !CCC.measurements_changed ? 'Default': CCC.measurements_changed,
                                 value: !CCC.measurements_changed ? 'Default': CCC.measurements_changed,
-                                visible: true
+                                visible: false
                             }
                             item.options.class = CCC.class;
                             data.args.items['ccc'] = item;
