@@ -14,10 +14,8 @@
 			<model value="76,61,34,A">200 Dauntless</model>
 			<model value="76,61,34,A">210 Montauk</model>
 			<model value="81,72,24,A">240 Outrage</model>
-			<model value="95,95,54,B">270 Vantage</model>
 			<model value="95,71,63,B">270 Dauntless</model>
 			<model value="108,77,50,B">28 Conquest</model>
-			<model value="105,107,41,A">350 Outrage</model>
 		</make>
 		<make value="caravelle" name="Caravelle">
 			<model value="90,70,53,B">25 Bay</model>
@@ -93,7 +91,6 @@
 		<make value="pro_line" name="Pro Line">
 			<model value="88,58,64,B">21</model>
 			<model value="89,78,71,C">22 Sport</model>
-			<model value="98,92,60,C">29 Express</model>
 			<model value="109,73,80,C">30 Walk Around</model>
 		</make>
 		<make value="pursuit" name="Pursuit">

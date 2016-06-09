@@ -33,7 +33,7 @@ class BSKStoreItem extends StoreItem {
         }
         
         $this->confirm = true;
-        $this->price_group = 'bsk.'.$this->getOption('kit_class')->get('value', 'A');
+        $this->price_group = 'bsk.'.$this->getOption('kit_class')->get('value', 'B');
         $this->type = 'bsk';
         $this->make = "LaPorte's T-Top Boat Covers";
         

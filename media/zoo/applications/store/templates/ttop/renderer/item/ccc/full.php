@@ -304,7 +304,7 @@ $this->form->setValue('template', $this->template);
                 value: 0,
                 min: 38,
                 max: 62,
-                default: 49
+                default: 50
             }   
         },
         class: {
@@ -410,6 +410,7 @@ $this->form->setValue('template', $this->template);
                                 var elem = $(e.target);
                                 self.trigger('backToDefaults', {item: self.items['ccc'], mode: elem.data('mode')});
                                 CCC.mode = elem.data('mode') ? elem.data('mode') : CCC.mode;
+                                self.trigger('measure', {item: self.items['ccc']});
                                 console.log(CCC.mode);
                             });
 
