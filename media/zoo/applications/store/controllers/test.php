@@ -150,22 +150,26 @@ class TestController extends AppController {
         $email->SMTPDebug = 2;
         $email->setSubject("Thank you for your order.");
         $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
-        $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
+        $email->addAttachment($path,'Receipt-'.$order->id.'.pdf');
         $email->addRecipient('shawn@ttopcovers.com');
-        $email->Send();
+        $email->send();
 
         unlink($path);
 
+        $email->clearAttachments();
+        $email->clearAddresses();
+
         if(!$all) {return;}
 
-        $email = $this->app->mail->create();
         $filename = $this->app->pdf->create('workorder', 'default')->setData($order)->generate()->toFile();
         $path = $this->app->path->path('assets:pdfs/'.$filename);
         $email->SMTPDebug = 2;
         $email->setSubject("Printing Workorder");
-        $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
-        $email->addRecipient('atkub24opir26@hpeprint.com');
-        $email->Send();
+        $email->setBody('t');
+        $email->addAttachment($path,'Workorder-'.$order->id.'.pdf');
+        //$email->addRecipient('atkub24opir26@hpeprint.com');
+        $email->addRecipient('ttopcovers@hpeprint.com');
+        $email->send();
 
         unlink($path);
 
