@@ -28,6 +28,8 @@ class TestController extends AppController {
         // set table
         $this->table = $this->app->table->account;
 
+        $this->application = $this->app->zoo->getApplication();
+
         // registers tasks
         //$this->registerTask('receipt', 'display');
 
@@ -137,12 +139,15 @@ class TestController extends AppController {
 	}
 
 	public function testEmail() {
-		$email = JFactory::getMailer();
-		$email->setSubject("Test Email");
-		$email->addRecipient('shawn@ttopcovers.com');
-		$email->setBody('Test Email');
-		$email->SMTPDebug = 2;
-		$email->Send();
+		$order = $this->app->orderdev->get(6699);
+		$email = $this->app->mail->create();
+		$filename = $this->app->pdf->create('receipt', 'default')->setData($order)->generate()->toFile();
+        $path = $this->app->path->path('assets:pdfs/'.$filename);
+        $email->setSubject("Thank you for your order.");
+        $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
+        $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
+        $email->addRecipient('shawn@ttopcovers.com');
+        $email->Send();
 
 	}
 
