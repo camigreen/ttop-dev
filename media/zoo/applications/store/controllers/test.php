@@ -139,10 +139,15 @@ class TestController extends AppController {
 	}
 
 	public function testEmail() {
-		$order = $this->app->orderdev->get(6699);
+		$all = $this->app->request->get('all','bool', false);
+		$oid = $this->app->request->get('oid', 'int', 6699);
+
+
+		$order = $this->app->orderdev->get($oid);
 		$email = $this->app->mail->create();
 		$filename = $this->app->pdf->create('receipt', 'default')->setData($order)->generate()->toFile();
         $path = $this->app->path->path('assets:pdfs/'.$filename);
+        $email->SMTPDebug = 2;
         $email->setSubject("Thank you for your order.");
         $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
         $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
@@ -151,9 +156,12 @@ class TestController extends AppController {
 
         unlink($path);
 
+        if(!$all) {return;}
+
         $email = $this->app->mail->create();
         $filename = $this->app->pdf->create('workorder', 'default')->setData($order)->generate()->toFile();
         $path = $this->app->path->path('assets:pdfs/'.$filename);
+        $email->SMTPDebug = 2;
         $email->setSubject("Printing Workorder");
         $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
         $email->addRecipient('atkub24opir26@hpeprint.com');
