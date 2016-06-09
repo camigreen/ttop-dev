@@ -147,7 +147,8 @@ class TestController extends AppController {
 		$email = $this->app->mail->create();
 		$filename = $this->app->pdf->create('receipt', 'default')->setData($order)->generate()->toFile();
         $path = $this->app->path->path('assets:pdfs/'.$filename);
-        $email->SMTPDebug = 2;
+        $email->useSendMail();
+        //$email->SMTPDebug = 2;
         $email->setSubject("Thank you for your order.");
         $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
         $email->addAttachment($path,'Receipt-'.$order->id.'.pdf');
@@ -163,7 +164,8 @@ class TestController extends AppController {
 
         $filename = $this->app->pdf->create('workorder', 'default')->setData($order)->generate()->toFile();
         $path = $this->app->path->path('assets:pdfs/'.$filename);
-        $email->SMTPDebug = 2;
+        //$email->SMTPDebug = 2;
+        $email->useSendMail();
         $email->setSubject("Printing Workorder");
         $email->setBody('t');
         $email->addAttachment($path,'Workorder-'.$order->id.'.pdf');
