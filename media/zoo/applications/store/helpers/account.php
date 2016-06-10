@@ -93,5 +93,15 @@ class AccountHelper extends AppHelper {
 
 		return $account;
 	}
+
+	public function getByUserId($uid = null) {
+		if(!$uid || $uid == 0) { return false; }
+		$db = $this->app->database;
+		$id = $db->queryResult('SELECT parent FROM #__zoo_account_user_map WHERE child = '.$uid);
+
+		$account = $this->get($id);
+
+		return $account;
+	}
     
 }
