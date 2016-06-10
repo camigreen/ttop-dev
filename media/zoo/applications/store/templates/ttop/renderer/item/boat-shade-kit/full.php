@@ -772,7 +772,7 @@ $this->form->setValue('template', $this->template);
                     ttopTooSmall: [
                         function (data) {
                             var type = data.args.type;
-                            $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a beam measurement less than '+measurements[type].location.ttop.min+' inches are too small for our Boat Shade Kit.');
+                            $('#toUBSK').find('.ttop-modal-title').html('We are sorry, but boats with a T-Top width measurement less than '+measurements[type].location.ttop.min+' inches are too small for our Boat Shade Kit.');
                             $('#toUBSK').find('.ttop-modal-subtitle').html('Contact us and we may be able to make a custom shade kit for your boat.  Click the contact us button below for send us an email.');
                             
                             $('.bsk-type-'+type+' #ttop-width-in').val(measurements[type].location.ttop.min).trigger('input');
