@@ -140,7 +140,7 @@
 			<model value="88,65,76,C">237</model>
 			<model value="86,65,26,A">246 Commander</model>
 			<model value="86,78,25,A">249 Avenger</model>
-			<model value="93,41,24,A">266 Commander</model>
+			<model value="93,54,24,A">266 Commander</model>
 			<model value="96,78,38,A">286</model>
 		</make>
 		<make value="sea_hunt" name="Sea Hunt">
@@ -178,8 +178,8 @@
 			<model value="92,70,27,A">251 Heritage</model>
 		</make>
 		<make value="tidewater" name="Tidewater">
-			<model value="88,62,24,A">220</model>
-			<model value="87,63,24,A">250</model>
+			<model value="88,62,24,A">220 LXF/Adventure</model>
+			<model value="87,63,24,A">250 Adventure</model>
 		</make>
 		<make value="triton" name="Triton">
 			<model value="89,67,26,A">2501</model>
