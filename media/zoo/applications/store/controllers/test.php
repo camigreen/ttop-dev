@@ -142,18 +142,26 @@ class TestController extends AppController {
 		$all = $this->app->request->get('all','bool', false);
 		$oid = $this->app->request->get('oid', 'int', 6699);
 
-
 		$order = $this->app->orderdev->get($oid);
-		$email = $this->app->mail->create();
+		$email = JFactory::getMailer();
 		$filename = $this->app->pdf->create('receipt', 'default')->setData($order)->generate()->toFile();
         $path = $this->app->path->path('assets:pdfs/'.$filename);
-        $email->useSendMail();
-        //$email->SMTPDebug = 2;
+        //$email->useSendMail();
+        $email->SMTPDebug = 2;
+
         $email->setSubject("Thank you for your order.");
-        $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
+        //$email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
+        //$email->setBody("");
+        $email->AllowEmpty = true;
         $email->addAttachment($path,'Receipt-'.$order->id.'.pdf');
         $email->addRecipient('shawn@ttopcovers.com');
-        $email->send();
+        // var_dump($email);
+        // return;
+        try {
+			$email->send();
+        } catch (Exception $e) {
+        	echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
 
         unlink($path);
 
@@ -167,7 +175,7 @@ class TestController extends AppController {
         //$email->SMTPDebug = 2;
         $email->useSendMail();
         $email->setSubject("Printing Workorder");
-        $email->setBody('t');
+        $email->AllowEmpty = true;
         $email->addAttachment($path,'Workorder-'.$order->id.'.pdf');
         //$email->addRecipient('atkub24opir26@hpeprint.com');
         $email->addRecipient('ttopcovers@hpeprint.com');
