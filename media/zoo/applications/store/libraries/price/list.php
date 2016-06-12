@@ -154,6 +154,13 @@ $price['ttopboatcover.37Freeman.item.option.fabric.9oz'] = 3600;
 $price['ttopboatcover.37Freeman.shipping.weight'] = 40;
 $price['ttopboatcover.37Freeman.shipping.price'] = 45;
 
+$price['ttopboatcover.280Tidewater.item.base'] = 0;
+$price['ttopboatcover.280Tidewater.item.option.fabric.7oz'] = 1491;
+$price['ttopboatcover.280Tidewater.item.option.fabric.8oz'] = 1706;
+$price['ttopboatcover.280Tidewater.item.option.fabric.9oz'] = 1861;
+$price['ttopboatcover.280Tidewater.shipping.weight'] = 34;
+$price['ttopboatcover.280Tidewater.shipping.price'] = 35;
+
 // //TTop Accessories
 
 $price['accessories.global.allowMarkup'] = false;

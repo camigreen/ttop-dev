@@ -463,7 +463,6 @@ class AppForm {
 						}
 						$output = sprintf('<label %s>%s</label>', JText::_($this->app->field->attributes($attributes)), JText::_($field->attributes()->label));
 					}
-
 					$html[] = "<div class=\"label\">$output</div>";
 					$html[] = $_field;
 					$html[] = '</li>';

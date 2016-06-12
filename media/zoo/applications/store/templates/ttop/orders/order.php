@@ -1,9 +1,10 @@
 <?php 
 	$order = $this->order;
 	$elements = $this->order->elements;
-	$salesperson = $this->order->created_by == 0 ? JText::_('WEBSITE_SALESPERSON') : $this->app->account->get($order->created_by)->name; 
+	$account = $this->app->account->getByUserId($order->created_by);
+	$salesperson = $this->order->created_by == 0 ? JText::_('WEBSITE_SALESPERSON') : $this->app->user->get($order->created_by)->name; 
 	$type = '&type=default';
-	if($this->app->account->get($order->account)->isReseller()) {
+	if($account->isReseller()) {
 		$type='&type=reseller';
 	}
 $tzoffset = $this->app->date->getOffset();

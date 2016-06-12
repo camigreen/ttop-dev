@@ -28,6 +28,8 @@ class TestController extends AppController {
         // set table
         $this->table = $this->app->table->account;
 
+        $this->application = $this->app->zoo->getApplication();
+
         // registers tasks
         //$this->registerTask('receipt', 'display');
 
@@ -136,17 +138,62 @@ class TestController extends AppController {
 		echo 'Coupon Expired: '.($coupon->isExpired() ? 'Yes' : 'No');
 	}
 
-
 	public function testEmail() {
+		$all = $this->app->request->get('all','bool', false);
+		$oid = $this->app->request->get('oid', 'int', 6699);
+
+		$order = $this->app->orderdev->get($oid);
 		$email = JFactory::getMailer();
-		$email->setSubject("Test Email");
-		$email->addRecipient('shawn@ttopcovers.com');
-		$email->setBody('Test Email');
-		$email->SMTPDebug = 2;
-		$email->Send();
+		$filename = $this->app->pdf->create('receipt', 'default')->setData($order)->generate()->toFile();
+        $path = $this->app->path->path('assets:pdfs/'.$filename);
+        //$email->useSendMail();
+        $email->SMTPDebug = 2;
 
+        $email->setSubject("Thank you for your order.");
+        //$email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
+        //$email->setBody("");
+        $email->AllowEmpty = true;
+        $email->addAttachment($path,'Receipt-'.$order->id.'.pdf');
+        $email->addRecipient('shawn@ttopcovers.com');
+        // var_dump($email);
+        // return;
+        try {
+			$email->send();
+        } catch (Exception $e) {
+        	echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+
+        unlink($path);
+
+        $email->clearAttachments();
+        $email->clearAddresses();
+
+        if(!$all) {return;}
+
+        $filename = $this->app->pdf->create('workorder', 'default')->setData($order)->generate()->toFile();
+        $path = $this->app->path->path('assets:pdfs/'.$filename);
+        //$email->SMTPDebug = 2;
+        $email->useSendMail();
+        $email->setSubject("Printing Workorder");
+        $email->AllowEmpty = true;
+        $email->addAttachment($path,'Workorder-'.$order->id.'.pdf');
+        //$email->addRecipient('atkub24opir26@hpeprint.com');
+        $email->addRecipient('ttopcovers@hpeprint.com');
+        $email->send();
+
+        unlink($path);
+
+    }
+
+	public function testBoatModel() {
+		$this->app->document->setMimeEncoding('application/json');
+
+		$make = $this->app->request->get('make', 'string');
+		$kind = $this->app->request->get('kind', 'string');
+		// $make = 'americat';
+		// $kind = 'bsk';
+		echo json_encode($this->app->bsk->getModel($kind, $make));
 	}
-
 
 
 }
