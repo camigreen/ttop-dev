@@ -94,7 +94,6 @@ class CheckoutController extends AppController {
             return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
 
-        //$this->CR->clearOrder();
         //var_dump($this->app->session->get('order', array(), 'checkout'));
         $this->app->document->addScript('assets:js/formhandler.js');
 
