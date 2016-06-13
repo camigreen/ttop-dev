@@ -348,7 +348,6 @@ class CheckoutController extends AppController {
     }
 
     public function orderNotification() {
-        
         $oid = $this->app->request->get('oid', 'int');
         $order = $this->app->orderdev->get($oid);
         $types = array('payment','receipt', 'printer');

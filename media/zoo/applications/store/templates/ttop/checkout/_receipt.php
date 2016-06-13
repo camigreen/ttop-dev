@@ -89,7 +89,7 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
 <script>
 
 jQuery(document).ready(function($) {
-    $("#contentext").load("http://ttop?option=com_zoo&controller=checkout&task=orderNotification&oid=<?php echo $order->id; ?>&format=raw");
+    $("#contentext").load("?option=com_zoo&controller=checkout&task=orderNotification&oid=<?php echo $order->id; ?>&format=raw");
 });
 
 </script>
