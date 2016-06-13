@@ -93,6 +93,9 @@ class CheckoutController extends AppController {
         if (!$this->template = $this->application->getTemplate()) {
             return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
+
+        //$this->CR->clearOrder();
+        var_dump($this->app->session->get('order', array(), 'checkout'));
         $this->app->document->addScript('assets:js/formhandler.js');
 
         $order = $this->CR->order;
@@ -246,6 +249,7 @@ class CheckoutController extends AppController {
         if(!$id = $this->app->request->get('orderID', 'int', 0)) {
             return $this->app->error->raiseError(500, JText::_('Unable to locate that order.'));
         }
+
         $this->app->document->addScript('assets:js/formhandler.js');
         $order = $this->app->orderdev->get($id);
         $account = $order->getAccount();
@@ -342,6 +346,36 @@ class CheckoutController extends AppController {
         $order->save();
 
         $this->setRedirect($this->baseurl.'&task='.$next);
+
+    }
+
+    public function orderNotification() {
+        
+        $oid = $this->app->request->get('oid', 'int');
+        $order = $this->app->orderdev->get($oid);
+        $types = array('payment','receipt');
+        if(!$order->notify()) {
+            return;
+        }
+        
+        $result = true;
+
+        // Send the Notifications.
+        foreach($types as $type) {
+            try {
+                $this->app->notify->create('order:'.$type, $order)->send();
+            } catch (phpmailerException $e) {
+                echo 'From Order:'.$type.' - '.$e->errorMessage(); //Pretty error messages from PHPMailer
+                $result = false;
+            } catch (Exception $e) {
+                echo $e->getMessage(); //Boring error messages from anything else!
+                $result = false;
+            }
+        }
+
+        $order->params->set('notifications', $result);
+        $order->save(true);
+        
 
     }
 

@@ -118,6 +118,17 @@ class OrderDev {
 		return $this;
 	}
 
+	/**
+	 * Determines if notifications need to be sent
+	 *
+	 * @return 	boolean		True or false if notification needs to be sent.
+	 *
+	 * @since 1.0
+	 */
+	public function notify() {
+		return !$this->params->get('notifications', false);
+	}
+
 	public function getOrderDate($format = 'DATE_STORE_RECEIPT') {
 		return $this->app->html->_('date', $this->created, JText::_($format));
 	}

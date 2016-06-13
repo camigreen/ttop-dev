@@ -139,50 +139,33 @@ class TestController extends AppController {
 	}
 
 	public function testEmail() {
-		$all = $this->app->request->get('all','bool', false);
-		$oid = $this->app->request->get('oid', 'int', 6699);
-
-		$order = $this->app->orderdev->get($oid);
-		$email = JFactory::getMailer();
-		$filename = $this->app->pdf->create('receipt', 'default')->setData($order)->generate()->toFile();
-        $path = $this->app->path->path('assets:pdfs/'.$filename);
-        //$email->useSendMail();
-        $email->SMTPDebug = 2;
-
-        $email->setSubject("Thank you for your order.");
-        //$email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
-        //$email->setBody("");
-        $email->AllowEmpty = true;
-        $email->addAttachment($path,'Receipt-'.$order->id.'.pdf');
-        $email->addRecipient('shawn@ttopcovers.com');
-        // var_dump($email);
-        // return;
-        try {
-			$email->send();
-        } catch (Exception $e) {
-        	echo 'Caught exception: ',  $e->getMessage(), "\n";
+		if (!$this->template = $this->application->getTemplate()) {
+            return $this->app->error->raiseError(500, JText::_('No template selected'));
         }
+        $layout = 'testemail';
+        $this->oid = $this->app->request->get('oid', 'int', null);
 
-        unlink($path);
+        $this->getView()->addTemplatePath($this->template->getPath())->setLayout($layout)->display();
 
-        $email->clearAttachments();
-        $email->clearAddresses();
+    }
 
-        if(!$all) {return;}
-
-        $filename = $this->app->pdf->create('workorder', 'default')->setData($order)->generate()->toFile();
-        $path = $this->app->path->path('assets:pdfs/'.$filename);
-        //$email->SMTPDebug = 2;
-        $email->useSendMail();
-        $email->setSubject("Printing Workorder");
-        $email->AllowEmpty = true;
-        $email->addAttachment($path,'Workorder-'.$order->id.'.pdf');
-        //$email->addRecipient('atkub24opir26@hpeprint.com');
-        $email->addRecipient('ttopcovers@hpeprint.com');
-        $email->send();
-
-        unlink($path);
-
+    public function testEmail2() {
+    	$mail = JFactory::getMailer();
+    	$to = $this->app->request->get('to', 'string', null);
+    	$subject = 'Test Email';
+    	$body = 'This is a test email.';
+    	$mail->isSMTP();
+    	try {
+    		$mail->SMTPDebug = 2;
+    		$mail->addRecipient($to);
+    		$mail->setSubject($subject);
+    		$mail->setBody($body);
+    		$mail->Send();
+    	} catch (phpmailerException $e) {
+    		echo $e->errorMessage();
+    	} catch (Exception $e) { 
+    		echo $e->getMessage();
+    	}
     }
 
 	public function testBoatModel() {

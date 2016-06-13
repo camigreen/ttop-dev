@@ -32,6 +32,7 @@ class StoreApplication extends Application {
         $zoo->path->register($path.'/tables', 'tables');
         $zoo->path->register($path.'/classes/data', 'data');
         $zoo->path->register($path.'/events', 'events');
+        $zoo->path->register($path.'/notifications', 'notifications');
         $zoo->path->register($path.'/fields', 'fields');
         $zoo->path->register($path.'/libraries', 'store.lib');
         $zoo->path->register($path.'/logs', 'logs');

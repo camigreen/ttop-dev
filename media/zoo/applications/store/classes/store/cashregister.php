@@ -64,95 +64,11 @@ class CashRegister {
             }
             $this->set('payment:creditCard:auth_code','');
         }
-        
     }
     
     public function scanItems () {
         $cart = $this->app->cart;
-        $this->order->items = $cart->getAllItems();
-    }
-    
-    protected function getNotificationEmails() {
-        return explode("\n", $this->app->store->get()->params->get('notify_emails'));
-    }
-    
-    public function sendNotificationEmail($oid, $for = 'payment') {
-        $params = $this->app->store->get()->params;
-        if(!$params->get('notify_email_enable', true)) {
-            return;
-        }
-        $order = $this->app->orderdev->get($oid);
-        
-        $email = $this->app->mail->create();
-        $formType = $order->getAccount()->isReseller() ? 'reseller' : 'default';
-        $CR = $this;  
-           if ($for == 'payment') {
-                $recipients = $this->getNotificationEmails();
-                $pdf = $this->app->pdf->create('workorder', $formType);
-                $filename = $pdf->setData($order)->generate()->toFile();
-                $path = $this->app->path->path('assets:pdfs/'.$filename);
-                $email->setSubject("T-Top Boat Cover Online Order Notification");
-                $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.order.php');
-                $email->addAttachment($path,'Order-'.$this->order->id.'.pdf');
-                foreach($recipients as $recipient) {
-                    $email->addRecipient($recipient);
-                }
-                // try {
-                //         $email->Send();
-                //         echo 'email sent';
-                // } catch (Exception $e) {
-                //         echo 'Caught exception: ',  $e->getMessage(), "\n";
-                // }
-                $email->Send();
-                //Send email to printer.
-                // if($recipient = $params->get('notify_printer')) {
-                //     $email->setSubject('Work Order - '.$oid);
-                //     $email->addAttachment($path,'Order-'.$this->order->id.'.pdf');
-                //     $email->addRecipient($recipient);
-                //     $email->Send();
-                // }
-                
-                unlink($path);
-            } 
-            if($for == 'receipt') {
-                $email = $this->app->mail->create();
-                $recipients = $order->getAccount()->getNotificationEmails();
-                if($order->elements->get('email')) {
-                    $recipients[] = $order->elements->get('email');
-                }
-                $filename = $this->app->pdf->create('receipt', $formType)->setData($order)->generate()->toFile();
-                $path = $this->app->path->path('assets:pdfs/'.$filename);
-                $email->setSubject("Thank you for your order.");
-                $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.receipt.php');
-                $email->addAttachment($path,'Receipt-'.$this->order->id.'.pdf');
-                foreach($recipients as $recipient) {
-                    $email->addRecipient($recipient);
-                }
-                $email->Send();
-                unlink($path);
-            } 
-            if($for == 'invoice') {
-                $recipient = $order->getAccount()->getNotificationEmails();
-                $recipient[] = $order->elements->get('email');
-                $filename = $this->app->pdf->create('invoice', $formType)->setData($order)->generate()->toFile();
-                $path = $this->app->path->path('assets:pdfs/'.$filename);
-                $email->setSubject("Thank you for your order.");
-                $email->setBodyFromTemplate($this->application->getTemplate()->resource.'mail.checkout.invoice.php');
-                $email->addAttachment($path,'Invoice-'.$this->order->id.'.pdf');
-                foreach($recipients as $recipient) {
-                    $email->addRecipient($recipient);
-                }
-                $email->Send();
-                unlink($path);
-            } 
-            if($for == 'error') {
-                $email->setSubject("Error Notification");
-                $_order = (string) $order;
-                $email->setBody($_order);
-                $email->addRecipient('sgibbons@palmettoimages.com');
-                $email->Send();
-            } 
-        
+        $this->order->items = $cart->getAllItems();       
     }
 
     public function processOrder() {
@@ -163,6 +79,7 @@ class CashRegister {
     }
 
     public function clearOrder() {
+        //die('clearing');
         $this->app->session->clear('order','checkout');
         $this->app->session->clear('cart','checkout');
     }
@@ -292,10 +209,6 @@ class CashRegister {
                 $order->params->set('payment.transaction_id',$response->transaction_id); ;
                 $order->save(true);
             }
-            
-            //$this->sendNotificationEmail($order->id, 'receipt');
-        
-            $this->sendNotificationEmail($order->id, 'payment');
 
             $this->clearOrder();
 

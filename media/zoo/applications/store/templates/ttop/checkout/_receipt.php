@@ -16,6 +16,8 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
     <div class="uk-width-1-1 uk-container-center uk-text-right uk-margin-bottom">
         <a href="/store/checkout?task=getPDF<?php echo $query; ?>&id=<?php echo $order->id; ?>&format=raw" class="uk-button uk-button-primary" target="_blank"><i class="uk-icon-print"></i> Print <?php echo $order->params->get('payment.status') == 3 ? 'Receipt' : 'Invoice'; ?></a>
     </div>
+    <div id="contentext" class="uk-width-1-1">
+    </div>
     <div class="uk-width-1-1 uk-container-center">
         <table class="uk-table uk-table-condensed">
             <thead>
@@ -84,3 +86,10 @@ $salesperson = $order->created_by == 0 ? 'Website' : $this->app->storeuser->get(
         </div>
     </div>
 </div>
+<script>
+
+jQuery(document).ready(function($) {
+    $("#contentext").load("http://ttop?option=com_zoo&controller=checkout&task=orderNotification&oid=<?php echo $order->id; ?>&format=raw");
+});
+
+</script>

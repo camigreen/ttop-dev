@@ -2,7 +2,7 @@
 	$editPermission = (string) $node->attributes()->edit;
 	$store = $this->app->store->get();
 	$optionset = $node->attributes()->optionset;
-	$options = $store->params->get('options.'.$optionset.'.');
+	$options = $store->params->get('options.'.$optionset.'.', array());
 	$class = $parent->getValue('class');
 	$isParent = (bool) $parent->getValue('parent', false);
 
@@ -16,6 +16,7 @@
 	if($this->app->storeuser->get()->isStoreAdmin() || ($canEdit && !$viewOnly)) {
 		$name = "{$control_name}[$name]";
 		$attributes = array('name' => "$name",'class' => $class);
+		$opts = array();
 		foreach($options as $key => $text) {
 			$selected = $key == $value ? "selected" : "";
 			$opts[] = '<option value="'.$key.'" '.$selected.'>'.$text.'</option>';
