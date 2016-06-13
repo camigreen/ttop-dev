@@ -95,7 +95,7 @@ class CheckoutController extends AppController {
         }
 
         //$this->CR->clearOrder();
-        var_dump($this->app->session->get('order', array(), 'checkout'));
+        //var_dump($this->app->session->get('order', array(), 'checkout'));
         $this->app->document->addScript('assets:js/formhandler.js');
 
         $order = $this->CR->order;
