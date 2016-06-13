@@ -65,7 +65,6 @@ class CheckoutController extends AppController {
         if($this->cart->isEmpty()) {
             $this->setRedirect('/');
         }
-        echo 'test';
         if($this->task != 'receipt') {
             $this->CR = $this->app->cashregister->start();
         }
