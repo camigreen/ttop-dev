@@ -4,7 +4,7 @@
 	$account = $this->app->account->getByUserId($order->created_by);
 	$salesperson = $this->order->created_by == 0 ? JText::_('WEBSITE_SALESPERSON') : $this->app->user->get($order->created_by)->name; 
 	$type = '&type=default';
-	if($account->isReseller()) {
+	if($account && $account->isReseller()) {
 		$type='&type=reseller';
 	}
 $tzoffset = $this->app->date->getOffset();
