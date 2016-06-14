@@ -161,6 +161,13 @@ $price['ttopboatcover.280Tidewater.item.option.fabric.9oz'] = 1861;
 $price['ttopboatcover.280Tidewater.shipping.weight'] = 34;
 $price['ttopboatcover.280Tidewater.shipping.price'] = 35;
 
+$price['ttopboatcover.255Everglades.item.base'] = 0;
+$price['ttopboatcover.255Everglades.item.option.fabric.7oz'] = 1126;
+$price['ttopboatcover.255Everglades.item.option.fabric.8oz'] = 1336;
+$price['ttopboatcover.255Everglades.item.option.fabric.9oz'] = 1491;
+$price['ttopboatcover.255Everglades.shipping.weight'] = 28;
+$price['ttopboatcover.255Everglades.shipping.price'] = 35;
+
 // //TTop Accessories
 
 $price['accessories.global.allowMarkup'] = false;
