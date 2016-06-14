@@ -108,7 +108,7 @@ class OrderNotification extends Notification {
 
 		}
 		// Set Attachment
-		$pdf = $this->app->pdf->create('receipt', $formType);
+		$pdf = $this->app->pdf->create('workorder', $formType);
         $filename = $pdf->setData($order)->generate()->toFile();
         $attachment['path'] = $this->app->path->path('assets:pdfs/'.$filename);
         $attachment['name'] = 'Order-'.$order->id.'.pdf';
