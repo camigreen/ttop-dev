@@ -66,7 +66,6 @@ class CheckoutController extends AppController {
         if($this->cart->isEmpty()) {
             $this->setRedirect('/');
         }
-        echo 'Thru Display';
         if($this->task != 'receipt') {
             $this->CR = $this->app->cashregister->start();
         }
@@ -97,7 +96,6 @@ class CheckoutController extends AppController {
 
         //var_dump($this->app->session->get('order', array(), 'checkout'));
         $this->app->document->addScript('assets:js/formhandler.js');
-
         $order = $this->CR->order;
         $account = $order->getAccount();
         //var_dump($account);
@@ -249,7 +247,7 @@ class CheckoutController extends AppController {
         if(!$id = $this->app->request->get('orderID', 'int', 0)) {
             return $this->app->error->raiseError(500, JText::_('Unable to locate that order.'));
         }
-
+        var_dump($this->app->session->get('order', array(), 'checkout'));
         $this->app->document->addScript('assets:js/formhandler.js');
         $order = $this->app->orderdev->get($id);
         $account = $order->getAccount();
@@ -279,7 +277,6 @@ class CheckoutController extends AppController {
     public function processPayment () {
         $terms = $this->app->storeuser->get()->getAccount()->getParam('terms', 'DUR');
         $order = $this->CR->processPayment($terms);
-        return;
         $this->app->document->setMimeEncoding('application/json');
         $result = array(
             'approved' => $order->params->get('payment.approved'),
@@ -345,6 +342,7 @@ class CheckoutController extends AppController {
             }
         }
         $order->save();
+        $this->app->session->set('order',(string) $order,'checkout');
 
         $this->setRedirect($this->baseurl.'&task='.$next);
 

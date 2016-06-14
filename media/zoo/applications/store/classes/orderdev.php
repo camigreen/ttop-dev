@@ -64,9 +64,6 @@ class OrderDev {
 			$this->table->save($this);
 		}
 
-		
-        $this->app->session->set('order',(string) $this,'checkout');
-
 		return $this;
 
 	}

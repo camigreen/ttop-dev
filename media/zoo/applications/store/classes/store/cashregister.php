@@ -79,7 +79,6 @@ class CashRegister {
     }
 
     public function clearOrder() {
-        echo 'test';
         $this->app->session->clear('order','checkout');
         $this->app->session->clear('cart','checkout');
     }
@@ -102,9 +101,6 @@ class CashRegister {
                     'orderID' => $this->order->id
                 );
                 $this->order->result = $result;
-
-                $this->sendNotificationEmail($this->order, 'receipt');
-                $this->sendNotificationEmail($this->order, 'payment');
                 $this->clearOrder();
                 
                 return $this->order;
@@ -126,6 +122,7 @@ class CashRegister {
         //this->order->calculateCommissions();
         $this->order->params->set('payment.approved', true);
         $this->order->save(true);
+        $this->app->session->set('order',$this->order,'checkout');
         $this->sendNotificationEmail($this->order->id, 'invoice');
         $this->sendNotificationEmail($this->order->id, 'payment');
         $this->clearOrder();
