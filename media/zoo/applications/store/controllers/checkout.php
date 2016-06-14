@@ -277,6 +277,7 @@ class CheckoutController extends AppController {
     public function processPayment () {
         $terms = $this->app->storeuser->get()->getAccount()->getParam('terms', 'DUR');
         $order = $this->CR->processPayment($terms);
+        return;
         $this->app->document->setMimeEncoding('application/json');
         $result = array(
             'approved' => $order->params->get('payment.approved'),

@@ -79,7 +79,7 @@ class CashRegister {
     }
 
     public function clearOrder() {
-        //die('clearing');
+        echo 'test';
         $this->app->session->clear('order','checkout');
         $this->app->session->clear('cart','checkout');
     }
