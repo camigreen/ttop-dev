@@ -49,6 +49,7 @@ class CheckoutController extends AppController {
         $this->registerTask('save', 'display');
         $this->registerTask('processPayment', 'display');
         $this->registerTask('addCoupon', 'display');
+        $this->registerTask('orderNotification', 'orderNotification');
         // $this->taskMap['display'] = null;
         // $this->taskMap['__default'] = null;
     }
@@ -65,6 +66,7 @@ class CheckoutController extends AppController {
         if($this->cart->isEmpty()) {
             $this->setRedirect('/');
         }
+        echo 'Thru Display';
         if($this->task != 'receipt') {
             $this->CR = $this->app->cashregister->start();
         }
