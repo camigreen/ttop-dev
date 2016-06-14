@@ -933,11 +933,13 @@ $this->form->setValue('template', $this->template);
                                         value: kit.location.ttop2rod.total,
                                         text: kit.location.ttop2rod.total+' in'
                                     };
-                                item.options.measurement_source = {
-                                        name: 'Measurements Provided By',
-                                        value: !m.changed ? 'Default': m.changed,
-                                        text: !m.changed ? 'Default': m.changed
-                                };
+                                if(v === 'aft') {
+                                    item.options.measurement_source = {
+                                            name: 'Measurements Provided By',
+                                            value: !m.changed ? 'Default': m.changed,
+                                            text: !m.changed ? 'Default': m.changed
+                                    };
+                                }
                                 items[item.id] = item;
                             });
                             data.args.items = items;
