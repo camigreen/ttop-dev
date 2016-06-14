@@ -110,7 +110,7 @@ class OrderEvent {
 		$order = $event->getSubject();
 		$response = $event['response'];
 		$app = $order->app;
-		$app->log->createLogger('email',array('sgibbons@palmettoimages.com'));
+		$app->log->createLogger('email',array('shawn@ttopcovers.com'));
 		foreach ($response as $key => $value) {
 			if ($key == 'response') {
 				continue;
