@@ -247,7 +247,6 @@ class CheckoutController extends AppController {
         if(!$id = $this->app->request->get('orderID', 'int', 0)) {
             return $this->app->error->raiseError(500, JText::_('Unable to locate that order.'));
         }
-        var_dump($this->app->session->get('order', array(), 'checkout'));
         $this->app->document->addScript('assets:js/formhandler.js');
         $order = $this->app->orderdev->get($id);
         $account = $order->getAccount();

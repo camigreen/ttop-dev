@@ -122,9 +122,7 @@ class CashRegister {
         //this->order->calculateCommissions();
         $this->order->params->set('payment.approved', true);
         $this->order->save(true);
-        $this->app->session->set('order',$this->order,'checkout');
-        $this->sendNotificationEmail($this->order->id, 'invoice');
-        $this->sendNotificationEmail($this->order->id, 'payment');
+
         $this->clearOrder();
         
         return $this->order;
