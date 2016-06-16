@@ -345,6 +345,9 @@
 			<model value="85,86,39,A">247 Masters</model>
 			<model value="84,105,39,B">251 Heritage</model>
 		</make>
+		<make value="sundance" name="Sundance">
+			<model value="78,90,41">22 DX</model>
+		</make>
 		<make value="tidewater" name="Tidewater">
 			<model value="85,88,40,A">220</model>
 			<model value="82,106,39,B">250</model>
