@@ -5,7 +5,7 @@
 
 	if($id = $parent->getValue('id')) {
 		$account = $this->app->user->get($id);
-		$available =$this->app->table->account->all();
+		$available =$this->app->table->account->all(array('conditions' => array('state != 3')));
 		$selected = $user->getAccount()->id;
 	}
 

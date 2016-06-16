@@ -16,7 +16,7 @@
 	if(!$multiple) {
 		$html[] = '<option value="0">- Select -</option>';
 	}
-	$accounts = $this->app->table->account->all();
+	$accounts = $this->app->table->account->all(array('conditions' => array('state != 3')));
 	foreach($accounts as $key => $account) {
 		$html[] = '<option value="'.$key.'" '.($key == $value ? "selected" : "").' >'.$account->name.'</option>';
 	}
