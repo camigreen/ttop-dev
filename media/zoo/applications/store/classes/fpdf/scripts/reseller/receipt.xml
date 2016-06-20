@@ -96,7 +96,7 @@
 							<header text="Qty" />
 						</column>
 						<column name="msrp" w=".10" align="C" mask="currency">
-							<header text="MSRP" />
+							<header text="Base Price" />
 						</column>
 						<column name="markup_price" w=".12" align="C">
 							<header text="Customer Price" />
