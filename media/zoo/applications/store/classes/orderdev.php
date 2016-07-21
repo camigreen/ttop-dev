@@ -261,8 +261,8 @@ class OrderDev {
         if($this->getAccount()->isTaxExempt()) {
             return false;
         }
-        // Check if the billing state is a taxable state.
-        $state = $this->elements->get('billing.state');
+        // Check if the shipping state is a taxable state.
+        $state = $this->elements->get('shipping.state');
         $taxable = false;
         $taxable_states = array('SC');
         if ($state) {
