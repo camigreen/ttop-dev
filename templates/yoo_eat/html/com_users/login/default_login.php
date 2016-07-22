@@ -82,7 +82,11 @@ $clef = JModuleHelper::renderModule($mod);
 					</button>
 				</div>
 			</div>
-			<input type="hidden" name="return" value="<?php echo base64_encode($this->params->get('login_redirect_url', $this->form->getValue('return'))); ?>" />
+
+			<!-- Return the user to the page where they initially hit the login link. -->
+			<?php //var_dump($this->params->get('login_redirect_url', $_SERVER['HTTP_REFERER'])); ?>
+			<!-- <input type="hidden" name="return" value="<?php //echo base64_encode($this->params->get('login_redirect_url', $_SERVER['HTTP_REFERER'])); ?>" /> -->
+			<input type="hidden" name="return" value="<?php echo base64_encode($_SERVER['HTTP_REFERER']); ?>" />
 			<?php echo JHtml::_('form.token'); ?>
 		</fieldset>
 	</form>
